@@ -3,7 +3,7 @@
 	"realname": "Example_Skin",
 	"gfx_prefix": "EXMP",
 	"stats": [5, 5],
-	"startcolor": 160,
+	"startcolor": 96,
 	"prefcolor": "red",
 	
 	"transparent_colors": [

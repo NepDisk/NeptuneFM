@@ -42,8 +42,9 @@ struct RGB_Sprite {
 	
 	int numLayers;
 	struct {int x, y;} layers[5]; // Max 5 layers. x and y are the top-left corner of each layer
+	int flip;
 	int heightFactor;
-	int vibrating, flip;
+	int ditherStyle;
 	
 	struct RGB_Sprite* next;
 };
@@ -239,8 +240,8 @@ void processSprites(void) {
 		prop = cJSON_GetObjectItem(item, "heightfactor");
 		cursprite->heightFactor = prop != NULL ? prop->valueint : 1;
 		
-		prop = cJSON_GetObjectItem(item, "vibrate");
-		cursprite->vibrating = (prop != NULL && prop->type == cJSON_True) ? 1 : 0;
+		prop = cJSON_GetObjectItem(item, "ditherstyle");
+		cursprite->ditherStyle = prop != NULL ? prop->valueint : 0;
 		
 		prop = cJSON_GetObjectItem(item, "flip");
 		cursprite->flip = (prop != NULL && prop->type == cJSON_True) ? -1 : 1;
@@ -294,7 +295,7 @@ void processGfx(void)
 		lastsprite->xoffs = item->child->next->next->next->next->valueint;
 		lastsprite->yoffs = item->child->next->next->next->next->next->valueint;
 		lastsprite->heightFactor = 1;
-		lastsprite->vibrating = 0;
+		lastsprite->ditherStyle = 0;
 		lastsprite->flip = 1;
 		
 		item = item->next;
@@ -402,20 +403,109 @@ unsigned char* imageInDoomFormat(struct RGB_Sprite* image, size_t* size)
 			unsigned char paletteIndex = 0;
 			unsigned char opaque = 0; // If 1, we have a pixel
 			int layer;
-			
-			if (image->vibrating && (x+y) & 1)
+
+			switch (image->ditherStyle)
 			{
-				for (layer = 0; layer < image->numLayers && !opaque; layer++)
-				{
-					READPIXEL(image->layers[layer].x + x*image->flip, image->layers[layer].y + y*image->heightFactor + 1);
-					rgbaToPalette(PIX_R, PIX_G, PIX_B, PIX_A, &paletteIndex, &opaque); // Get palette index and opacity from pixel values
-				}
-			}
-			
-			for (layer = 0; layer < image->numLayers && !opaque; layer++)
-			{
-				READPIXEL(image->layers[layer].x + x*image->flip, image->layers[layer].y + y*image->heightFactor);
-				rgbaToPalette(PIX_R, PIX_G, PIX_B, PIX_A, &paletteIndex, &opaque); // Get palette index and opacity from pixel values
+				case 1:
+					// Stationary vibration
+					if ((x+y) & 1)
+					{
+						for (layer = 0; layer < image->numLayers && !opaque; layer++)
+						{
+							int offset = y*image->heightFactor + 1;
+
+							if (offset >= 0 && offset < image->height)
+							{
+								READPIXEL(image->layers[layer].x + x*image->flip, image->layers[layer].y + offset);
+								rgbaToPalette(PIX_R, PIX_G, PIX_B, PIX_A, &paletteIndex, &opaque); // Get palette index and opacity from pixel values
+							}
+						}
+					}
+
+					for (layer = 0; layer < image->numLayers && !opaque; layer++)
+					{
+						READPIXEL(image->layers[layer].x + x*image->flip, image->layers[layer].y + y*image->heightFactor);
+						rgbaToPalette(PIX_R, PIX_G, PIX_B, PIX_A, &paletteIndex, &opaque); // Get palette index and opacity from pixel values
+					}
+					break;
+				case 2:
+					// Slow driving vibration
+					if ((x+y) & 1)
+					{
+						// Dither pattern 1!
+						for (layer = 0; layer < image->numLayers && !opaque; layer++)
+						{
+							int offset = y*image->heightFactor + 3;
+
+							if (offset >= 0 && offset < image->height)
+							{
+								READPIXEL(image->layers[layer].x + x*image->flip, image->layers[layer].y + offset);
+								rgbaToPalette(PIX_R, PIX_G, PIX_B, PIX_A, &paletteIndex, &opaque); // Get palette index and opacity from pixel values
+							}
+						}
+					}
+					else
+					{
+						// Dither pattern 2!
+						for (layer = 0; layer < image->numLayers && !opaque; layer++)
+						{
+							READPIXEL(image->layers[layer].x + x*image->flip, image->layers[layer].y + y*image->heightFactor);
+							rgbaToPalette(PIX_R, PIX_G, PIX_B, PIX_A, &paletteIndex, &opaque); // Get palette index and opacity from pixel values
+						}
+					}
+					break;
+				case 3:
+					// Drifting vibration A
+					if (y & 1)
+					{
+						int offset = (x + 3);
+
+						if (offset >= 0 && offset < image->width)
+						{
+							for (layer = 0; layer < image->numLayers && !opaque; layer++)
+							{
+								READPIXEL(image->layers[layer].x + (offset * image->flip), image->layers[layer].y + y*image->heightFactor);
+								rgbaToPalette(PIX_R, PIX_G, PIX_B, PIX_A, &paletteIndex, &opaque); // Get palette index and opacity from pixel values
+							}
+						}
+					}
+
+					for (layer = 0; layer < image->numLayers && !opaque; layer++)
+					{
+						READPIXEL(image->layers[layer].x + x*image->flip, image->layers[layer].y + y*image->heightFactor);
+						rgbaToPalette(PIX_R, PIX_G, PIX_B, PIX_A, &paletteIndex, &opaque); // Get palette index and opacity from pixel values
+					}
+					break;
+				case 4:
+					// Drifting vibration B
+					if (y & 1)
+					{
+						int offset = (x - 3);
+
+						if (offset >= 0 && offset < image->width)
+						{
+							for (layer = 0; layer < image->numLayers && !opaque; layer++)
+							{
+								READPIXEL(image->layers[layer].x + (offset * image->flip), image->layers[layer].y + y*image->heightFactor);
+								rgbaToPalette(PIX_R, PIX_G, PIX_B, PIX_A, &paletteIndex, &opaque); // Get palette index and opacity from pixel values
+							}
+						}
+					}
+
+					for (layer = 0; layer < image->numLayers && !opaque; layer++)
+					{
+						READPIXEL(image->layers[layer].x + x*image->flip, image->layers[layer].y + y*image->heightFactor);
+						rgbaToPalette(PIX_R, PIX_G, PIX_B, PIX_A, &paletteIndex, &opaque); // Get palette index and opacity from pixel values
+					}
+					break;
+				default:
+					// No dither, just read pixels
+					for (layer = 0; layer < image->numLayers && !opaque; layer++)
+					{
+						READPIXEL(image->layers[layer].x + x*image->flip, image->layers[layer].y + y*image->heightFactor);
+						rgbaToPalette(PIX_R, PIX_G, PIX_B, PIX_A, &paletteIndex, &opaque); // Get palette index and opacity from pixel values
+					}
+					break;
 			}
 			
 			// End span if we have a transparent pixel

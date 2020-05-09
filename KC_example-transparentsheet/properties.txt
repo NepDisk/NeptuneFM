@@ -412,83 +412,83 @@
 		},
 		
 		"P1U1": {
-			"offset": [42, 84],
+			"offset": [44, 84],
 			"layers": [[0, 96], [0, 384]],
 			"ditherstyle": 3
 		},
 		"P2U8": {
-			"offset": [42, 84],
+			"offset": [44, 84],
 			"layers": [[96, 96], [96, 384]],
 			"ditherstyle": 3
 		},
 		"P3U7": {
-			"offset": [42, 84],
+			"offset": [44, 84],
 			"layers": [[192, 96], [192, 384]],
 			"ditherstyle": 3
 		},
 		"P4U6": {
-			"offset": [42, 84],
+			"offset": [44, 84],
 			"layers": [[288, 96], [288, 384]],
 			"ditherstyle": 3
 		},
 		"P5U5": {
-			"offset": [42, 84],
+			"offset": [44, 84],
 			"layers": [[384, 96], [384, 384]],
 			"ditherstyle": 3
 		},
 		"P6U4": {
-			"offset": [42, 84],
+			"offset": [44, 84],
 			"layers": [[480, 96], [576, 384]],
 			"ditherstyle": 3
 		},
 		"P7U3": {
-			"offset": [42, 84],
+			"offset": [44, 84],
 			"layers": [[576, 96], [672, 384]],
 			"ditherstyle": 3
 		},
 		"P8U2": {
-			"offset": [42, 84],
+			"offset": [44, 84],
 			"layers": [[672, 96], [768, 384]],
 			"ditherstyle": 3
 		},
 		
 		"Q1V1": {
-			"offset": [54, 84],
+			"offset": [52, 84],
 			"layers": [[0, 96], [0, 384]],
 			"ditherstyle": 4
 		},
 		"Q2V8": {
-			"offset": [54, 84],
+			"offset": [52, 84],
 			"layers": [[96, 96], [96, 384]],
 			"ditherstyle": 4
 		},
 		"Q3V7": {
-			"offset": [54, 84],
+			"offset": [52, 84],
 			"layers": [[192, 96], [192, 384]],
 			"ditherstyle": 4
 		},
 		"Q4V6": {
-			"offset": [54, 84],
+			"offset": [52, 84],
 			"layers": [[288, 96], [288, 384]],
 			"ditherstyle": 4
 		},
 		"Q5V5": {
-			"offset": [54, 84],
+			"offset": [52, 84],
 			"layers": [[384, 96], [384, 384]],
 			"ditherstyle": 4
 		},
 		"Q6V4": {
-			"offset": [54, 84],
+			"offset": [52, 84],
 			"layers": [[480, 96], [576, 384]],
 			"ditherstyle": 4
 		},
 		"Q7V3": {
-			"offset": [54, 84],
+			"offset": [52, 84],
 			"layers": [[576, 96], [672, 384]],
 			"ditherstyle": 4
 		},
 		"Q8V2": {
-			"offset": [54, 84],
+			"offset": [52, 84],
 			"layers": [[672, 96], [768, 384]],
 			"ditherstyle": 4
 		},

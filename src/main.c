@@ -208,6 +208,11 @@ void processSprites(void) {
 	cJSON* prop;
 	int spr_width, spr_height;
 	struct RGB_Sprite* cursprite;
+	char prefix[5] = "PLAY";
+	
+	// Read gfx prefix
+	item = cJSON_GetObjectItem(metadata, "gfx_prefix");
+	strncpy(prefix, item->valuestring, 4);
 	
 	// Read sprite size
 	printf("Read sprite size... ");
@@ -235,7 +240,7 @@ void processSprites(void) {
 		cursprite->width = spr_width;
 		cursprite->height = spr_height;
 		
-		sprintf(cursprite->lumpname, "PLAY%s", item->string);
+		sprintf(cursprite->lumpname, "%s%s", prefix, item->string);
 		
 		prop = cJSON_GetObjectItem(item, "heightfactor");
 		cursprite->heightFactor = prop != NULL ? prop->valueint : 1;

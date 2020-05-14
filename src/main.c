@@ -60,6 +60,7 @@ cJSON* metadata;
 
 struct RGB_Sprite* rgb_sprites;
 struct RGB_Sprite* lastsprite;
+struct RGB_Sprite* gfxstart;
 
 unsigned char* pix;
 #define READPIXEL(x, y) (pix = sprite_sheet + ((x) + (y)*sprites_width) * 4)
@@ -223,7 +224,7 @@ void processSprites(void) {
 	
 	// Begin reading sprites
 	printf("Reading sprites...\n");
-	lastsprite = rgb_sprites = NULL;
+	gfxstart = lastsprite = rgb_sprites = NULL;
 	
 	item = cJSON_GetObjectItem(metadata, "sprites")->child;
 	
@@ -290,6 +291,9 @@ void processGfx(void)
 		printf("Reading graphic %s%s... ", prefix, item->string);
 		lastsprite->next = calloc(1, sizeof(struct RGB_Sprite));
 		lastsprite = lastsprite->next;
+		
+		if (gfxstart == NULL)
+			gfxstart = lastsprite;
 		
 		sprintf(lastsprite->lumpname, "%s%s", prefix, item->string);
 		lastsprite->numLayers = 1;
@@ -653,12 +657,10 @@ int main(int argc, char *argv[]) {
 	// Process sprite sheet into separate sprites
 	printf("Processing sprites...\n");
 	processSprites();
-	printf("Processing sprites... done.\n");
+	printf("Processing sprites... Done.\n");
 	
-	processGfx();
-	
-	// Add sprites and gfx into WAD
-	printf("Adding images to WAD...\n");
+	// Add sprites into WAD
+	printf("Adding sprites to WAD...\n");
 	{
 		struct RGB_Sprite* sprite = rgb_sprites;
 		while (sprite) {
@@ -672,7 +674,7 @@ int main(int argc, char *argv[]) {
 			sprite = sprite->next;
 		}
 	}
-	printf("Adding images to WAD... Done.\n");
+	printf("Adding sprites to WAD... Done.\n");
 	
 	// Add S_SKIN into WAD
 	printf("Adding S_SKIN to WAD... ");
@@ -696,8 +698,32 @@ int main(int argc, char *argv[]) {
 	}
 	printf("Done.\n");
 	
+	// Process graphics
+	printf("Processing graphics...\n");
+	processGfx();
+	printf("Processing graphics... Done.\n");
+	
+	printf("Adding graphics to WAD...\n");
+	add_lump(wad, NULL, "GX_END", 0, NULL);
+	{
+		struct RGB_Sprite* sprite = gfxstart;
+		while (sprite) {
+			unsigned char* image; 
+			size_t size;
+			
+			image = imageInDoomFormat(sprite, &size);
+			add_lump(wad, NULL, sprite->lumpname, size, image);
+			free(image);
+			
+			sprite = sprite->next;
+		}
+	}
+	add_lump(wad, NULL, "GX_START", 0, NULL);
+	printf("Adding graphics to WAD... Done.\n");
+	
 	// Add SFX into WAD
 	printf("Adding SFX to WAD...\n");
+	add_lump(wad, NULL, "DS_END", 0, NULL);
 	{
 		cJSON* item;
 		char lumpname[9] = "DS______";
@@ -737,6 +763,7 @@ int main(int argc, char *argv[]) {
 			printf("Done.\n");
 		}
 	}
+	add_lump(wad, NULL, "DS_START", 0, NULL);
 	printf("Adding SFX to WAD... Done.\n");
 	
 	// Write WAD and exit

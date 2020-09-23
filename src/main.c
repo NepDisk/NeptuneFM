@@ -37,15 +37,15 @@
 // This struct contains pre-lump-conversion data about a sprite
 struct RGB_Sprite {
 	char lumpname[9];
-	
+
 	int width, height, xoffs, yoffs;
-	
+
 	int numLayers;
 	struct {int x, y;} layers[5]; // Max 5 layers. x and y are the top-left corner of each layer
 	int flip;
 	int heightFactor;
 	int ditherStyle;
-	
+
 	struct RGB_Sprite* next;
 };
 
@@ -75,20 +75,20 @@ void addLuaScript(struct wadfile* wad, struct Filemap* files, int exportLua)
 	// Huge buffer just to avoid having to reallocate
 	unsigned char script[1<<20];
 	unsigned char* scriptptr = script;
-	
+
 	printf("\nGenerating boilerplate Lua...\n\n");
-	
+
 #define WRITESTR(str) {strcpy(scriptptr, str); scriptptr += strlen(str);}
 	WRITESTR("-- Auto-generated filename-lumpname mapping tables. Use as rootfoldername[\"path/to/file/without/extension\"] to get the lump name.");
 
 	while (files)
 	{
 		struct Fileref* fileref = files->headfile;
-		
+
 		WRITESTR("\nrawset(_G, \"");
 		WRITESTR(files->rootname);
 		WRITESTR("\", {\n");
-		
+
 		while (fileref)
 		{
 			WRITESTR("\t[\"");
@@ -96,31 +96,31 @@ void addLuaScript(struct wadfile* wad, struct Filemap* files, int exportLua)
 			WRITESTR("\"] = \"");
 			WRITESTR(fileref->lumpname);
 			WRITESTR("\",\n");
-			
+
 			fileref = fileref->next;
 		}
 		WRITESTR("})\n");
-		
+
 		files = files->next;
 	}
 
 #undef WRITESTR
 
 	printf("%s", script);
-	
+
 	// Export as text
 	if (exportLua != 0)
 	{
 		FILE* file;
 		printf("Writing Lua file...");
-		
+
 		file = fopen("map.lua", "w");
 		fwrite(script, 1, strlen(script), file);
 		fclose(file);
-		
+
 		printf(" successful.\n");
 	}
-	
+
 	// Add lump to WAD
 	if (exportLua != 2)
 	{
@@ -139,7 +139,7 @@ void loadImages(struct wadfile* wad, struct Filemap* files)
 	while (files)
 	{
 		struct Fileref* fileref;
-		
+
 		for (fileref = files->headfile; fileref; fileref = fileref->next)
 		{
 			// Handle each file
@@ -148,13 +148,13 @@ void loadImages(struct wadfile* wad, struct Filemap* files)
 
 			printf("Converting image %s...\n", fileref->filename);
 			data = imageInDoomFormat(fileref->filename, fileref->xoffs, fileref->yoffs, &size);
-			
+
 			printf("Adding file of %d bytes...\n", size);
 			add_lump(wad, wad->head, fileref->lumpname, size, data);
 			free(data);
 			printf("Done.\n");
 		}
-		
+
 		files = files->next;
 	}
 }*/
@@ -184,13 +184,13 @@ cJSON* loadJSON(char* filename) {
 	//read contents!
 	bytesRead = fread(buffer, 1, size, file);
 	fclose(file);
-	
+
 	return cJSON_Parse(buffer);
 }
 
 void readTransparentColors(void) {
 	cJSON* item;
-	
+
 	// Read transparent colors
 	printf("Read transparent colors... ");
 	numTransColors = 0;
@@ -205,73 +205,109 @@ void readTransparentColors(void) {
 }
 
 void processSprites(void) {
-	cJSON* item;
-	cJSON* prop;
-	int spr_width, spr_height;
+	cJSON *item, *nesteditem, *prop;
+	int spr_width, spr_height, step_width, step_height, stepw, steph;
 	struct RGB_Sprite* cursprite;
-	char prefix[5] = "PLAY";
-	
-	// Read gfx prefix
-	item = cJSON_GetObjectItem(metadata, "gfx_prefix");
-	strncpy(prefix, item->valuestring, 4);
-	
+	char prefix[5] = "____";
+
 	// Read sprite size
 	printf("Read sprite size... ");
 	item = cJSON_GetObjectItem(metadata, "sprite_size")->child;
 	spr_width = item->valueint;
 	spr_height = item->next->valueint;
 	printf("width=%d height=%d Done.\n", spr_width, spr_height);
-	
+
+	// Read step size
+	printf("Read step size... ");
+	item = cJSON_GetObjectItem(metadata, "layer_step_size")->child;
+	step_width = item->valueint;
+	step_height = item->next->valueint;
+	printf("stepwidth=%d stepheight=%d Done.\n", step_width, step_height);
+
 	// Begin reading sprites
 	printf("Reading sprites...\n");
 	gfxstart = lastsprite = rgb_sprites = NULL;
-	
+
 	item = cJSON_GetObjectItem(metadata, "sprites")->child;
-	
+
 	while (item != NULL) {
-		printf("Reading sprite %s... ", item->string);
-		
-		cursprite = calloc(1, sizeof(struct RGB_Sprite));
-		if (lastsprite != NULL)
-			lastsprite->next = cursprite;
-		if (rgb_sprites == NULL)
-			rgb_sprites = cursprite;
-		lastsprite = cursprite;
-		
-		cursprite->width = spr_width;
-		cursprite->height = spr_height;
-		
-		sprintf(cursprite->lumpname, "%s%s", prefix, item->string);
-		
-		prop = cJSON_GetObjectItem(item, "heightfactor");
-		cursprite->heightFactor = prop != NULL ? prop->valueint : 1;
-		
-		prop = cJSON_GetObjectItem(item, "ditherstyle");
-		cursprite->ditherStyle = prop != NULL ? prop->valueint : 0;
-		
-		prop = cJSON_GetObjectItem(item, "flip");
-		cursprite->flip = (prop != NULL && prop->type == cJSON_True) ? -1 : 1;
-		
-		prop = cJSON_GetObjectItem(item, "offset");
-		cursprite->xoffs = prop->child->valueint;
-		cursprite->yoffs = prop->child->next->valueint;
-		
-		cursprite->numLayers = 0;
-		prop = cJSON_GetObjectItem(item, "layers")->child;
-		while (prop != NULL) {
-			cursprite->layers[cursprite->numLayers].x = prop->child->valueint;
-			cursprite->layers[cursprite->numLayers].y = prop->child->next->valueint;
-			
-			prop = prop->next;
-			cursprite->numLayers++;
-			
-			if (cursprite->numLayers == 5) break;
+		printf("Reading SPR2_%s... \n", item->string);
+		strncpy(prefix, item->string, 4);
+		nesteditem = item->child;
+
+		while (nesteditem != NULL) {
+			printf(" frame %s... ", nesteditem->string);
+
+			cursprite = calloc(1, sizeof(struct RGB_Sprite));
+			if (lastsprite != NULL)
+				lastsprite->next = cursprite;
+			if (rgb_sprites == NULL)
+				rgb_sprites = cursprite;
+			lastsprite = cursprite;
+
+			prop = cJSON_GetObjectItem(nesteditem, "overwrite_sprite_size");
+			if (prop)
+			{
+				cursprite->width = prop->child->valueint;
+				cursprite->height = prop->child->next->valueint;
+			}
+			else
+			{
+				cursprite->width = spr_width;
+				cursprite->height = spr_height;
+			}
+
+			prop = cJSON_GetObjectItem(nesteditem, "overwrite_layer_step_size");
+			if (prop)
+			{
+				stepw = prop->child->valueint;
+				steph = prop->child->next->valueint;
+			}
+			else
+			{
+				stepw = step_width;
+				steph = step_height;
+			}
+
+			sprintf(cursprite->lumpname, "%s%s", prefix, nesteditem->string);
+
+			prop = cJSON_GetObjectItem(nesteditem, "heightfactor");
+			cursprite->heightFactor = prop != NULL ? prop->valueint : 1;
+
+			prop = cJSON_GetObjectItem(nesteditem, "ditherstyle");
+			cursprite->ditherStyle = prop != NULL ? prop->valueint : 0;
+
+			prop = cJSON_GetObjectItem(nesteditem, "flip");
+			cursprite->flip = (prop != NULL && prop->type == cJSON_True) ? -1 : 1;
+
+			prop = cJSON_GetObjectItem(nesteditem, "offset");
+			if (prop)
+			{
+				cursprite->xoffs = prop->child->valueint;
+				cursprite->yoffs = prop->child->next->valueint;
+			} // calloc means 0 otherwise
+
+			cursprite->numLayers = 0;
+			prop = cJSON_GetObjectItem(nesteditem, "layers")->child;
+			while (prop != NULL) {
+				cursprite->layers[cursprite->numLayers].x = prop->child->valueint*stepw;
+				cursprite->layers[cursprite->numLayers].y = prop->child->next->valueint*steph;
+
+				if (cursprite->flip == -1)
+					cursprite->layers[cursprite->numLayers].x += (stepw-1); // more human-readable template info this way
+
+				prop = prop->next;
+				cursprite->numLayers++;
+
+				if (cursprite->numLayers == 5) break;
+			}
+
+			printf("layers=%d Done.\n", cursprite->numLayers);
+			nesteditem = nesteditem->next;
 		}
-		
-		printf("layers=%d Done.\n", cursprite->numLayers);
 		item = item->next;
 	}
-	
+
 	printf("Reading sprites... Done.\n");
 }
 
@@ -280,21 +316,26 @@ void processGfx(void)
 	cJSON* item;
 	cJSON* prop;
 	char prefix[5] = "____";
-	
+
 	printf("Reading graphic prefix... ");
 	item = cJSON_GetObjectItem(metadata, "gfx_prefix");
 	strncpy(prefix, item->valuestring, 4);
 	printf("Done.\n");
-	
-	item = cJSON_GetObjectItem(metadata, "gfx")->child;
+
+	if ((item = cJSON_GetObjectItem(metadata, "gfx")) == NULL)
+	{
+		printf("No gfx found, skipping...\n");
+		return;
+	}
+	item = item->child;
 	while (item != NULL) {
 		printf("Reading graphic %s%s... ", prefix, item->string);
 		lastsprite->next = calloc(1, sizeof(struct RGB_Sprite));
 		lastsprite = lastsprite->next;
-		
+
 		if (gfxstart == NULL)
 			gfxstart = lastsprite;
-		
+
 		sprintf(lastsprite->lumpname, "%s%s", prefix, item->string);
 		lastsprite->numLayers = 1;
 		lastsprite->layers[0].x = item->child->valueint;
@@ -306,7 +347,7 @@ void processGfx(void)
 		lastsprite->heightFactor = 1;
 		lastsprite->ditherStyle = 0;
 		lastsprite->flip = 1;
-		
+
 		item = item->next;
 		printf("Done.\n");
 	}
@@ -319,14 +360,14 @@ void rgbaToPalette(unsigned char red, unsigned char green, unsigned char blue, u
 {
 	int closenessOfCurrent = 0xFFFFFF;
 	int palCheck;
-	
+
 	if (alpha < 0x80)
 	{
 		// Transparent pixel
 		*opaque = 0;
 		return;
 	}
-	
+
 	// Check for defined-transparent pixels
 	for (palCheck = 0; palCheck < numTransColors; palCheck += 3)
 	{
@@ -337,32 +378,32 @@ void rgbaToPalette(unsigned char red, unsigned char green, unsigned char blue, u
 			return;
 		}
 	}
-	
+
 	// Opaque pixel!
 	*opaque = 1;
-	
+
 	// Load palette if we haven't already
 	if (!palInit)
 	{
 		FILE* file = fopen("PLAYPAL.lmp", "rb");
 		palInit = 1;
-		
+
 		fread(palette,3,256,file);
 		fclose(file);
 	}
-	
+
 	// Map colors to palette index
 	for (palCheck = 0; palCheck < 256; palCheck++)
 	{
 		int closeness;
-		
+
 		unsigned char palRed, palGreen, palBlue;
 		palRed = palette[palCheck*3];
 		palGreen = palette[palCheck*3+1];
 		palBlue = palette[palCheck*3+2];
-		
+
 		closeness = (red-palRed)*(red-palRed) + (green-palGreen)*(green-palGreen) + (blue-palBlue)*(blue-palBlue);
-		
+
 		// If we're the closest so far, use this palette index!
 		if (closeness < closenessOfCurrent) {
 			closenessOfCurrent = closeness;
@@ -377,7 +418,7 @@ unsigned char* imageInDoomFormat(struct RGB_Sprite* image, size_t* size)
 {
 	//@TODO handle squishing
 	unsigned x, y;
-	
+
 	unsigned char* img;
 	unsigned char* imgptr = convertedimage;
 	unsigned char *colpointers, *startofspan;
@@ -390,22 +431,22 @@ unsigned char* imageInDoomFormat(struct RGB_Sprite* image, size_t* size)
 	WRITE16(imgptr, image->height/image->heightFactor);
 	WRITE16(imgptr, image->xoffs);
 	WRITE16(imgptr, image->yoffs);
-	
+
 	// Leave placeholder to column pointers
 	colpointers = imgptr;
 	imgptr += image->width*4;
-	
+
 	// Write columns
 	for (x = 0; x < image->width; x++)
 	{
 		int lastStartY = 0;
 		int spanSize = 0;
 		startofspan = NULL;
-		
+
 		//printf("%d ", x);
 		// Write column pointer (@TODO may be wrong)
 		WRITE32(colpointers, imgptr - convertedimage);
-		
+
 		// Write pixels
 		for (y = 0; y < image->height/image->heightFactor; y ++)
 		{
@@ -516,7 +557,7 @@ unsigned char* imageInDoomFormat(struct RGB_Sprite* image, size_t* size)
 					}
 					break;
 			}
-			
+
 			// End span if we have a transparent pixel
 			if (!opaque)
 			{
@@ -527,18 +568,18 @@ unsigned char* imageInDoomFormat(struct RGB_Sprite* image, size_t* size)
 				startofspan = NULL;
 				continue;
 			}
-			
+
 			// Start new column if we need to
 			if (!startofspan || spanSize == 255)
 			{
 				int writeY = y;
-				
+
 				// If we reached the span size limit, finish the previous span
 				if (startofspan)
 				{
 					WRITE8(imgptr, 0);
 				}
-				
+
 				if (y > 254)
 				{
 					// Make sure we're aligned to 254
@@ -549,10 +590,10 @@ unsigned char* imageInDoomFormat(struct RGB_Sprite* image, size_t* size)
 						imgptr += 2;
 						lastStartY = 254;
 					}
-					
+
 					// Write stopgap empty spans if needed
 					writeY = y - lastStartY;
-					
+
 					while (writeY > 254)
 					{
 						WRITE8(imgptr, 254);
@@ -561,24 +602,24 @@ unsigned char* imageInDoomFormat(struct RGB_Sprite* image, size_t* size)
 						writeY -= 254;
 					}
 				}
-				
+
 				startofspan = imgptr;
 				WRITE8(imgptr, writeY);///@TODO calculate starting y pos
 				imgptr += 2;
 				spanSize = 0;
-				
+
 				lastStartY = y;
 			}
-			
+
 			// Write the pixel
 			WRITE8(imgptr, paletteIndex);
 			spanSize++;
 			startofspan[1] = spanSize;
 		}
-		
+
 		if (startofspan)
 			WRITE8(imgptr, 0);
-		
+
 		WRITE8(imgptr, 0xFF);
 	}
 
@@ -594,12 +635,12 @@ int main(int argc, char *argv[]) {
 	char* filename; // Pointer to where to write filenames.
 	struct wadfile* wad; // WAD to be created.
 	FILE* wadf; // File pointer for writing the WAD.
-	
+
 	if (argc != 2) {
 		printf("kartmaker <folder>: Converts a structured folder into an SRB2Kart character WAD. (Try dragging the folder onto the EXE!)");
 		return 1;
 	}
-	
+
 #define CLEAR_FILENAME() memset(filename, '\0', 400 - (filename - path))
 #define SET_FILENAME(fn) ({CLEAR_FILENAME(); strcpy(filename, fn);})
 
@@ -610,23 +651,23 @@ int main(int argc, char *argv[]) {
 	while (*(filename-1) != '/' && *(filename-1) != '\\' && filename > path) filename--;
 	SET_FILENAME("playpal.lmp");
 	printf("%s\n", path);
-	
+
 	wadf = fopen(path, "rb");
 	palInit = 1;
-	
+
 	fread(palette, 3, 256, wadf);
 	fclose(wadf);
 
-	
+
 	// Initialize directory name and file stuff
 	strncpy(path, argv[1], 360);
 	filename = path;
 	while (*filename) filename++;
 	if (*(filename-1) == '/' || *(filename-1) == '\\') filename--;
 	CLEAR_FILENAME();
-	
+
 	printf("Beginning to create WAD from path %s\n", path);
-	
+
 	// New WAD file
 	wad = calloc(1, sizeof(struct wadfile));
 	strncpy(wad->id, "PWAD", 4);
@@ -640,7 +681,7 @@ int main(int argc, char *argv[]) {
 		return 1;
 	}
 	printf("Done.\n");
-	
+
 	// Open properties JSON
 	printf("Opening properties.txt... ");
 	SET_FILENAME("/properties.txt");
@@ -650,32 +691,32 @@ int main(int argc, char *argv[]) {
 		return 1;
 	}
 	printf("Done.\n");
-	
+
 	// Read transparent color definitions
 	readTransparentColors();
-	
+
 	// Process sprite sheet into separate sprites
 	printf("Processing sprites...\n");
 	processSprites();
 	printf("Processing sprites... Done.\n");
-	
+
 	// Add sprites into WAD
 	printf("Adding sprites to WAD...\n");
 	{
 		struct RGB_Sprite* sprite = rgb_sprites;
 		while (sprite) {
-			unsigned char* image; 
+			unsigned char* image;
 			size_t size;
-			
+			printf(" Lump %s...\n", sprite->lumpname);
 			image = imageInDoomFormat(sprite, &size);
 			add_lump(wad, find_last_lump(wad), sprite->lumpname, size, image);
 			free(image);
-			
+
 			sprite = sprite->next;
 		}
 	}
 	printf("Adding sprites to WAD... Done.\n");
-	
+
 	// Add S_SKIN into WAD
 	printf("Adding S_SKIN to WAD... ");
 	{
@@ -683,7 +724,7 @@ int main(int argc, char *argv[]) {
 		int size;
 		char prefix[5] = "____";
 		strncpy(prefix, cJSON_GetObjectItem(metadata, "gfx_prefix")->valuestring, 4);
-		
+
 		size = sprintf(buf, S_SKIN_TEMPLATE,
 			cJSON_GetObjectItem(metadata, "name")->valuestring,
 			cJSON_GetObjectItem(metadata, "realname")->valuestring,
@@ -697,75 +738,86 @@ int main(int argc, char *argv[]) {
 		add_lump(wad, NULL, "S_SKIN", size, buf);
 	}
 	printf("Done.\n");
-	
+
 	// Process graphics
 	printf("Processing graphics...\n");
 	processGfx();
 	printf("Processing graphics... Done.\n");
-	
-	printf("Adding graphics to WAD...\n");
-	add_lump(wad, NULL, "GX_END", 0, NULL);
+
+	if (gfxstart)
 	{
-		struct RGB_Sprite* sprite = gfxstart;
-		while (sprite) {
-			unsigned char* image; 
-			size_t size;
-			
-			image = imageInDoomFormat(sprite, &size);
-			add_lump(wad, NULL, sprite->lumpname, size, image);
-			free(image);
-			
-			sprite = sprite->next;
+		printf("Adding graphics to WAD...\n");
+		add_lump(wad, NULL, "GX_END", 0, NULL);
+		{
+			struct RGB_Sprite* sprite = gfxstart;
+			while (sprite) {
+				unsigned char* image;
+				size_t size;
+
+				image = imageInDoomFormat(sprite, &size);
+				add_lump(wad, NULL, sprite->lumpname, size, image);
+				free(image);
+
+				sprite = sprite->next;
+			}
 		}
+		add_lump(wad, NULL, "GX_START", 0, NULL);
+		printf("Adding graphics to WAD... Done.\n");
 	}
-	add_lump(wad, NULL, "GX_START", 0, NULL);
-	printf("Adding graphics to WAD... Done.\n");
-	
+
 	// Add SFX into WAD
-	printf("Adding SFX to WAD...\n");
-	add_lump(wad, NULL, "DS_END", 0, NULL);
 	{
 		cJSON* item;
-		char lumpname[9] = "DS______";
-		
-		strncpy(lumpname+2, cJSON_GetObjectItem(metadata, "gfx_prefix")->valuestring, 4);
-		
-		item = cJSON_GetObjectItem(metadata, "sfx")->child;
-		
-		while (item != NULL) {
-			unsigned char* buffer;
-			off_t size, bytesRead;
-			FILE* file;
-			printf("Adding %s... ", item->string);
-			
-			strncpy(lumpname+6, item->string, 2);
-			SET_FILENAME(item->valuestring);
-			
-			file = fopen(path, "rb");
-			
-			// seek to end of file
-			fseek(file, 0, SEEK_END);
+		if ((item = cJSON_GetObjectItem(metadata, "sfx")) == NULL)
+		{
+			printf("No sfx found, skipping...\n");
+		}
+		else
+		{
+			printf("Adding SFX to WAD...\n");
+			add_lump(wad, NULL, "DS_END", 0, NULL);
+			{
+				char lumpname[9] = "DS______";
 
-			// Load file into buffer
-			size = ftell(file);
-			buffer = malloc(size);
+				strncpy(lumpname+2, cJSON_GetObjectItem(metadata, "gfx_prefix")->valuestring, 4);
 
-			// seek back to start
-			fseek(file, 0, SEEK_SET);
+				item = item->child;
+				while (item != NULL) {
+					unsigned char* buffer;
+					off_t size, bytesRead;
+					FILE* file;
+					printf(" File %s... ", item->valuestring);
 
-			//read contents!
-			bytesRead = fread(buffer, 1, size, file);
-			fclose(file);
-			
-			add_lump(wad, NULL, lumpname, bytesRead, buffer);
+					strncpy(lumpname+6, item->string, 2);
+					SET_FILENAME(item->valuestring);
 
-			item = item->next;
-			printf("Done.\n");
+					file = fopen(path, "rb");
+
+					// seek to end of file
+					fseek(file, 0, SEEK_END);
+
+					// Load file into buffer
+					size = ftell(file);
+					buffer = malloc(size);
+
+					// seek back to start
+					fseek(file, 0, SEEK_SET);
+
+					//read contents!
+					bytesRead = fread(buffer, 1, size, file);
+					fclose(file);
+
+					add_lump(wad, NULL, lumpname, bytesRead, buffer);
+
+					item = item->next;
+					printf("Done.\n");
+				}
+			}
+			add_lump(wad, NULL, "DS_START", 0, NULL);
+			printf("Adding SFX to WAD... Done.\n");
 		}
 	}
-	add_lump(wad, NULL, "DS_START", 0, NULL);
-	printf("Adding SFX to WAD... Done.\n");
-	
+
 	// Write WAD and exit
 	SET_FILENAME(".wad");
 	wadf = fopen(path, "wb");

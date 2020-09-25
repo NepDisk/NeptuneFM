@@ -318,7 +318,7 @@ void processGfx(void)
 	char prefix[5] = "____";
 
 	printf("Reading graphic prefix... ");
-	item = cJSON_GetObjectItem(metadata, "gfx_prefix");
+	item = cJSON_GetObjectItem(metadata, "prefix");
 	strncpy(prefix, item->valuestring, 4);
 	printf("Done.\n");
 
@@ -723,7 +723,7 @@ int main(int argc, char *argv[]) {
 		char buf[1<<16];
 		int size;
 		char prefix[5] = "____";
-		strncpy(prefix, cJSON_GetObjectItem(metadata, "gfx_prefix")->valuestring, 4);
+		strncpy(prefix, cJSON_GetObjectItem(metadata, "prefix")->valuestring, 4);
 
 		size = sprintf(buf, S_SKIN_TEMPLATE,
 			cJSON_GetObjectItem(metadata, "name")->valuestring,
@@ -779,7 +779,7 @@ int main(int argc, char *argv[]) {
 			{
 				char lumpname[9] = "DS______";
 
-				strncpy(lumpname+2, cJSON_GetObjectItem(metadata, "gfx_prefix")->valuestring, 4);
+				strncpy(lumpname+2, cJSON_GetObjectItem(metadata, "prefix")->valuestring, 4);
 
 				item = item->child;
 				while (item != NULL) {

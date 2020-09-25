@@ -285,6 +285,9 @@ void processSprites(void) {
 			{
 				cursprite->xoffs = prop->child->valueint;
 				cursprite->yoffs = prop->child->next->valueint;
+
+				if (cursprite->flip == -1 && (nesteditem->string[1] == '1' || nesteditem->string[1] == '5'))
+					cursprite->xoffs -= 1; // MATCH FRONT/BACK VIEWS
 			} // calloc means 0 otherwise
 
 			cursprite->numLayers = 0;
@@ -294,7 +297,7 @@ void processSprites(void) {
 				cursprite->layers[cursprite->numLayers].y = prop->child->next->valueint*steph;
 
 				if (cursprite->flip == -1)
-					cursprite->layers[cursprite->numLayers].x += (stepw-1); // more human-readable template info this way
+					cursprite->layers[cursprite->numLayers].x += (cursprite->width-1); // more human-readable template info this way
 
 				prop = prop->next;
 				cursprite->numLayers++;

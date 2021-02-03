@@ -1658,19 +1658,19 @@
 		"DEAD": {
 			"A0": {
 				"offset": [48, 84],
-				"layers": [[5, 2]]
+				"layers": [[6, 3]]
 			},
 			"B0": {
 				"offset": [48, 84],
-				"layers": [[6, 2]]
+				"layers": [[7, 3]]
 			},
 			"C0": {
 				"offset": [48, 84],
-				"layers": [[5, 2]]
+				"layers": [[6, 3]]
 			},
 			"D0": {
 				"offset": [48, 84],
-				"layers": [[6, 2]],
+				"layers": [[7, 3]],
 				"flip": true
 			}
 		},

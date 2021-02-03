@@ -286,7 +286,7 @@ void processSprites(void) {
 				cursprite->xoffs = prop->child->valueint;
 				cursprite->yoffs = prop->child->next->valueint;
 
-				if (cursprite->flip == -1 && (nesteditem->string[1] == '1' || nesteditem->string[1] == '5'))
+				if (cursprite->flip == -1 && (nesteditem->string[1] == '1' || nesteditem->string[1] == '5' || nesteditem->string[1] == '0'))
 					cursprite->xoffs -= 1; // MATCH FRONT/BACK VIEWS
 			} // calloc means 0 otherwise
 

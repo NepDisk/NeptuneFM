@@ -24,6 +24,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <direct.h>
+#include <stdint.h>
 
 #include "cJSON.h"
 #include "lodepng.h"
@@ -33,6 +34,8 @@
 #define MAX_IMAGE_SIZE 256*256
 
 #define S_SKIN_TEMPLATE "name = %s\nrealname = %s\nfacerank = %sRANK\nfacewant = %sWANT\nfacemmap = %sMMAP\nkartspeed = %d\nkartweight = %d\nstartcolor = %d\nprefcolor = %s\nDSKGLOAT = DS%sGL\nDSKWIN = DS%sWI\nDSKLOSE = DS%sLS\nDSKSLOW = DS%sSL\nDSKHURT1 = DS%sH1\nDSKHURT2 = DS%sH2\nDSKATTK1 = DS%sA1\nDSKATTK2 = DS%sA2\nDSKBOST1 = DS%sB1\nDSKBOST2 = DS%sB2\nDSKHITEM = DS%sHT\n"
+
+#define SKINNAMESIZE 16
 
 // This struct contains pre-lump-conversion data about a sprite
 struct RGB_Sprite {
@@ -49,6 +52,15 @@ struct RGB_Sprite {
 	struct RGB_Sprite* next;
 };
 
+struct skinprop {
+	char name[SKINNAMESIZE];
+	char realname[SKINNAMESIZE];
+	uint8_t kartspeed;
+	uint8_t kartweight;
+	uint8_t startcolor;
+	char prefcolor[32];
+};
+
 unsigned error;
 unsigned char* sprite_sheet;
 unsigned sprites_width, sprites_height;
@@ -61,6 +73,10 @@ cJSON* metadata;
 struct RGB_Sprite* rgb_sprites;
 struct RGB_Sprite* lastsprite;
 struct RGB_Sprite* gfxstart;
+
+struct skinprop kskin;
+
+char defprefix[4] = "SOME";
 
 unsigned char* pix;
 #define READPIXEL(x, y) (pix = sprite_sheet + ((x) + (y)*sprites_width) * 4)
@@ -204,6 +220,20 @@ void readTransparentColors(void) {
 	printf("Done.\n");
 }
 
+void SetDefaultSkinValues(void)
+{
+	strncpy(kskin.name, "someone", 8);
+	kskin.name[8] = '\0';
+	strncpy(kskin.realname, "Someone", 8);
+	kskin.realname[8] = '\0';
+	kskin.kartspeed = 5;
+	kskin.kartweight = 5;
+	kskin.startcolor = 96;
+	strncpy(kskin.prefcolor, "Green", 6);
+	kskin.prefcolor[6] = '\0';
+}
+
+
 void processSprites(void) {
 	cJSON *item, *nesteditem, *prop;
 	int spr_width, spr_height, step_width, step_height, stepw, steph;
@@ -322,7 +352,11 @@ void processGfx(void)
 
 	printf("Reading graphic prefix... ");
 	item = cJSON_GetObjectItem(metadata, "prefix");
-	strncpy(prefix, item->valuestring, 4);
+	if (item)
+		strncpy(prefix, item->valuestring, 4);
+	else
+		strncpy(prefix, defprefix, 4);
+
 	printf("Done.\n");
 
 	if ((item = cJSON_GetObjectItem(metadata, "gfx")) == NULL)
@@ -632,6 +666,61 @@ unsigned char* imageInDoomFormat(struct RGB_Sprite* image, size_t* size)
 	return img;
 }
 
+void addSkin(struct wadfile* wad)
+{
+	char buf[1<<16];
+	int size;
+	char prefix[5] = "____";
+	uint32_t slen;
+
+	if (cJSON_GetObjectItem(metadata, "prefix"))
+		strncpy(prefix, cJSON_GetObjectItem(metadata, "prefix")->valuestring, 4);
+	else
+		strncpy(prefix, defprefix, 4);
+
+	if (cJSON_GetObjectItem(metadata, "name"))
+	{
+		slen = strlen(cJSON_GetObjectItem(metadata, "name")->valuestring);
+		strncpy(kskin.name, cJSON_GetObjectItem(metadata, "name")->valuestring, slen);
+		kskin.name[slen] = '\0';
+	}
+
+	if (cJSON_GetObjectItem(metadata, "realname"))
+	{
+		slen = strlen(cJSON_GetObjectItem(metadata, "realname")->valuestring);
+		printf("%s\n", cJSON_GetObjectItem(metadata, "realname")->valuestring);
+		strncpy(kskin.realname, cJSON_GetObjectItem(metadata, "realname")->valuestring, slen);
+		kskin.realname[slen] = '\0';
+		printf("%s\n", kskin.realname);
+	}
+
+	if (cJSON_GetObjectItem(metadata, "stats"))
+		kskin.kartspeed = cJSON_GetObjectItem(metadata, "stats")->child->valueint;
+
+	if (cJSON_GetObjectItem(metadata, "stats"))
+		kskin.kartweight = cJSON_GetObjectItem(metadata, "stats")->child->next->valueint;
+
+	if (cJSON_GetObjectItem(metadata, "startcolor"))
+		kskin.startcolor = cJSON_GetObjectItem(metadata, "startcolor")->valueint;
+
+	if (cJSON_GetObjectItem(metadata, "prefcolor"))
+	{
+		slen = strlen(cJSON_GetObjectItem(metadata, "prefcolor")->valuestring);
+		strncpy(kskin.prefcolor, cJSON_GetObjectItem(metadata, "prefcolor")->valuestring, slen);
+	}
+
+	size = sprintf(buf, S_SKIN_TEMPLATE, kskin.name,
+		kskin.realname,
+		prefix, prefix, prefix,
+		kskin.kartspeed,
+		kskin.kartweight,
+		kskin.startcolor,
+		kskin.prefcolor,
+		prefix, prefix, prefix, prefix, prefix, prefix, prefix, prefix, prefix, prefix, prefix
+	);
+	add_lump(wad, NULL, "S_SKIN", size, buf);
+}
+
 // entrypoint
 int main(int argc, char *argv[]) {
 	char path[400]; // Total path of whatever file we're working with. Always contains the directory.
@@ -647,6 +736,8 @@ int main(int argc, char *argv[]) {
 #define CLEAR_FILENAME() memset(filename, '\0', 400 - (filename - path))
 #define SET_FILENAME(fn) ({CLEAR_FILENAME(); strcpy(filename, fn);})
 
+	SetDefaultSkinValues();
+
 	//@TODO load PLAYPAL.lmp from folder containing exe, not running folder (use argv[0] or something)
 	strncpy(path, argv[0], 360);
 	filename = path;
@@ -660,7 +751,6 @@ int main(int argc, char *argv[]) {
 
 	fread(palette, 3, 256, wadf);
 	fclose(wadf);
-
 
 	// Initialize directory name and file stuff
 	strncpy(path, argv[1], 360);
@@ -722,24 +812,7 @@ int main(int argc, char *argv[]) {
 
 	// Add S_SKIN into WAD
 	printf("Adding S_SKIN to WAD... ");
-	{
-		char buf[1<<16];
-		int size;
-		char prefix[5] = "____";
-		strncpy(prefix, cJSON_GetObjectItem(metadata, "prefix")->valuestring, 4);
-
-		size = sprintf(buf, S_SKIN_TEMPLATE,
-			cJSON_GetObjectItem(metadata, "name")->valuestring,
-			cJSON_GetObjectItem(metadata, "realname")->valuestring,
-			prefix, prefix, prefix,
-			cJSON_GetObjectItem(metadata, "stats")->child->valueint,
-			cJSON_GetObjectItem(metadata, "stats")->child->next->valueint,
-			cJSON_GetObjectItem(metadata, "startcolor")->valueint,
-			cJSON_GetObjectItem(metadata, "prefcolor")->valuestring,
-			prefix, prefix, prefix, prefix, prefix, prefix, prefix, prefix, prefix, prefix, prefix
-		);
-		add_lump(wad, NULL, "S_SKIN", size, buf);
-	}
+	addSkin(wad);
 	printf("Done.\n");
 
 	// Process graphics
@@ -782,7 +855,10 @@ int main(int argc, char *argv[]) {
 			{
 				char lumpname[9] = "DS______";
 
-				strncpy(lumpname+2, cJSON_GetObjectItem(metadata, "prefix")->valuestring, 4);
+				if (cJSON_GetObjectItem(metadata, "prefix"))
+					strncpy(lumpname+2, cJSON_GetObjectItem(metadata, "prefix")->valuestring, 4);
+				else
+					strncpy(lumpname+2, defprefix, 4);
 
 				item = item->child;
 				while (item != NULL) {

@@ -5,6 +5,7 @@
 	"stats": [5, 5],
 	"startcolor": 96,
 	"prefcolor": "red",
+	"rivals": ["example2", "example3", "example4"],
 	
 	"transparent_colors": [
 	],

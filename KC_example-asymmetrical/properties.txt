@@ -13,7 +13,7 @@
 	
 	
 	
-	"sprites_comment": "PERFECTLY SYMMETRICAL - ANYTHING BELOW THIS LINE DOES NOT NEED ALTERED UNLESS YOU'RE CHANGING THE TEMPLATE LAYOUT",
+	"sprites_comment": "ASYMMETRICAL - ANYTHING BELOW THIS LINE DOES NOT NEED ALTERED UNLESS YOU'RE CHANGING THE TEMPLATE LAYOUT",
 	
 	
 	
@@ -23,48 +23,75 @@
 		"STIN": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 0], [0, 5]]
+				"layers": [[0, 0], [0, 8]]
 			},
-			"A2A8": {
+			"A2": {
 				"offset": [48, 84],
-				"layers": [[1, 0], [1, 5]]
+				"layers": [[1, 0], [1, 8]]
 			},
-			"A3A7": {
+			"A3": {
 				"offset": [48, 84],
-				"layers": [[2, 0], [2, 5]]
+				"layers": [[2, 0], [2, 8]]
 			},
-			"A4A6": {
+			"A4": {
 				"offset": [48, 84],
-				"layers": [[3, 0], [3, 5]]
+				"layers": [[3, 0], [3, 8]]
 			},
 			"A5": {
 				"offset": [48, 84],
-				"layers": [[4, 0], [4, 5]]
+				"layers": [[4, 0], [4, 8]]
+			},
+			"A6": {
+				"offset": [48, 84],
+				"layers": [[5, 0], [5, 8]]
+			},
+			"A7": {
+				"offset": [48, 84],
+				"layers": [[6, 0], [6, 8]]
+			},
+			"A8": {
+				"offset": [48, 84],
+				"layers": [[7, 0], [7, 8]]
 			},
 			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 0], [0, 5]],
+				"layers": [[0, 0], [0, 8]],
 				"ditherstyle": 1
 			},
-			"B2B8": {
+			"B2": {
 				"offset": [48, 84],
-				"layers": [[1, 0], [1, 5]],
+				"layers": [[1, 0], [1, 8]],
 				"ditherstyle": 1
 			},
-			"B3B7": {
+			"B3": {
 				"offset": [48, 84],
-				"layers": [[2, 0], [2, 5]],
+				"layers": [[2, 0], [2, 8]],
 				"ditherstyle": 1
 			},
-			"B4B6": {
+			"B4": {
 				"offset": [48, 84],
-				"layers": [[3, 0], [3, 5]],
+				"layers": [[3, 0], [3, 8]],
 				"ditherstyle": 1
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[4, 0], [4, 5]],
+				"layers": [[4, 0], [4, 8]],
+				"ditherstyle": 1
+			},
+			"B6": {
+				"offset": [48, 84],
+				"layers": [[5, 0], [5, 8]],
+				"ditherstyle": 1
+			},
+			"B7": {
+				"offset": [48, 84],
+				"layers": [[6, 0], [6, 8]],
+				"ditherstyle": 1
+			},
+			"B8": {
+				"offset": [48, 84],
+				"layers": [[7, 0], [7, 8]],
 				"ditherstyle": 1
 			}
 		},
@@ -72,48 +99,75 @@
 		"STIL": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 0], [0, 5]]
+				"layers": [[0, 0], [0, 8]]
 			},
-			"A2A8": {
+			"A2": {
 				"offset": [48, 84],
-				"layers": [[1, 0], [1, 5]]
+				"layers": [[1, 0], [1, 8]]
 			},
-			"A3A7": {
+			"A3": {
 				"offset": [48, 84],
-				"layers": [[2, 0], [2, 5]]
+				"layers": [[2, 0], [2, 8]]
 			},
-			"A4A6": {
+			"A4": {
 				"offset": [48, 84],
-				"layers": [[3, 0], [3, 5]]
+				"layers": [[3, 0], [3, 8]]
 			},
 			"A5": {
 				"offset": [48, 84],
-				"layers": [[5, 0], [8, 5]]
+				"layers": [[8, 0], [8, 8]]
+			},
+			"A6": {
+				"offset": [48, 84],
+				"layers": [[5, 0], [5, 8]]
+			},
+			"A7": {
+				"offset": [48, 84],
+				"layers": [[6, 0], [6, 8]]
+			},
+			"A8": {
+				"offset": [48, 84],
+				"layers": [[7, 0], [7, 8]]
 			},
 			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 0], [0, 5]],
+				"layers": [[0, 0], [0, 8]],
 				"ditherstyle": 1
 			},
-			"B2B8": {
+			"B2": {
 				"offset": [48, 84],
-				"layers": [[1, 0], [1, 5]],
+				"layers": [[1, 0], [1, 8]],
 				"ditherstyle": 1
 			},
-			"B3B7": {
+			"B3": {
 				"offset": [48, 84],
-				"layers": [[2, 0], [2, 5]],
+				"layers": [[2, 0], [2, 8]],
 				"ditherstyle": 1
 			},
-			"B4B6": {
+			"B4": {
 				"offset": [48, 84],
-				"layers": [[3, 0], [3, 5]],
+				"layers": [[3, 0], [3, 8]],
 				"ditherstyle": 1
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[5, 0], [8, 5]],
+				"layers": [[8, 0], [8, 8]],
+				"ditherstyle": 1
+			},
+			"B6": {
+				"offset": [48, 84],
+				"layers": [[5, 0], [5, 8]],
+				"ditherstyle": 1
+			},
+			"B7": {
+				"offset": [48, 84],
+				"layers": [[6, 0], [6, 8]],
+				"ditherstyle": 1
+			},
+			"B8": {
+				"offset": [48, 84],
+				"layers": [[7, 0], [7, 8]],
 				"ditherstyle": 1
 			}
 		},
@@ -121,50 +175,75 @@
 		"STIR": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 0], [0, 5]]
+				"layers": [[0, 0], [0, 8]]
 			},
-			"A2A8": {
+			"A2": {
 				"offset": [48, 84],
-				"layers": [[1, 0], [1, 5]]
+				"layers": [[1, 0], [1, 8]]
 			},
-			"A3A7": {
+			"A3": {
 				"offset": [48, 84],
-				"layers": [[2, 0], [2, 5]]
+				"layers": [[2, 0], [2, 8]]
 			},
-			"A4A6": {
+			"A4": {
 				"offset": [48, 84],
-				"layers": [[3, 0], [3, 5]]
+				"layers": [[3, 0], [3, 8]]
 			},
 			"A5": {
+				"offset": [47, 84],
+				"layers": [[9, 0], [9, 8]]
+			},
+			"A6": {
 				"offset": [48, 84],
-				"layers": [[5, 0], [8, 5]],
-				"flip": true
+				"layers": [[5, 0], [5, 8]]
+			},
+			"A7": {
+				"offset": [48, 84],
+				"layers": [[6, 0], [6, 8]]
+			},
+			"A8": {
+				"offset": [48, 84],
+				"layers": [[7, 0], [7, 8]]
 			},
 			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 0], [0, 5]],
+				"layers": [[0, 0], [0, 8]],
 				"ditherstyle": 1
 			},
-			"B2B8": {
+			"B2": {
 				"offset": [48, 84],
-				"layers": [[1, 0], [1, 5]],
+				"layers": [[1, 0], [1, 8]],
 				"ditherstyle": 1
 			},
-			"B3B7": {
+			"B3": {
 				"offset": [48, 84],
-				"layers": [[2, 0], [2, 5]],
+				"layers": [[2, 0], [2, 8]],
 				"ditherstyle": 1
 			},
-			"B4B6": {
+			"B4": {
 				"offset": [48, 84],
-				"layers": [[3, 0], [3, 5]],
+				"layers": [[3, 0], [3, 8]],
 				"ditherstyle": 1
 			},
 			"B5": {
+				"offset": [47, 84],
+				"layers": [[9, 0], [9, 8]],
+				"ditherstyle": 1
+			},
+			"B6": {
 				"offset": [48, 84],
-				"layers": [[5, 0], [8, 5]],
-				"flip": true,
+				"layers": [[5, 0], [5, 8]],
+				"ditherstyle": 1
+			},
+			"B7": {
+				"offset": [48, 84],
+				"layers": [[6, 0], [6, 8]],
+				"ditherstyle": 1
+			},
+			"B8": {
+				"offset": [48, 84],
+				"layers": [[7, 0], [7, 8]],
 				"ditherstyle": 1
 			}
 		},
@@ -172,91 +251,75 @@
 		"STGL": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 5]],
-				"flip": true
+				"layers": [[0, 2], [0, 8]]
 			},
 			"A8": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 5]],
-				"flip": true
+				"layers": [[1, 2], [7, 8]]
 			},
 			"A7": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 5]],
-				"flip": true
+				"layers": [[2, 2], [6, 8]]
 			},
 			"A6": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 5]],
-				"flip": true
+				"layers": [[3, 2], [5, 8]]
 			},
 			"A5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 5]],
-				"flip": true
+				"layers": [[4, 2], [4, 8]]
 			},
 			"A4": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 5]],
-				"flip": true
+				"layers": [[5, 2], [3, 8]]
 			},
 			"A3": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 5]],
-				"flip": true
+				"layers": [[6, 2], [2, 8]]
 			},
 			"A2": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 5]],
-				"flip": true
+				"layers": [[7, 2], [1, 8]]
 			},
 			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 5]],
-				"flip": true,
+				"layers": [[0, 2], [0, 8]],
 				"ditherstyle": 1
 			},
 			"B8": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 5]],
-				"flip": true,
+				"layers": [[1, 2], [7, 8]],
 				"ditherstyle": 1
 			},
 			"B7": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 5]],
-				"flip": true,
+				"layers": [[2, 2], [6, 8]],
 				"ditherstyle": 1
 			},
 			"B6": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 5]],
-				"flip": true,
+				"layers": [[3, 2], [5, 8]],
 				"ditherstyle": 1
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 5]],
-				"flip": true,
+				"layers": [[4, 2], [4, 8]],
 				"ditherstyle": 1
 			},
 			"B4": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 5]],
-				"flip": true,
+				"layers": [[5, 2], [3, 8]],
 				"ditherstyle": 1
 			},
 			"B3": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 5]],
-				"flip": true,
+				"layers": [[6, 2], [2, 8]],
 				"ditherstyle": 1
 			},
 			"B2": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 5]],
-				"flip": true,
+				"layers": [[7, 2], [1, 8]],
 				"ditherstyle": 1
 			}
 		},
@@ -264,75 +327,75 @@
 		"STGR": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 5]]
+				"layers": [[0, 1], [0, 8]]
 			},
 			"A2": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 5]]
+				"layers": [[1, 1], [1, 8]]
 			},
 			"A3": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 5]]
+				"layers": [[2, 1], [2, 8]]
 			},
 			"A4": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 5]]
+				"layers": [[3, 1], [3, 8]]
 			},
 			"A5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 5]]
+				"layers": [[4, 1], [4, 8]]
 			},
 			"A6": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 5]]
+				"layers": [[5, 1], [5, 8]]
 			},
 			"A7": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 5]]
+				"layers": [[6, 1], [6, 8]]
 			},
 			"A8": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 5]]
+				"layers": [[7, 1], [7, 8]]
 			},
-
+			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 5]],
+				"layers": [[0, 1], [0, 8]],
 				"ditherstyle": 1
 			},
 			"B2": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 5]],
+				"layers": [[1, 1], [1, 8]],
 				"ditherstyle": 1
 			},
 			"B3": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 5]],
+				"layers": [[2, 1], [2, 8]],
 				"ditherstyle": 1
 			},
 			"B4": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 5]],
+				"layers": [[3, 1], [3, 8]],
 				"ditherstyle": 1
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 5]],
+				"layers": [[4, 1], [4, 8]],
 				"ditherstyle": 1
 			},
 			"B6": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 5]],
+				"layers": [[5, 1], [5, 8]],
 				"ditherstyle": 1
 			},
 			"B7": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 5]],
+				"layers": [[6, 1], [6, 8]],
 				"ditherstyle": 1
 			},
 			"B8": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 5]],
+				"layers": [[7, 1], [7, 8]],
 				"ditherstyle": 1
 			}
 		},
@@ -340,91 +403,75 @@
 		"STLL": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 2], [0, 5]],
-				"flip": true
+				"layers": [[0, 4], [0, 8]]
 			},
 			"A8": {
 				"offset": [48, 84],
-				"layers": [[1, 2], [1, 5]],
-				"flip": true
+				"layers": [[1, 4], [7, 8]]
 			},
 			"A7": {
 				"offset": [48, 84],
-				"layers": [[2, 2], [2, 5]],
-				"flip": true
+				"layers": [[2, 4], [6, 8]]
 			},
 			"A6": {
 				"offset": [48, 84],
-				"layers": [[3, 2], [3, 5]],
-				"flip": true
+				"layers": [[3, 4], [5, 8]]
 			},
 			"A5": {
 				"offset": [48, 84],
-				"layers": [[4, 2], [4, 5]],
-				"flip": true
+				"layers": [[4, 4], [4, 8]]
 			},
 			"A4": {
 				"offset": [48, 84],
-				"layers": [[5, 2], [5, 5]],
-				"flip": true
+				"layers": [[5, 4], [3, 8]]
 			},
 			"A3": {
 				"offset": [48, 84],
-				"layers": [[6, 2], [6, 5]],
-				"flip": true
+				"layers": [[6, 4], [2, 8]]
 			},
 			"A2": {
 				"offset": [48, 84],
-				"layers": [[7, 2], [7, 5]],
-				"flip": true
+				"layers": [[7, 4], [1, 8]]
 			},
 			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 2], [0, 5]],
-				"flip": true,
+				"layers": [[0, 4], [0, 8]],
 				"ditherstyle": 1
 			},
 			"B8": {
 				"offset": [48, 84],
-				"layers": [[1, 2], [1, 5]],
-				"flip": true,
+				"layers": [[1, 4], [7, 8]],
 				"ditherstyle": 1
 			},
 			"B7": {
 				"offset": [48, 84],
-				"layers": [[2, 2], [2, 5]],
-				"flip": true,
+				"layers": [[2, 4], [6, 8]],
 				"ditherstyle": 1
 			},
 			"B6": {
 				"offset": [48, 84],
-				"layers": [[3, 2], [3, 5]],
-				"flip": true,
+				"layers": [[3, 4], [5, 8]],
 				"ditherstyle": 1
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[4, 2], [4, 5]],
-				"flip": true,
+				"layers": [[4, 4], [4, 8]],
 				"ditherstyle": 1
 			},
 			"B4": {
 				"offset": [48, 84],
-				"layers": [[5, 2], [5, 5]],
-				"flip": true,
+				"layers": [[5, 4], [3, 8]],
 				"ditherstyle": 1
 			},
 			"B3": {
 				"offset": [48, 84],
-				"layers": [[6, 2], [6, 5]],
-				"flip": true,
+				"layers": [[6, 4], [2, 8]],
 				"ditherstyle": 1
 			},
 			"B2": {
 				"offset": [48, 84],
-				"layers": [[7, 2], [7, 5]],
-				"flip": true,
+				"layers": [[7, 4], [1, 8]],
 				"ditherstyle": 1
 			}
 		},
@@ -432,75 +479,75 @@
 		"STLR": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 2], [0, 5]]
+				"layers": [[0, 3], [0, 8]]
 			},
 			"A2": {
 				"offset": [48, 84],
-				"layers": [[1, 2], [1, 5]]
+				"layers": [[1, 3], [1, 8]]
 			},
 			"A3": {
 				"offset": [48, 84],
-				"layers": [[2, 2], [2, 5]]
+				"layers": [[2, 3], [2, 8]]
 			},
 			"A4": {
 				"offset": [48, 84],
-				"layers": [[3, 2], [3, 5]]
+				"layers": [[3, 3], [3, 8]]
 			},
 			"A5": {
 				"offset": [48, 84],
-				"layers": [[4, 2], [4, 5]]
+				"layers": [[4, 3], [4, 8]]
 			},
 			"A6": {
 				"offset": [48, 84],
-				"layers": [[5, 2], [5, 5]]
+				"layers": [[5, 3], [5, 8]]
 			},
 			"A7": {
 				"offset": [48, 84],
-				"layers": [[6, 2], [6, 5]]
+				"layers": [[6, 3], [6, 8]]
 			},
 			"A8": {
 				"offset": [48, 84],
-				"layers": [[7, 2], [7, 5]]
+				"layers": [[7, 3], [7, 8]]
 			},
-
+			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 2], [0, 5]],
+				"layers": [[0, 3], [0, 8]],
 				"ditherstyle": 1
 			},
 			"B2": {
 				"offset": [48, 84],
-				"layers": [[1, 2], [1, 5]],
+				"layers": [[1, 3], [1, 8]],
 				"ditherstyle": 1
 			},
 			"B3": {
 				"offset": [48, 84],
-				"layers": [[2, 2], [2, 5]],
+				"layers": [[2, 3], [2, 8]],
 				"ditherstyle": 1
 			},
 			"B4": {
 				"offset": [48, 84],
-				"layers": [[3, 2], [3, 5]],
+				"layers": [[3, 3], [3, 8]],
 				"ditherstyle": 1
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[4, 2], [4, 5]],
+				"layers": [[4, 3], [4, 8]],
 				"ditherstyle": 1
 			},
 			"B6": {
 				"offset": [48, 84],
-				"layers": [[5, 2], [5, 5]],
+				"layers": [[5, 3], [5, 8]],
 				"ditherstyle": 1
 			},
 			"B7": {
 				"offset": [48, 84],
-				"layers": [[6, 2], [6, 5]],
+				"layers": [[6, 3], [6, 8]],
 				"ditherstyle": 1
 			},
 			"B8": {
 				"offset": [48, 84],
-				"layers": [[7, 2], [7, 5]],
+				"layers": [[7, 3], [7, 8]],
 				"ditherstyle": 1
 			}
 		},
@@ -508,1625 +555,1657 @@
 		"SLWN": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 0], [0, 5]],
+				"layers": [[0, 0], [0, 8]],
 				"ditherstyle": 2
 			},
-			"A2A8": {
+			"A2": {
 				"offset": [48, 84],
-				"layers": [[1, 0], [1, 5]],
+				"layers": [[1, 0], [1, 8]],
 				"ditherstyle": 2
 			},
-			"A3A7": {
+			"A3": {
 				"offset": [48, 84],
-				"layers": [[2, 0], [2, 5]],
+				"layers": [[2, 0], [2, 8]],
 				"ditherstyle": 2
 			},
-			"A4A6": {
+			"A4": {
 				"offset": [48, 84],
-				"layers": [[3, 0], [3, 5]],
+				"layers": [[3, 0], [3, 8]],
 				"ditherstyle": 2
 			},
 			"A5": {
 				"offset": [48, 84],
-				"layers": [[4, 0], [4, 5]],
+				"layers": [[4, 0], [4, 8]],
+				"ditherstyle": 2
+			},
+			"A6": {
+				"offset": [48, 84],
+				"layers": [[5, 0], [5, 8]],
+				"ditherstyle": 2
+			},
+			"A7": {
+				"offset": [48, 84],
+				"layers": [[6, 0], [6, 8]],
+				"ditherstyle": 2
+			},
+			"A8": {
+				"offset": [48, 84],
+				"layers": [[7, 0], [7, 8]],
 				"ditherstyle": 2
 			},
 			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 0], [0, 6]]
+				"layers": [[0, 0], [0, 9]]
 			},
-			"B2B8": {
+			"B2": {
 				"offset": [48, 84],
-				"layers": [[1, 0], [1, 6]]
+				"layers": [[1, 0], [1, 9]]
 			},
-			"B3B7": {
+			"B3": {
 				"offset": [48, 84],
-				"layers": [[2, 0], [2, 6]]
+				"layers": [[2, 0], [2, 9]]
 			},
-			"B4B6": {
+			"B4": {
 				"offset": [48, 84],
-				"layers": [[3, 0], [3, 6]]
+				"layers": [[3, 0], [3, 9]]
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[4, 0], [4, 6]]
+				"layers": [[4, 0], [4, 9]]
+			},
+			"B6": {
+				"offset": [48, 84],
+				"layers": [[5, 0], [5, 9]]
+			},
+			"B7": {
+				"offset": [48, 84],
+				"layers": [[6, 0], [6, 9]]
+			},
+			"B8": {
+				"offset": [48, 84],
+				"layers": [[7, 0], [7, 9]]
 			}
 		},
 		
 		"SLWL": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 0], [0, 5]],
+				"layers": [[0, 0], [0, 8]],
 				"ditherstyle": 2
 			},
-			"A2A8": {
+			"A2": {
 				"offset": [48, 84],
-				"layers": [[1, 0], [1, 5]],
+				"layers": [[1, 0], [1, 8]],
 				"ditherstyle": 2
 			},
-			"A3A7": {
+			"A3": {
 				"offset": [48, 84],
-				"layers": [[2, 0], [2, 5]],
+				"layers": [[2, 0], [2, 8]],
 				"ditherstyle": 2
 			},
-			"A4A6": {
+			"A4": {
 				"offset": [48, 84],
-				"layers": [[3, 0], [3, 5]],
+				"layers": [[3, 0], [3, 8]],
 				"ditherstyle": 2
 			},
 			"A5": {
 				"offset": [48, 84],
-				"layers": [[5, 0], [8, 5]],
+				"layers": [[8, 0], [8, 8]],
+				"ditherstyle": 2
+			},
+			"A6": {
+				"offset": [48, 84],
+				"layers": [[5, 0], [5, 8]],
+				"ditherstyle": 2
+			},
+			"A7": {
+				"offset": [48, 84],
+				"layers": [[6, 0], [6, 8]],
+				"ditherstyle": 2
+			},
+			"A8": {
+				"offset": [48, 84],
+				"layers": [[7, 0], [7, 8]],
 				"ditherstyle": 2
 			},
 			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 0], [0, 6]]
+				"layers": [[0, 0], [0, 9]]
 			},
-			"B2B8": {
+			"B2": {
 				"offset": [48, 84],
-				"layers": [[1, 0], [1, 6]]
+				"layers": [[1, 0], [1, 9]]
 			},
-			"B3B7": {
+			"B3": {
 				"offset": [48, 84],
-				"layers": [[2, 0], [2, 6]]
+				"layers": [[2, 0], [2, 9]]
 			},
-			"B4B6": {
+			"B4": {
 				"offset": [48, 84],
-				"layers": [[3, 0], [3, 6]]
+				"layers": [[3, 0], [3, 9]]
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[5, 0], [8, 6]]
+				"layers": [[8, 0], [8, 9]]
+			},
+			"B6": {
+				"offset": [48, 84],
+				"layers": [[5, 0], [5, 9]]
+			},
+			"B7": {
+				"offset": [48, 84],
+				"layers": [[6, 0], [6, 9]]
+			},
+			"B8": {
+				"offset": [48, 84],
+				"layers": [[7, 0], [7, 9]]
 			}
 		},
 		
 		"SLWR": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 0], [0, 5]],
+				"layers": [[0, 0], [0, 8]],
 				"ditherstyle": 2
 			},
-			"A2A8": {
+			"A2": {
 				"offset": [48, 84],
-				"layers": [[1, 0], [1, 5]],
+				"layers": [[1, 0], [1, 8]],
 				"ditherstyle": 2
 			},
-			"A3A7": {
+			"A3": {
 				"offset": [48, 84],
-				"layers": [[2, 0], [2, 5]],
+				"layers": [[2, 0], [2, 8]],
 				"ditherstyle": 2
 			},
-			"A4A6": {
+			"A4": {
 				"offset": [48, 84],
-				"layers": [[3, 0], [3, 5]],
+				"layers": [[3, 0], [3, 8]],
 				"ditherstyle": 2
 			},
 			"A5": {
+				"offset": [47, 84],
+				"layers": [[9, 0], [9, 8]],
+				"ditherstyle": 2
+			},
+			"A6": {
 				"offset": [48, 84],
-				"layers": [[5, 0], [8, 5]],
-				"flip": true,
+				"layers": [[5, 0], [5, 8]],
+				"ditherstyle": 2
+			},
+			"A7": {
+				"offset": [48, 84],
+				"layers": [[6, 0], [6, 8]],
+				"ditherstyle": 2
+			},
+			"A8": {
+				"offset": [48, 84],
+				"layers": [[7, 0], [7, 8]],
 				"ditherstyle": 2
 			},
 			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 0], [0, 6]]
+				"layers": [[0, 0], [0, 9]]
 			},
-			"B2B8": {
+			"B2": {
 				"offset": [48, 84],
-				"layers": [[1, 0], [1, 6]]
+				"layers": [[1, 0], [1, 9]]
 			},
-			"B3B7": {
+			"B3": {
 				"offset": [48, 84],
-				"layers": [[2, 0], [2, 6]]
+				"layers": [[2, 0], [2, 9]]
 			},
-			"B4B6": {
+			"B4": {
 				"offset": [48, 84],
-				"layers": [[3, 0], [3, 6]]
+				"layers": [[3, 0], [3, 9]]
 			},
 			"B5": {
+				"offset": [47, 84],
+				"layers": [[9, 0], [9, 9]]
+			},
+			"B6": {
 				"offset": [48, 84],
-				"layers": [[5, 0], [8, 6]],
-				"flip": true
+				"layers": [[5, 0], [5, 9]]
+			},
+			"B7": {
+				"offset": [48, 84],
+				"layers": [[6, 0], [6, 9]]
+			},
+			"B8": {
+				"offset": [48, 84],
+				"layers": [[7, 0], [7, 9]]
 			}
 		},
 		
 		"SLGL": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 5]],
-				"flip": true,
+				"layers": [[0, 2], [0, 8]],
 				"ditherstyle": 2
 			},
 			"A8": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 5]],
-				"flip": true,
+				"layers": [[1, 2], [7, 8]],
 				"ditherstyle": 2
 			},
 			"A7": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 5]],
-				"flip": true,
+				"layers": [[2, 2], [6, 8]],
 				"ditherstyle": 2
 			},
 			"A6": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 5]],
-				"flip": true,
+				"layers": [[3, 2], [5, 8]],
 				"ditherstyle": 2
 			},
 			"A5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 5]],
-				"flip": true,
+				"layers": [[4, 2], [4, 8]],
 				"ditherstyle": 2
 			},
 			"A4": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 5]],
-				"flip": true,
+				"layers": [[5, 2], [3, 8]],
 				"ditherstyle": 2
 			},
 			"A3": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 5]],
-				"flip": true,
+				"layers": [[6, 2], [2, 8]],
 				"ditherstyle": 2
 			},
 			"A2": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 5]],
-				"flip": true,
+				"layers": [[7, 2], [1, 8]],
 				"ditherstyle": 2
 			},
-
+			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 6]],
-				"flip": true
+				"layers": [[0, 2], [0, 8]]
 			},
 			"B8": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 6]],
-				"flip": true
+				"layers": [[1, 2], [7, 8]]
 			},
 			"B7": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 6]],
-				"flip": true
+				"layers": [[2, 2], [6, 8]]
 			},
 			"B6": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 6]],
-				"flip": true
+				"layers": [[3, 2], [5, 8]]
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 6]],
-				"flip": true
+				"layers": [[4, 2], [4, 8]]
 			},
 			"B4": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 6]],
-				"flip": true
+				"layers": [[5, 2], [3, 8]]
 			},
 			"B3": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 6]],
-				"flip": true
+				"layers": [[6, 2], [2, 8]]
 			},
 			"B2": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 6]],
-				"flip": true
+				"layers": [[7, 2], [1, 8]]
 			}
 		},
 		
 		"SLGR": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 5]],
+				"layers": [[0, 1], [0, 8]],
 				"ditherstyle": 2
 			},
 			"A2": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 5]],
+				"layers": [[1, 1], [1, 8]],
 				"ditherstyle": 2
 			},
 			"A3": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 5]],
+				"layers": [[2, 1], [2, 8]],
 				"ditherstyle": 2
 			},
 			"A4": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 5]],
+				"layers": [[3, 1], [3, 8]],
 				"ditherstyle": 2
 			},
 			"A5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 5]],
+				"layers": [[4, 1], [4, 8]],
 				"ditherstyle": 2
 			},
 			"A6": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 5]],
+				"layers": [[5, 1], [5, 8]],
 				"ditherstyle": 2
 			},
 			"A7": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 5]],
+				"layers": [[6, 1], [6, 8]],
 				"ditherstyle": 2
 			},
 			"A8": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 5]],
+				"layers": [[7, 1], [7, 8]],
 				"ditherstyle": 2
 			},
-
+			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 6]]
+				"layers": [[0, 1], [0, 9]]
 			},
 			"B2": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 6]]
+				"layers": [[1, 1], [1, 9]]
 			},
 			"B3": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 6]]
+				"layers": [[2, 1], [2, 9]]
 			},
 			"B4": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 6]]
+				"layers": [[3, 1], [3, 9]]
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 6]]
+				"layers": [[4, 1], [4, 9]]
 			},
 			"B6": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 6]]
+				"layers": [[5, 1], [5, 9]]
 			},
 			"B7": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 6]]
+				"layers": [[6, 1], [6, 9]]
 			},
 			"B8": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 6]]
+				"layers": [[7, 1], [7, 9]]
 			}
 		},
 		
 		"SLLL": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 2], [0, 5]],
-				"flip": true,
+				"layers": [[0, 4], [0, 8]],
 				"ditherstyle": 2
 			},
 			"A8": {
 				"offset": [48, 84],
-				"layers": [[1, 2], [1, 5]],
-				"flip": true,
+				"layers": [[1, 4], [7, 8]],
 				"ditherstyle": 2
 			},
 			"A7": {
 				"offset": [48, 84],
-				"layers": [[2, 2], [2, 5]],
-				"flip": true,
+				"layers": [[2, 4], [6, 8]],
 				"ditherstyle": 2
 			},
 			"A6": {
 				"offset": [48, 84],
-				"layers": [[3, 2], [3, 5]],
-				"flip": true,
+				"layers": [[3, 4], [5, 8]],
 				"ditherstyle": 2
 			},
 			"A5": {
 				"offset": [48, 84],
-				"layers": [[4, 2], [4, 5]],
-				"flip": true,
+				"layers": [[4, 4], [4, 8]],
 				"ditherstyle": 2
 			},
 			"A4": {
 				"offset": [48, 84],
-				"layers": [[5, 2], [5, 5]],
-				"flip": true,
+				"layers": [[5, 4], [3, 8]],
 				"ditherstyle": 2
 			},
 			"A3": {
 				"offset": [48, 84],
-				"layers": [[6, 2], [6, 5]],
-				"flip": true,
+				"layers": [[6, 4], [2, 8]],
 				"ditherstyle": 2
 			},
 			"A2": {
 				"offset": [48, 84],
-				"layers": [[7, 2], [7, 5]],
-				"flip": true,
+				"layers": [[7, 4], [1, 8]],
 				"ditherstyle": 2
 			},
-
+			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 2], [0, 6]],
-				"flip": true
+				"layers": [[0, 4], [0, 8]]
 			},
 			"B8": {
 				"offset": [48, 84],
-				"layers": [[1, 2], [1, 6]],
-				"flip": true
+				"layers": [[1, 4], [7, 8]]
 			},
 			"B7": {
 				"offset": [48, 84],
-				"layers": [[2, 2], [2, 6]],
-				"flip": true
+				"layers": [[2, 4], [6, 8]]
 			},
 			"B6": {
 				"offset": [48, 84],
-				"layers": [[3, 2], [3, 6]],
-				"flip": true
+				"layers": [[3, 4], [5, 8]]
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[4, 2], [4, 6]],
-				"flip": true
+				"layers": [[4, 4], [4, 8]]
 			},
 			"B4": {
 				"offset": [48, 84],
-				"layers": [[5, 2], [5, 6]],
-				"flip": true
+				"layers": [[5, 4], [3, 8]]
 			},
 			"B3": {
 				"offset": [48, 84],
-				"layers": [[6, 2], [6, 6]],
-				"flip": true
+				"layers": [[6, 4], [2, 8]]
 			},
 			"B2": {
 				"offset": [48, 84],
-				"layers": [[7, 2], [7, 6]],
-				"flip": true
+				"layers": [[7, 4], [1, 8]]
 			}
 		},
 		
 		"SLLR": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 2], [0, 5]],
+				"layers": [[0, 3], [0, 8]],
 				"ditherstyle": 2
 			},
 			"A2": {
 				"offset": [48, 84],
-				"layers": [[1, 2], [1, 5]],
+				"layers": [[1, 3], [1, 8]],
 				"ditherstyle": 2
 			},
 			"A3": {
 				"offset": [48, 84],
-				"layers": [[2, 2], [2, 5]],
+				"layers": [[2, 3], [2, 8]],
 				"ditherstyle": 2
 			},
 			"A4": {
 				"offset": [48, 84],
-				"layers": [[3, 2], [3, 5]],
+				"layers": [[3, 3], [3, 8]],
 				"ditherstyle": 2
 			},
 			"A5": {
 				"offset": [48, 84],
-				"layers": [[4, 2], [4, 5]],
+				"layers": [[4, 3], [4, 8]],
 				"ditherstyle": 2
 			},
 			"A6": {
 				"offset": [48, 84],
-				"layers": [[5, 2], [5, 5]],
+				"layers": [[5, 3], [5, 8]],
 				"ditherstyle": 2
 			},
 			"A7": {
 				"offset": [48, 84],
-				"layers": [[6, 2], [6, 5]],
+				"layers": [[6, 3], [6, 8]],
 				"ditherstyle": 2
 			},
 			"A8": {
 				"offset": [48, 84],
-				"layers": [[7, 2], [7, 5]],
+				"layers": [[7, 3], [7, 8]],
 				"ditherstyle": 2
 			},
-
+			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 2], [0, 6]]
+				"layers": [[0, 3], [0, 9]]
 			},
 			"B2": {
 				"offset": [48, 84],
-				"layers": [[1, 2], [1, 6]]
+				"layers": [[1, 3], [1, 9]]
 			},
 			"B3": {
 				"offset": [48, 84],
-				"layers": [[2, 2], [2, 6]]
+				"layers": [[2, 3], [2, 9]]
 			},
 			"B4": {
 				"offset": [48, 84],
-				"layers": [[3, 2], [3, 6]]
+				"layers": [[3, 3], [3, 9]]
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[4, 2], [4, 6]]
+				"layers": [[4, 3], [4, 9]]
 			},
 			"B6": {
 				"offset": [48, 84],
-				"layers": [[5, 2], [5, 6]]
+				"layers": [[5, 3], [5, 9]]
 			},
 			"B7": {
 				"offset": [48, 84],
-				"layers": [[6, 2], [6, 6]]
+				"layers": [[6, 3], [6, 9]]
 			},
 			"B8": {
 				"offset": [48, 84],
-				"layers": [[7, 2], [7, 6]]
+				"layers": [[7, 3], [7, 9]]
 			}
 		},
 		
 		"FSTN": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 0], [0, 5]]
+				"layers": [[0, 0], [0, 8]]
 			},
-			"A2A8": {
+			"A2": {
 				"offset": [48, 84],
-				"layers": [[1, 0], [1, 5]]
+				"layers": [[1, 0], [1, 8]]
 			},
-			"A3A7": {
+			"A3": {
 				"offset": [48, 84],
-				"layers": [[2, 0], [2, 5]]
+				"layers": [[2, 0], [2, 8]]
 			},
-			"A4A6": {
+			"A4": {
 				"offset": [48, 84],
-				"layers": [[3, 0], [3, 5]]
+				"layers": [[3, 0], [3, 8]]
 			},
 			"A5": {
 				"offset": [48, 84],
-				"layers": [[4, 0], [4, 5]]
+				"layers": [[4, 0], [4, 8]]
+			},
+			"A6": {
+				"offset": [48, 84],
+				"layers": [[5, 0], [5, 8]]
+			},
+			"A7": {
+				"offset": [48, 84],
+				"layers": [[6, 0], [6, 8]]
+			},
+			"A8": {
+				"offset": [48, 84],
+				"layers": [[7, 0], [7, 8]]
 			},
 			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 0], [0, 6]]
+				"layers": [[0, 0], [0, 9]]
 			},
-			"B2B8": {
+			"B2": {
 				"offset": [48, 84],
-				"layers": [[1, 0], [1, 6]]
+				"layers": [[1, 0], [1, 9]]
 			},
-			"B3B7": {
+			"B3": {
 				"offset": [48, 84],
-				"layers": [[2, 0], [2, 6]]
+				"layers": [[2, 0], [2, 9]]
 			},
-			"B4B6": {
+			"B4": {
 				"offset": [48, 84],
-				"layers": [[3, 0], [3, 6]]
+				"layers": [[3, 0], [3, 9]]
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[4, 0], [4, 6]]
+				"layers": [[4, 0], [4, 9]]
+			},
+			"B6": {
+				"offset": [48, 84],
+				"layers": [[5, 0], [5, 9]]
+			},
+			"B7": {
+				"offset": [48, 84],
+				"layers": [[6, 0], [6, 9]]
+			},
+			"B8": {
+				"offset": [48, 84],
+				"layers": [[7, 0], [7, 9]]
 			}
 		},
 		
 		"FSTL": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 0], [0, 5]]
+				"layers": [[0, 0], [0, 8]]
 			},
-			"A2A8": {
+			"A2": {
 				"offset": [48, 84],
-				"layers": [[1, 0], [1, 5]]
+				"layers": [[1, 0], [1, 8]]
 			},
-			"A3A7": {
+			"A3": {
 				"offset": [48, 84],
-				"layers": [[2, 0], [2, 5]]
+				"layers": [[2, 0], [2, 8]]
 			},
-			"A4A6": {
+			"A4": {
 				"offset": [48, 84],
-				"layers": [[3, 0], [3, 5]]
+				"layers": [[3, 0], [3, 8]]
 			},
 			"A5": {
 				"offset": [48, 84],
-				"layers": [[5, 0], [8, 5]]
+				"layers": [[8, 0], [8, 8]]
+			},
+			"A6": {
+				"offset": [48, 84],
+				"layers": [[5, 0], [5, 8]]
+			},
+			"A7": {
+				"offset": [48, 84],
+				"layers": [[6, 0], [6, 8]]
+			},
+			"A8": {
+				"offset": [48, 84],
+				"layers": [[7, 0], [7, 8]]
 			},
 			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 0], [0, 6]]
+				"layers": [[0, 0], [0, 9]]
 			},
-			"B2B8": {
+			"B2": {
 				"offset": [48, 84],
-				"layers": [[1, 0], [1, 6]]
+				"layers": [[1, 0], [1, 9]]
 			},
-			"B3B7": {
+			"B3": {
 				"offset": [48, 84],
-				"layers": [[2, 0], [2, 6]]
+				"layers": [[2, 0], [2, 9]]
 			},
-			"B4B6": {
+			"B4": {
 				"offset": [48, 84],
-				"layers": [[3, 0], [3, 6]]
+				"layers": [[3, 0], [3, 9]]
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[5, 0], [8, 6]]
+				"layers": [[8, 0], [8, 9]]
+			},
+			"B6": {
+				"offset": [48, 84],
+				"layers": [[5, 0], [5, 9]]
+			},
+			"B7": {
+				"offset": [48, 84],
+				"layers": [[6, 0], [6, 9]]
+			},
+			"B8": {
+				"offset": [48, 84],
+				"layers": [[7, 0], [7, 9]]
 			}
 		},
 		
 		"FSTR": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 0], [0, 5]]
+				"layers": [[0, 0], [0, 8]]
 			},
-			"A2A8": {
+			"A2": {
 				"offset": [48, 84],
-				"layers": [[1, 0], [1, 5]]
+				"layers": [[1, 0], [1, 8]]
 			},
-			"A3A7": {
+			"A3": {
 				"offset": [48, 84],
-				"layers": [[2, 0], [2, 5]]
+				"layers": [[2, 0], [2, 8]]
 			},
-			"A4A6": {
+			"A4": {
 				"offset": [48, 84],
-				"layers": [[3, 0], [3, 5]]
+				"layers": [[3, 0], [3, 8]]
 			},
 			"A5": {
+				"offset": [47, 84],
+				"layers": [[9, 0], [9, 8]]
+			},
+			"A6": {
 				"offset": [48, 84],
-				"layers": [[5, 0], [8, 5]],
-				"flip": true
+				"layers": [[5, 0], [5, 8]]
+			},
+			"A7": {
+				"offset": [48, 84],
+				"layers": [[6, 0], [6, 8]]
+			},
+			"A8": {
+				"offset": [48, 84],
+				"layers": [[7, 0], [7, 8]]
 			},
 			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 0], [0, 6]]
+				"layers": [[0, 0], [0, 9]]
 			},
-			"B2B8": {
+			"B2": {
 				"offset": [48, 84],
-				"layers": [[1, 0], [1, 6]]
+				"layers": [[1, 0], [1, 9]]
 			},
-			"B3B7": {
+			"B3": {
 				"offset": [48, 84],
-				"layers": [[2, 0], [2, 6]]
+				"layers": [[2, 0], [2, 9]]
 			},
-			"B4B6": {
+			"B4": {
 				"offset": [48, 84],
-				"layers": [[3, 0], [3, 6]]
+				"layers": [[3, 0], [3, 9]]
 			},
 			"B5": {
+				"offset": [47, 84],
+				"layers": [[9, 0], [9, 9]]
+			},
+			"B6": {
 				"offset": [48, 84],
-				"layers": [[5, 0], [8, 6]],
-				"flip": true
+				"layers": [[5, 0], [5, 9]]
+			},
+			"B7": {
+				"offset": [48, 84],
+				"layers": [[6, 0], [6, 9]]
+			},
+			"B8": {
+				"offset": [48, 84],
+				"layers": [[7, 0], [7, 9]]
 			}
 		},
 		
 		"FSGL": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 5]],
-				"flip": true
+				"layers": [[0, 2], [0, 8]]
 			},
 			"A8": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 5]],
-				"flip": true
+				"layers": [[1, 2], [7, 8]]
 			},
 			"A7": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 5]],
-				"flip": true
+				"layers": [[2, 2], [6, 8]]
 			},
 			"A6": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 5]],
-				"flip": true
+				"layers": [[3, 2], [5, 8]]
 			},
 			"A5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 5]],
-				"flip": true
+				"layers": [[4, 2], [4, 8]]
 			},
 			"A4": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 5]],
-				"flip": true
+				"layers": [[5, 2], [3, 8]]
 			},
 			"A3": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 5]],
-				"flip": true
+				"layers": [[6, 2], [2, 8]]
 			},
 			"A2": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 5]],
-				"flip": true
+				"layers": [[7, 2], [1, 8]]
 			},
-
+			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 6]],
-				"flip": true
+				"layers": [[0, 2], [0, 8]]
 			},
 			"B8": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 6]],
-				"flip": true
+				"layers": [[1, 2], [7, 8]]
 			},
 			"B7": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 6]],
-				"flip": true
+				"layers": [[2, 2], [6, 8]]
 			},
 			"B6": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 6]],
-				"flip": true
+				"layers": [[3, 2], [5, 8]]
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 6]],
-				"flip": true
+				"layers": [[4, 2], [4, 8]]
 			},
 			"B4": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 6]],
-				"flip": true
+				"layers": [[5, 2], [3, 8]]
 			},
 			"B3": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 6]],
-				"flip": true
+				"layers": [[6, 2], [2, 8]]
 			},
 			"B2": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 6]],
-				"flip": true
+				"layers": [[7, 2], [1, 8]]
 			}
 		},
 		
 		"FSGR": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 5]]
+				"layers": [[0, 1], [0, 8]]
 			},
 			"A2": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 5]]
+				"layers": [[1, 1], [1, 8]]
 			},
 			"A3": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 5]]
+				"layers": [[2, 1], [2, 8]]
 			},
 			"A4": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 5]]
+				"layers": [[3, 1], [3, 8]]
 			},
 			"A5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 5]]
+				"layers": [[4, 1], [4, 8]]
 			},
 			"A6": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 5]]
+				"layers": [[5, 1], [5, 8]]
 			},
 			"A7": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 5]]
+				"layers": [[6, 1], [6, 8]]
 			},
 			"A8": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 5]]
+				"layers": [[7, 1], [7, 8]]
 			},
-
+			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 6]]
+				"layers": [[0, 1], [0, 9]]
 			},
 			"B2": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 6]]
+				"layers": [[1, 1], [1, 9]]
 			},
 			"B3": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 6]]
+				"layers": [[2, 1], [2, 9]]
 			},
 			"B4": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 6]]
+				"layers": [[3, 1], [3, 9]]
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 6]]
+				"layers": [[4, 1], [4, 9]]
 			},
 			"B6": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 6]]
+				"layers": [[5, 1], [5, 9]]
 			},
 			"B7": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 6]]
+				"layers": [[6, 1], [6, 9]]
 			},
 			"B8": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 6]]
+				"layers": [[7, 1], [7, 9]]
 			}
 		},
 		
 		"FSLL": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 2], [0, 5]],
-				"flip": true
+				"layers": [[0, 4], [0, 8]]
 			},
 			"A8": {
 				"offset": [48, 84],
-				"layers": [[1, 2], [1, 5]],
-				"flip": true
+				"layers": [[1, 4], [7, 8]]
 			},
 			"A7": {
 				"offset": [48, 84],
-				"layers": [[2, 2], [2, 5]],
-				"flip": true
+				"layers": [[2, 4], [6, 8]]
 			},
 			"A6": {
 				"offset": [48, 84],
-				"layers": [[3, 2], [3, 5]],
-				"flip": true
+				"layers": [[3, 4], [5, 8]]
 			},
 			"A5": {
 				"offset": [48, 84],
-				"layers": [[4, 2], [4, 5]],
-				"flip": true
+				"layers": [[4, 4], [4, 8]]
 			},
 			"A4": {
 				"offset": [48, 84],
-				"layers": [[5, 2], [5, 5]],
-				"flip": true
+				"layers": [[5, 4], [3, 8]]
 			},
 			"A3": {
 				"offset": [48, 84],
-				"layers": [[6, 2], [6, 5]],
-				"flip": true
+				"layers": [[6, 4], [2, 8]]
 			},
 			"A2": {
 				"offset": [48, 84],
-				"layers": [[7, 2], [7, 5]],
-				"flip": true
+				"layers": [[7, 4], [1, 8]]
 			},
-
+			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 2], [0, 6]],
-				"flip": true
+				"layers": [[0, 4], [0, 8]]
 			},
 			"B8": {
 				"offset": [48, 84],
-				"layers": [[1, 2], [1, 6]],
-				"flip": true
+				"layers": [[1, 4], [7, 8]]
 			},
 			"B7": {
 				"offset": [48, 84],
-				"layers": [[2, 2], [2, 6]],
-				"flip": true
+				"layers": [[2, 4], [6, 8]]
 			},
 			"B6": {
 				"offset": [48, 84],
-				"layers": [[3, 2], [3, 6]],
-				"flip": true
+				"layers": [[3, 4], [5, 8]]
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[4, 2], [4, 6]],
-				"flip": true
+				"layers": [[4, 4], [4, 8]]
 			},
 			"B4": {
 				"offset": [48, 84],
-				"layers": [[5, 2], [5, 6]],
-				"flip": true
+				"layers": [[5, 4], [3, 8]]
 			},
 			"B3": {
 				"offset": [48, 84],
-				"layers": [[6, 2], [6, 6]],
-				"flip": true
+				"layers": [[6, 4], [2, 8]]
 			},
 			"B2": {
 				"offset": [48, 84],
-				"layers": [[7, 2], [7, 6]],
-				"flip": true
+				"layers": [[7, 4], [1, 8]]
 			}
 		},
 		
 		"FSLR": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 2], [0, 5]]
+				"layers": [[0, 3], [0, 8]]
 			},
 			"A2": {
 				"offset": [48, 84],
-				"layers": [[1, 2], [1, 5]]
+				"layers": [[1, 3], [1, 8]]
 			},
 			"A3": {
 				"offset": [48, 84],
-				"layers": [[2, 2], [2, 5]]
+				"layers": [[2, 3], [2, 8]]
 			},
 			"A4": {
 				"offset": [48, 84],
-				"layers": [[3, 2], [3, 5]]
+				"layers": [[3, 3], [3, 8]]
 			},
 			"A5": {
 				"offset": [48, 84],
-				"layers": [[4, 2], [4, 5]]
+				"layers": [[4, 3], [4, 8]]
 			},
 			"A6": {
 				"offset": [48, 84],
-				"layers": [[5, 2], [5, 5]]
+				"layers": [[5, 3], [5, 8]]
 			},
 			"A7": {
 				"offset": [48, 84],
-				"layers": [[6, 2], [6, 5]]
+				"layers": [[6, 3], [6, 8]]
 			},
 			"A8": {
 				"offset": [48, 84],
-				"layers": [[7, 2], [7, 5]]
+				"layers": [[7, 3], [7, 8]]
 			},
-
+			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 2], [0, 6]]
+				"layers": [[0, 3], [0, 9]]
 			},
 			"B2": {
 				"offset": [48, 84],
-				"layers": [[1, 2], [1, 6]]
+				"layers": [[1, 3], [1, 9]]
 			},
 			"B3": {
 				"offset": [48, 84],
-				"layers": [[2, 2], [2, 6]]
+				"layers": [[2, 3], [2, 9]]
 			},
 			"B4": {
 				"offset": [48, 84],
-				"layers": [[3, 2], [3, 6]]
+				"layers": [[3, 3], [3, 9]]
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[4, 2], [4, 6]]
+				"layers": [[4, 3], [4, 9]]
 			},
 			"B6": {
 				"offset": [48, 84],
-				"layers": [[5, 2], [5, 6]]
+				"layers": [[5, 3], [5, 9]]
 			},
 			"B7": {
 				"offset": [48, 84],
-				"layers": [[6, 2], [6, 6]]
+				"layers": [[6, 3], [6, 9]]
 			},
 			"B8": {
 				"offset": [48, 84],
-				"layers": [[7, 2], [7, 6]]
+				"layers": [[7, 3], [7, 9]]
 			}
 		},
 		
 		"DRLN": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 5]]
+				"layers": [[0, 1], [0, 8]]
 			},
 			"A2": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 5]]
+				"layers": [[1, 1], [1, 8]]
 			},
 			"A3": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 5]]
+				"layers": [[2, 1], [2, 8]]
 			},
 			"A4": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 5]]
+				"layers": [[3, 1], [3, 8]]
 			},
 			"A5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 5]]
+				"layers": [[4, 1], [4, 8]]
 			},
 			"A6": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 5]]
+				"layers": [[5, 1], [5, 8]]
 			},
 			"A7": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 5]]
+				"layers": [[6, 1], [6, 8]]
 			},
 			"A8": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 5]]
+				"layers": [[7, 1], [7, 8]]
 			},
 			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 6]]
+				"layers": [[0, 1], [0, 9]]
 			},
 			"B2": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 6]]
+				"layers": [[1, 1], [1, 9]]
 			},
 			"B3": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 6]]
+				"layers": [[2, 1], [2, 9]]
 			},
 			"B4": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 6]]
+				"layers": [[3, 1], [3, 9]]
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 6]]
+				"layers": [[4, 1], [4, 9]]
 			},
 			"B6": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 6]]
+				"layers": [[5, 1], [5, 9]]
 			},
 			"B7": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 6]]
+				"layers": [[6, 1], [6, 9]]
 			},
 			"B8": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 6]]
+				"layers": [[7, 1], [7, 9]]
 			}
 		},
 		
 		"DRLO": {
 			"A1": {
 				"offset": [48, 87],
-				"layers": [[0, 1], [0, 5]],
+				"layers": [[0, 1], [0, 8]],
 				"ditherstyle": 2
 			},
 			"A2": {
 				"offset": [48, 87],
-				"layers": [[1, 1], [1, 5]],
+				"layers": [[1, 1], [1, 8]],
 				"ditherstyle": 2
 			},
 			"A3": {
 				"offset": [48, 87],
-				"layers": [[2, 1], [2, 5]],
+				"layers": [[2, 1], [2, 8]],
 				"ditherstyle": 2
 			},
 			"A4": {
 				"offset": [48, 87],
-				"layers": [[3, 1], [3, 5]],
+				"layers": [[3, 1], [3, 8]],
 				"ditherstyle": 2
 			},
 			"A5": {
 				"offset": [48, 87],
-				"layers": [[4, 1], [4, 5]],
+				"layers": [[4, 1], [4, 8]],
 				"ditherstyle": 2
 			},
 			"A6": {
 				"offset": [48, 87],
-				"layers": [[5, 1], [5, 5]],
+				"layers": [[5, 1], [5, 8]],
 				"ditherstyle": 2
 			},
 			"A7": {
 				"offset": [48, 87],
-				"layers": [[6, 1], [6, 5]],
+				"layers": [[6, 1], [6, 8]],
 				"ditherstyle": 2
 			},
 			"A8": {
 				"offset": [48, 87],
-				"layers": [[7, 1], [7, 5]],
+				"layers": [[7, 1], [7, 8]],
 				"ditherstyle": 2
 			},
 			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 6]]
+				"layers": [[0, 1], [0, 9]]
 			},
 			"B2": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 6]]
+				"layers": [[1, 1], [1, 9]]
 			},
 			"B3": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 6]]
+				"layers": [[2, 1], [2, 9]]
 			},
 			"B4": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 6]]
+				"layers": [[3, 1], [3, 9]]
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 6]]
+				"layers": [[4, 1], [4, 9]]
 			},
 			"B6": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 6]]
+				"layers": [[5, 1], [5, 9]]
 			},
 			"B7": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 6]]
+				"layers": [[6, 1], [6, 9]]
 			},
 			"B8": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 6]]
+				"layers": [[7, 1], [7, 9]]
 			}
 		},
 		
 		"DRLI": {
 			"A1": {
 				"offset": [42, 84],
-				"layers": [[0, 1], [0, 5]],
+				"layers": [[0, 1], [0, 8]],
 				"ditherstyle": 3
 			},
 			"A2": {
 				"offset": [42, 84],
-				"layers": [[1, 1], [1, 5]],
+				"layers": [[1, 1], [1, 8]],
 				"ditherstyle": 3
 			},
 			"A3": {
 				"offset": [42, 84],
-				"layers": [[2, 1], [2, 5]],
+				"layers": [[2, 1], [2, 8]],
 				"ditherstyle": 3
 			},
 			"A4": {
 				"offset": [42, 84],
-				"layers": [[3, 1], [3, 5]],
+				"layers": [[3, 1], [3, 8]],
 				"ditherstyle": 3
 			},
 			"A5": {
 				"offset": [42, 84],
-				"layers": [[4, 1], [4, 5]],
+				"layers": [[4, 1], [4, 8]],
 				"ditherstyle": 3
 			},
 			"A6": {
 				"offset": [42, 84],
-				"layers": [[5, 1], [5, 5]],
+				"layers": [[5, 1], [5, 8]],
 				"ditherstyle": 3
 			},
 			"A7": {
 				"offset": [42, 84],
-				"layers": [[6, 1], [6, 5]],
+				"layers": [[6, 1], [6, 8]],
 				"ditherstyle": 3
 			},
 			"A8": {
 				"offset": [42, 84],
-				"layers": [[7, 1], [7, 5]],
+				"layers": [[7, 1], [7, 8]],
 				"ditherstyle": 3
 			},
 			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 6]]
+				"layers": [[0, 1], [0, 9]]
 			},
 			"B2": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 6]]
+				"layers": [[1, 1], [1, 9]]
 			},
 			"B3": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 6]]
+				"layers": [[2, 1], [2, 9]]
 			},
 			"B4": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 6]]
+				"layers": [[3, 1], [3, 9]]
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 6]]
+				"layers": [[4, 1], [4, 9]]
 			},
 			"B6": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 6]]
+				"layers": [[5, 1], [5, 9]]
 			},
 			"B7": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 6]]
+				"layers": [[6, 1], [6, 9]]
 			},
 			"B8": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 6]]
+				"layers": [[7, 1], [7, 9]]
 			},
 			
 			"C1": {
 				"offset": [54, 84],
-				"layers": [[0, 1], [0, 5]],
+				"layers": [[0, 1], [0, 8]],
 				"ditherstyle": 4
 			},
 			"C2": {
 				"offset": [54, 84],
-				"layers": [[1, 1], [1, 5]],
+				"layers": [[1, 1], [1, 8]],
 				"ditherstyle": 4
 			},
 			"C3": {
 				"offset": [54, 84],
-				"layers": [[2, 1], [2, 5]],
+				"layers": [[2, 1], [2, 8]],
 				"ditherstyle": 4
 			},
 			"C4": {
 				"offset": [54, 84],
-				"layers": [[3, 1], [3, 5]],
+				"layers": [[3, 1], [3, 8]],
 				"ditherstyle": 4
 			},
 			"C5": {
 				"offset": [54, 84],
-				"layers": [[4, 1], [4, 5]],
+				"layers": [[4, 1], [4, 8]],
 				"ditherstyle": 4
 			},
 			"C6": {
 				"offset": [54, 84],
-				"layers": [[5, 1], [5, 5]],
+				"layers": [[5, 1], [5, 8]],
 				"ditherstyle": 4
 			},
 			"C7": {
 				"offset": [54, 84],
-				"layers": [[6, 1], [6, 5]],
+				"layers": [[6, 1], [6, 8]],
 				"ditherstyle": 4
 			},
 			"C8": {
 				"offset": [54, 84],
-				"layers": [[7, 1], [7, 5]],
+				"layers": [[7, 1], [7, 8]],
 				"ditherstyle": 4
 			},
 			
 			"D1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 6]]
+				"layers": [[0, 1], [0, 9]]
 			},
 			"D2": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 6]]
+				"layers": [[1, 1], [1, 9]]
 			},
 			"D3": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 6]]
+				"layers": [[2, 1], [2, 9]]
 			},
 			"D4": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 6]]
+				"layers": [[3, 1], [3, 9]]
 			},
 			"D5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 6]]
+				"layers": [[4, 1], [4, 9]]
 			},
 			"D6": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 6]]
+				"layers": [[5, 1], [5, 9]]
 			},
 			"D7": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 6]]
+				"layers": [[6, 1], [6, 9]]
 			},
 			"D8": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 6]]
+				"layers": [[7, 1], [7, 9]]
 			}
 		},
 		
 		"DRRN": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 5]],
-				"flip": true
+				"layers": [[0, 2], [0, 8]]
 			},
 			"A8": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 5]],
-				"flip": true
+				"layers": [[1, 2], [7, 8]]
 			},
 			"A7": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 5]],
-				"flip": true
+				"layers": [[2, 2], [6, 8]]
 			},
 			"A6": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 5]],
-				"flip": true
+				"layers": [[3, 2], [5, 8]]
 			},
 			"A5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 5]],
-				"flip": true
+				"layers": [[4, 2], [4, 8]]
 			},
 			"A4": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 5]],
-				"flip": true
+				"layers": [[5, 2], [3, 8]]
 			},
 			"A3": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 5]],
-				"flip": true
+				"layers": [[6, 2], [2, 8]]
 			},
 			"A2": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 5]],
-				"flip": true
+				"layers": [[7, 2], [1, 8]]
 			},
 			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 6]],
-				"flip": true
+				"layers": [[0, 2], [0, 8]]
 			},
 			"B8": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 6]],
-				"flip": true
+				"layers": [[1, 2], [7, 8]]
 			},
 			"B7": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 6]],
-				"flip": true
+				"layers": [[2, 2], [6, 8]]
 			},
 			"B6": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 6]],
-				"flip": true
+				"layers": [[3, 2], [5, 8]]
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 6]],
-				"flip": true
+				"layers": [[4, 2], [4, 8]]
 			},
 			"B4": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 6]],
-				"flip": true
+				"layers": [[5, 2], [3, 8]]
 			},
 			"B3": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 6]],
-				"flip": true
+				"layers": [[6, 2], [2, 8]]
 			},
 			"B2": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 6]],
-				"flip": true
+				"layers": [[7, 2], [1, 8]]
 			}
 		},
 		
 		"DRRO": {
 			"A1": {
 				"offset": [48, 87],
-				"layers": [[0, 1], [0, 5]],
-				"ditherstyle": 2,
-				"flip": true
+				"layers": [[0, 2], [0, 8]],
+				"ditherstyle": 2
 			},
 			"A8": {
 				"offset": [48, 87],
-				"layers": [[1, 1], [1, 5]],
-				"ditherstyle": 2,
-				"flip": true
+				"layers": [[1, 2], [7, 8]],
+				"ditherstyle": 2
 			},
 			"A7": {
 				"offset": [48, 87],
-				"layers": [[2, 1], [2, 5]],
-				"ditherstyle": 2,
-				"flip": true
+				"layers": [[2, 2], [6, 8]],
+				"ditherstyle": 2
 			},
 			"A6": {
 				"offset": [48, 87],
-				"layers": [[3, 1], [3, 5]],
-				"ditherstyle": 2,
-				"flip": true
+				"layers": [[3, 2], [5, 8]],
+				"ditherstyle": 2
 			},
 			"A5": {
 				"offset": [48, 87],
-				"layers": [[4, 1], [4, 5]],
-				"ditherstyle": 2,
-				"flip": true
+				"layers": [[4, 2], [4, 8]],
+				"ditherstyle": 2
 			},
 			"A4": {
 				"offset": [48, 87],
-				"layers": [[5, 1], [5, 5]],
-				"ditherstyle": 2,
-				"flip": true
+				"layers": [[5, 2], [3, 8]],
+				"ditherstyle": 2
 			},
 			"A3": {
 				"offset": [48, 87],
-				"layers": [[6, 1], [6, 5]],
-				"ditherstyle": 2,
-				"flip": true
+				"layers": [[6, 2], [2, 8]],
+				"ditherstyle": 2
 			},
 			"A2": {
 				"offset": [48, 87],
-				"layers": [[7, 1], [7, 5]],
-				"ditherstyle": 2,
-				"flip": true
+				"layers": [[7, 2], [1, 8]],
+				"ditherstyle": 2
 			},
 			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 6]],
-				"flip": true
+				"layers": [[0, 2], [0, 9]]
 			},
 			"B8": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 6]],
-				"flip": true
+				"layers": [[1, 2], [7, 9]]
 			},
 			"B7": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 6]],
-				"flip": true
+				"layers": [[2, 2], [6, 9]]
 			},
 			"B6": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 6]],
-				"flip": true
+				"layers": [[3, 2], [5, 9]]
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 6]],
-				"flip": true
+				"layers": [[4, 2], [4, 9]]
 			},
 			"B4": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 6]],
-				"flip": true
+				"layers": [[5, 2], [3, 9]]
 			},
 			"B3": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 6]],
-				"flip": true
+				"layers": [[6, 2], [2, 9]]
 			},
 			"B2": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 6]],
-				"flip": true
+				"layers": [[7, 2], [1, 9]]
 			}
 		},
 		
 		"DRRI": {
 			"A1": {
 				"offset": [54, 84],
-				"layers": [[0, 1], [0, 5]],
-				"ditherstyle": 4,
-				"flip": true
+				"layers": [[0, 2], [0, 8]],
+				"ditherstyle": 4
 			},
 			"A8": {
 				"offset": [54, 84],
-				"layers": [[1, 1], [1, 5]],
-				"ditherstyle": 4,
-				"flip": true
+				"layers": [[1, 2], [7, 8]],
+				"ditherstyle": 4
 			},
 			"A7": {
 				"offset": [54, 84],
-				"layers": [[2, 1], [2, 5]],
-				"ditherstyle": 4,
-				"flip": true
+				"layers": [[2, 2], [6, 8]],
+				"ditherstyle": 4
 			},
 			"A6": {
 				"offset": [54, 84],
-				"layers": [[3, 1], [3, 5]],
-				"ditherstyle": 4,
-				"flip": true
+				"layers": [[3, 2], [5, 8]],
+				"ditherstyle": 4
 			},
 			"A5": {
 				"offset": [54, 84],
-				"layers": [[4, 1], [4, 5]],
-				"ditherstyle": 4,
-				"flip": true
+				"layers": [[4, 2], [4, 8]],
+				"ditherstyle": 4
 			},
 			"A4": {
 				"offset": [54, 84],
-				"layers": [[5, 1], [5, 5]],
-				"ditherstyle": 4,
-				"flip": true
+				"layers": [[5, 2], [3, 8]],
+				"ditherstyle": 4
 			},
 			"A3": {
 				"offset": [54, 84],
-				"layers": [[6, 1], [6, 5]],
-				"ditherstyle": 4,
-				"flip": true
+				"layers": [[6, 2], [2, 8]],
+				"ditherstyle": 4
 			},
 			"A2": {
 				"offset": [54, 84],
-				"layers": [[7, 1], [7, 5]],
-				"ditherstyle": 4,
-				"flip": true
+				"layers": [[7, 2], [1, 8]],
+				"ditherstyle": 4
 			},
 			
 			"B1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 6]],
-				"flip": true
+				"layers": [[0, 2], [0, 9]]
 			},
 			"B8": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 6]],
-				"flip": true
+				"layers": [[1, 2], [7, 9]]
 			},
 			"B7": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 6]],
-				"flip": true
+				"layers": [[2, 2], [6, 9]]
 			},
 			"B6": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 6]],
-				"flip": true
+				"layers": [[3, 2], [5, 9]]
 			},
 			"B5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 6]],
-				"flip": true
+				"layers": [[4, 2], [4, 9]]
 			},
 			"B4": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 6]],
-				"flip": true
+				"layers": [[5, 2], [3, 9]]
 			},
 			"B3": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 6]],
-				"flip": true
+				"layers": [[6, 2], [2, 9]]
 			},
 			"B2": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 6]],
-				"flip": true
+				"layers": [[7, 2], [1, 9]]
 			},
 			
 			"C1": {
 				"offset": [42, 84],
-				"layers": [[0, 1], [0, 5]],
-				"ditherstyle": 3,
-				"flip": true
+				"layers": [[0, 2], [0, 8]],
+				"ditherstyle": 3
 			},
 			"C8": {
 				"offset": [42, 84],
-				"layers": [[1, 1], [1, 5]],
-				"ditherstyle": 3,
-				"flip": true
+				"layers": [[1, 2], [7, 8]],
+				"ditherstyle": 3
 			},
 			"C7": {
 				"offset": [42, 84],
-				"layers": [[2, 1], [2, 5]],
-				"ditherstyle": 3,
-				"flip": true
+				"layers": [[2, 2], [6, 8]],
+				"ditherstyle": 3
 			},
 			"C6": {
 				"offset": [42, 84],
-				"layers": [[3, 1], [3, 5]],
-				"ditherstyle": 3,
-				"flip": true
+				"layers": [[3, 2], [5, 8]],
+				"ditherstyle": 3
 			},
 			"C5": {
 				"offset": [42, 84],
-				"layers": [[4, 1], [4, 5]],
-				"ditherstyle": 3,
-				"flip": true
+				"layers": [[4, 2], [4, 8]],
+				"ditherstyle": 3
 			},
 			"C4": {
 				"offset": [42, 84],
-				"layers": [[5, 1], [5, 5]],
-				"ditherstyle": 3,
-				"flip": true
+				"layers": [[5, 2], [3, 8]],
+				"ditherstyle": 3
 			},
 			"C3": {
 				"offset": [42, 84],
-				"layers": [[6, 1], [6, 5]],
-				"ditherstyle": 3,
-				"flip": true
+				"layers": [[6, 2], [2, 8]],
+				"ditherstyle": 3
 			},
 			"C2": {
 				"offset": [42, 84],
-				"layers": [[7, 1], [7, 5]],
-				"ditherstyle": 3,
-				"flip": true
+				"layers": [[7, 2], [1, 8]],
+				"ditherstyle": 3
 			},
 			
 			"D1": {
 				"offset": [48, 84],
-				"layers": [[0, 1], [0, 6]],
-				"flip": true
+				"layers": [[0, 2], [0, 9]]
 			},
 			"D8": {
 				"offset": [48, 84],
-				"layers": [[1, 1], [1, 6]],
-				"flip": true
+				"layers": [[1, 2], [7, 9]]
 			},
 			"D7": {
 				"offset": [48, 84],
-				"layers": [[2, 1], [2, 6]],
-				"flip": true
+				"layers": [[2, 2], [6, 9]]
 			},
 			"D6": {
 				"offset": [48, 84],
-				"layers": [[3, 1], [3, 6]],
-				"flip": true
+				"layers": [[3, 2], [5, 9]]
 			},
 			"D5": {
 				"offset": [48, 84],
-				"layers": [[4, 1], [4, 6]],
-				"flip": true
+				"layers": [[4, 2], [4, 9]]
 			},
 			"D4": {
 				"offset": [48, 84],
-				"layers": [[5, 1], [5, 6]],
-				"flip": true
+				"layers": [[5, 2], [3, 9]]
 			},
 			"D3": {
 				"offset": [48, 84],
-				"layers": [[6, 1], [6, 6]],
-				"flip": true
+				"layers": [[6, 2], [2, 9]]
 			},
 			"D2": {
 				"offset": [48, 84],
-				"layers": [[7, 1], [7, 6]],
-				"flip": true
+				"layers": [[7, 2], [1, 9]]
 			}
 		},
 		
 		"SPIN": {
 			"A1": {
 				"offset": [48, 84],
-				"layers": [[0, 3], [0, 5]]
+				"layers": [[0, 5], [0, 8]]
 			},
-			"A2A8": {
+			"A2": {
 				"offset": [48, 84],
-				"layers": [[1, 3], [1, 5]]
+				"layers": [[1, 5], [1, 8]]
 			},
-			"A3A7": {
+			"A3": {
 				"offset": [48, 84],
-				"layers": [[2, 3], [2, 5]]
+				"layers": [[2, 5], [2, 8]]
 			},
-			"A4A6": {
+			"A4": {
 				"offset": [48, 84],
-				"layers": [[3, 3], [3, 5]]
+				"layers": [[3, 5], [3, 8]]
 			},
 			"A5": {
 				"offset": [48, 84],
-				"layers": [[4, 3], [4, 5]]
+				"layers": [[4, 5], [4, 8]]
+			},
+			"A6": {
+				"offset": [48, 84],
+				"layers": [[5, 5], [5, 8]]
+			},
+			"A7": {
+				"offset": [48, 84],
+				"layers": [[6, 5], [6, 8]]
+			},
+			"A8": {
+				"offset": [48, 84],
+				"layers": [[7, 5], [7, 8]]
 			}
 		},
 		
 		"DEAD": {
 			"A0": {
 				"offset": [48, 84],
-				"layers": [[5, 3]]
+				"layers": [[0, 6]]
 			},
 			"B0": {
 				"offset": [48, 84],
-				"layers": [[6, 3]]
+				"layers": [[1, 6]]
 			},
 			"C0": {
 				"offset": [48, 84],
-				"layers": [[5, 3]]
+				"layers": [[0, 6]]
 			},
 			"D0": {
 				"offset": [48, 84],
-				"layers": [[6, 3]],
-				"flip": true
+				"layers": [[2, 6]]
 			}
 		},
 		
 		"SIGN": {
 			"A0": {
 				"offset": [48, 79],
-				"layers": [[6, 0]]
+				"layers": [[8, 1]]
 			}
 		},
 
@@ -2134,19 +2213,19 @@
 			"A0": {
 				"overwrite_sprite_size": [16, 16],
 				"overwrite_layer_step_size": [1, 1],
-				"layers": [[100, 394]]
+				"layers": [[100, 682]]
 			},
 			
 			"B0": {
 				"overwrite_sprite_size": [32, 32],
 				"overwrite_layer_step_size": [1, 1],
-				"layers": [[10, 394]]
+				"layers": [[10, 682]]
 			},
 
 			"C0": {
 				"overwrite_sprite_size": [12, 12],
 				"overwrite_layer_step_size": [1, 1],
-				"layers": [[190, 394]]
+				"layers": [[190, 682]]
 			}
 		}
 	},

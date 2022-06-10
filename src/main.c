@@ -24,6 +24,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <errno.h>
 
 #include "cJSON.h"
 #include "lodepng.h"
@@ -742,10 +743,17 @@ int main(int argc, char *argv[]) {
 	filename = path;
 	while (*filename) filename++;
 	while (*(filename-1) != '/' && *(filename-1) != '\\' && filename > path) filename--;
-	SET_FILENAME("playpal.lmp");
+	SET_FILENAME("PLAYPAL.lmp");
 	printf("%s\n", path);
 
 	wadf = fopen(path, "rb");
+
+	if (wadf == NULL)
+	{
+		fprintf(stderr, "Could not open file %s: %s\n", path, strerror(errno));
+		return EXIT_FAILURE;
+	}
+
 	palInit = 1;
 
 	fread(palette, 3, 256, wadf);

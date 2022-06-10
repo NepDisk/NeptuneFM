@@ -419,16 +419,6 @@ void rgbaToPalette(unsigned char red, unsigned char green, unsigned char blue, u
 	// Opaque pixel!
 	*opaque = 1;
 
-	// Load palette if we haven't already
-	if (!palInit)
-	{
-		FILE* file = fopen("PLAYPAL.lmp", "rb");
-		palInit = 1;
-
-		fread(palette,3,256,file);
-		fclose(file);
-	}
-
 	// Map colors to palette index
 	for (palCheck = 0; palCheck < 256; palCheck++)
 	{

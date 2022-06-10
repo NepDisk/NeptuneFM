@@ -33,9 +33,10 @@
 // If your sprites are bigger than 256*256, consider a different approach than this program?
 #define MAX_IMAGE_SIZE 256*256
 
-#define S_SKIN_TEMPLATE "name = %s\nrealname = %s\nfacerank = %sRANK\nfacewant = %sWANT\nfacemmap = %sMMAP\nkartspeed = %d\nkartweight = %d\nstartcolor = %d\nprefcolor = %s\nDSKGLOAT = DS%sGL\nDSKWIN = DS%sWI\nDSKLOSE = DS%sLS\nDSKSLOW = DS%sSL\nDSKHURT1 = DS%sH1\nDSKHURT2 = DS%sH2\nDSKATTK1 = DS%sA1\nDSKATTK2 = DS%sA2\nDSKBOST1 = DS%sB1\nDSKBOST2 = DS%sB2\nDSKHITEM = DS%sHT\n"
+#define S_SKIN_TEMPLATE "name = %s\nrealname = %s\nkartspeed = %d\nkartweight = %d\nstartcolor = %d\nprefcolor = %s\nrivals = %s,%s,%s\nDSKGLOAT = DS%sGL\nDSKWIN = DS%sWI\nDSKLOSE = DS%sLS\nDSKSLOW = DS%sSL\nDSKHURT1 = DS%sH1\nDSKHURT2 = DS%sH2\nDSKATTK1 = DS%sA1\nDSKATTK2 = DS%sA2\nDSKBOST1 = DS%sB1\nDSKBOST2 = DS%sB2\nDSKHITEM = DS%sHT\n"
 
 #define SKINNAMESIZE 16
+#define MAXRIVALS 3
 
 // This struct contains pre-lump-conversion data about a sprite
 struct RGB_Sprite {
@@ -59,6 +60,7 @@ struct skinprop {
 	uint8_t kartweight;
 	uint8_t startcolor;
 	char prefcolor[32];
+	char rivals[MAXRIVALS][SKINNAMESIZE];
 };
 
 unsigned error;
@@ -224,13 +226,26 @@ void SetDefaultSkinValues(void)
 {
 	strncpy(kskin.name, "someone", 8);
 	kskin.name[8] = '\0';
+
 	strncpy(kskin.realname, "Someone", 8);
 	kskin.realname[8] = '\0';
+
 	kskin.kartspeed = 5;
 	kskin.kartweight = 5;
+
 	kskin.startcolor = 96;
+
 	strncpy(kskin.prefcolor, "Green", 6);
 	kskin.prefcolor[6] = '\0';
+
+	strncpy(kskin.rivals[0], "eggman", 7);
+	kskin.rivals[0][7] = '\0';
+
+	strncpy(kskin.rivals[1], "tails", 6);
+	kskin.rivals[1][6] = '\0';
+
+	strncpy(kskin.rivals[2], "eggrobo", 8);
+	kskin.rivals[2][8] = '\0';
 }
 
 
@@ -695,10 +710,10 @@ void addSkin(struct wadfile* wad)
 	}
 
 	if (cJSON_GetObjectItem(metadata, "stats"))
+	{
 		kskin.kartspeed = cJSON_GetObjectItem(metadata, "stats")->child->valueint;
-
-	if (cJSON_GetObjectItem(metadata, "stats"))
 		kskin.kartweight = cJSON_GetObjectItem(metadata, "stats")->child->next->valueint;
+	}
 
 	if (cJSON_GetObjectItem(metadata, "startcolor"))
 		kskin.startcolor = cJSON_GetObjectItem(metadata, "startcolor")->valueint;
@@ -709,13 +724,35 @@ void addSkin(struct wadfile* wad)
 		strncpy(kskin.prefcolor, cJSON_GetObjectItem(metadata, "prefcolor")->valuestring, slen);
 	}
 
-	size = sprintf(buf, S_SKIN_TEMPLATE, kskin.name,
+	if (cJSON_GetObjectItem(metadata, "rivals"))
+	{
+		cJSON* item = cJSON_GetObjectItem(metadata, "rivals")->child;
+		int numRivals = 0;
+
+		while (item != NULL)
+		{
+			if (numRivals >= MAXRIVALS)
+			{
+				break;
+			}
+
+			slen = strlen(item->valuestring);
+			strncpy(kskin.rivals[numRivals], item->valuestring, slen);
+			kskin.rivals[numRivals][slen] = '\0';
+
+			item = item->next;
+			numRivals++;
+		}
+	}
+
+	size = sprintf(buf, S_SKIN_TEMPLATE,
+		kskin.name,
 		kskin.realname,
-		prefix, prefix, prefix,
 		kskin.kartspeed,
 		kskin.kartweight,
 		kskin.startcolor,
 		kskin.prefcolor,
+		kskin.rivals[0], kskin.rivals[1], kskin.rivals[2],
 		prefix, prefix, prefix, prefix, prefix, prefix, prefix, prefix, prefix, prefix, prefix
 	);
 	add_lump(wad, NULL, "S_SKIN", size, buf);

@@ -678,10 +678,8 @@ void addSkin(struct wadfile* wad)
 	if (cJSON_GetObjectItem(metadata, "realname"))
 	{
 		slen = strlen(cJSON_GetObjectItem(metadata, "realname")->valuestring);
-		printf("%s\n", cJSON_GetObjectItem(metadata, "realname")->valuestring);
 		strncpy(kskin.realname, cJSON_GetObjectItem(metadata, "realname")->valuestring, slen);
 		kskin.realname[slen] = '\0';
-		printf("%s\n", kskin.realname);
 	}
 
 	if (cJSON_GetObjectItem(metadata, "stats"))

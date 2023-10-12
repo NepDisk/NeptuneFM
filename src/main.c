@@ -23,8 +23,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <direct.h>
 #include <stdint.h>
+#include <errno.h>
 
 #include "cJSON.h"
 #include "lodepng.h"
@@ -434,16 +434,6 @@ void rgbaToPalette(unsigned char red, unsigned char green, unsigned char blue, u
 	// Opaque pixel!
 	*opaque = 1;
 
-	// Load palette if we haven't already
-	if (!palInit)
-	{
-		FILE* file = fopen("PLAYPAL.lmp", "rb");
-		palInit = 1;
-
-		fread(palette,3,256,file);
-		fclose(file);
-	}
-
 	// Map colors to palette index
 	for (palCheck = 0; palCheck < 256; palCheck++)
 	{
@@ -703,10 +693,8 @@ void addSkin(struct wadfile* wad)
 	if (cJSON_GetObjectItem(metadata, "realname"))
 	{
 		slen = strlen(cJSON_GetObjectItem(metadata, "realname")->valuestring);
-		printf("%s\n", cJSON_GetObjectItem(metadata, "realname")->valuestring);
 		strncpy(kskin.realname, cJSON_GetObjectItem(metadata, "realname")->valuestring, slen);
 		kskin.realname[slen] = '\0';
-		printf("%s\n", kskin.realname);
 	}
 
 	if (cJSON_GetObjectItem(metadata, "stats"))
@@ -780,10 +768,17 @@ int main(int argc, char *argv[]) {
 	filename = path;
 	while (*filename) filename++;
 	while (*(filename-1) != '/' && *(filename-1) != '\\' && filename > path) filename--;
-	SET_FILENAME("playpal.lmp");
+	SET_FILENAME("PLAYPAL.lmp");
 	printf("%s\n", path);
 
 	wadf = fopen(path, "rb");
+
+	if (wadf == NULL)
+	{
+		fprintf(stderr, "Could not open file %s: %s\n", path, strerror(errno));
+		return EXIT_FAILURE;
+	}
+
 	palInit = 1;
 
 	fread(palette, 3, 256, wadf);

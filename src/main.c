@@ -710,6 +710,7 @@ void addSkin(struct wadfile* wad)
 	{
 		slen = strlen(cJSON_GetObjectItem(metadata, "prefcolor")->valuestring);
 		strncpy(kskin.prefcolor, cJSON_GetObjectItem(metadata, "prefcolor")->valuestring, slen);
+		kskin.prefcolor[slen] = '\0';
 	}
 
 	if (cJSON_GetObjectItem(metadata, "rivals"))

@@ -1,5 +1,5 @@
 /*
-	Kartmaker. By fickleheart 2019.
+	Kartmaker. Maintained by Kart Krew Dev 2020-2024.
 	Takes a working folder (examples provided) and converts it into a character WAD for SRB2Kart.
 	Uses lump.c and lump.h from Lumpmod. &copy; 2003 Thunder Palace Entertainment.
 

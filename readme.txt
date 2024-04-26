@@ -1,4 +1,4 @@
-Kartmaker, by fickleheart
+Kartmaker, maintained by Kart Krew Dev
 
 HOW TO USE:
 - Copy one of the KC_example/ folders and rename it (your WAD will be named after this folder)

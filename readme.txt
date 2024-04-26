@@ -1,5 +1,9 @@
 Kartmaker, maintained by Kart Krew Dev
 
+DR. ROBOTNIK'S RING RACERS KART SPRITES BY VELOCITONI, PERMISSIONS:
+- SRB2 Message Board: only for use within the context of Ring Racers modifications; as long as it's for Ring Racers it can be modified or edited and used without permission.
+- Just ask for permission from VelocitOni for any use otherwise.
+
 HOW TO USE:
 - Copy one of the KC_example/ folders and rename it (your WAD will be named after this folder)
 - Edit the top of "properties.txt" to set various kart stats for your racer, and adjust the RGB colors that the

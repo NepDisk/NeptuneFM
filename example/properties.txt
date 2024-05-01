@@ -165,24 +165,12 @@
 			}
 		},
 
-		"icons": {
+		"icon": {
 			"A0": {
 				"overwrite_sprite_size": [16, 16],
 				"overwrite_layer_step_size": [1, 1],
-				"layers": [[100, 394]]
+				"layers": [[10, 778]]
 			},
-			
-			"B0": {
-				"overwrite_sprite_size": [32, 32],
-				"overwrite_layer_step_size": [1, 1],
-				"layers": [[10, 394]]
-			},
-
-			"C0": {
-				"overwrite_sprite_size": [12, 12],
-				"overwrite_layer_step_size": [1, 1],
-				"layers": [[190, 394]]
-			}
 		}
 	}
 }

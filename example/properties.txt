@@ -1,12 +1,11 @@
 {
 	"name": "example",
-	"realname": "Example_Follower",
 	"prefix": "EXMP",
 	"category": "Fanworks",
 
 	"startcolor": 96, /* Start of the recolorable colors range, which is 16 colors. 96 is the start of a green gradient. Don't change unless you intend to change the color used for recoloring. */
 	"prefcolor": "red", /* Default color for menus. */
-	"mode": "float", /* If floating or on the ground. */
+	"mode": 0, /* If floating (0) or on the ground (1). */
 	"scale": 1, /* (in Fracunits) Scale relative to the player's. */
 	"bubblescale": 0, /* (in Fracunits) Bubble scale relative to the player scale. If not set, no bubble will spawn. */
 	"atangle": 230, /* Angle the follower will be at around the player. The follower will always face the same direction as the player. */

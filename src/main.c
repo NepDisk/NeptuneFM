@@ -33,10 +33,9 @@
 // If your sprites are bigger than 256*256, consider a different approach than this program?
 #define MAX_IMAGE_SIZE 256*256
 
-#define S_SKIN_TEMPLATE "name = %s\nrealname = %s\nkartspeed = %d\nkartweight = %d\nstartcolor = %d\nprefcolor = %s\nrivals = %s,%s,%s\nDSKGLOAT = DS%sGL\nDSKWIN = DS%sWI\nDSKLOSE = DS%sLS\nDSKSLOW = DS%sSL\nDSKHURT1 = DS%sH1\nDSKHURT2 = DS%sH2\nDSKATTK1 = DS%sA1\nDSKATTK2 = DS%sA2\nDSKBOST1 = DS%sB1\nDSKBOST2 = DS%sB2\nDSKHITEM = DS%sHT\n"
+#define FOLLOWER_SOC_SNIPPET_TEMPLATE "Name = %s\nIcon = %s\nCategory = %s\nHornSound = %s\nStartColor = %d\nDefaultColor = %s\nMode = %s\nScale = %d*FRACUNIT\nBubbleScale = %d*FRACUNIT\nAtAngle = %d\nHorzLag = %d*FRACUNIT\nVertLag = %d*FRACUNIT\nAngleLag = %d*FRACUNIT\nBobSpeed = %d*FRACUNIT\nBobAmp = %d*FRACUNIT\nZOffs = %d*FRACUNIT\nDistance = %d*FRACUNIT\nHeight = %d*FRACUNIT\nHitConfirmTime = TICRATE*%d\n"
 
-#define SKINNAMESIZE 16
-#define MAXRIVALS 3
+#define FOLLOWERNAMESIZE 16
 
 // This struct contains pre-lump-conversion data about a sprite
 struct RGB_Sprite {
@@ -53,14 +52,24 @@ struct RGB_Sprite {
 	struct RGB_Sprite* next;
 };
 
-struct skinprop {
-	char name[SKINNAMESIZE];
-	char realname[SKINNAMESIZE];
-	uint8_t kartspeed;
-	uint8_t kartweight;
+struct followerstructthingwhatever {
+	char name[FOLLOWERNAMESIZE];
+	char category[FOLLOWERNAMESIZE]; // maybe follows the name size as well?
 	uint8_t startcolor;
 	char prefcolor[32];
-	char rivals[MAXRIVALS][SKINNAMESIZE];
+	uint8_t mode; // if float or ground
+	char scale;
+	char scale;
+	short atangle;
+	char distance;
+	char height;
+	uint8_t zoffs;
+	char horzlag;
+	char vertlag;
+	char anglelag;
+	char bobamp;
+	char bobspeed;
+	char hitconfirmtime;
 };
 
 unsigned error;
@@ -76,7 +85,7 @@ struct RGB_Sprite* rgb_sprites;
 struct RGB_Sprite* lastsprite;
 struct RGB_Sprite* gfxstart;
 
-struct skinprop kskin;
+struct followerstructthingwhatever kfollower;
 
 char defprefix[4] = "SOME";
 
@@ -86,96 +95,6 @@ unsigned char* pix;
 #define PIX_G pix[1]
 #define PIX_B pix[2]
 #define PIX_A pix[3]
-/*
-// Add the boilerplate Lua script file to the WAD
-void addLuaScript(struct wadfile* wad, struct Filemap* files, int exportLua)
-{
-	// Huge buffer just to avoid having to reallocate
-	unsigned char script[1<<20];
-	unsigned char* scriptptr = script;
-
-	printf("\nGenerating boilerplate Lua...\n\n");
-
-#define WRITESTR(str) {strcpy(scriptptr, str); scriptptr += strlen(str);}
-	WRITESTR("-- Auto-generated filename-lumpname mapping tables. Use as rootfoldername[\"path/to/file/without/extension\"] to get the lump name.");
-
-	while (files)
-	{
-		struct Fileref* fileref = files->headfile;
-
-		WRITESTR("\nrawset(_G, \"");
-		WRITESTR(files->rootname);
-		WRITESTR("\", {\n");
-
-		while (fileref)
-		{
-			WRITESTR("\t[\"");
-			WRITESTR(fileref->refname);
-			WRITESTR("\"] = \"");
-			WRITESTR(fileref->lumpname);
-			WRITESTR("\",\n");
-
-			fileref = fileref->next;
-		}
-		WRITESTR("})\n");
-
-		files = files->next;
-	}
-
-#undef WRITESTR
-
-	printf("%s", script);
-
-	// Export as text
-	if (exportLua != 0)
-	{
-		FILE* file;
-		printf("Writing Lua file...");
-
-		file = fopen("map.lua", "w");
-		fwrite(script, 1, strlen(script), file);
-		fclose(file);
-
-		printf(" successful.\n");
-	}
-
-	// Add lump to WAD
-	if (exportLua != 2)
-	{
-		printf("Writing lump to WAD...");
-		add_lump(wad, NULL, "LUA_MAPS", strlen(script), script);
-		printf(" successful.\n");
-	}
-}
-
-
-
-// Load images into WAD file
-void loadImages(struct wadfile* wad, struct Filemap* files)
-{
-	printf("Writing images to WAD...\n");
-	while (files)
-	{
-		struct Fileref* fileref;
-
-		for (fileref = files->headfile; fileref; fileref = fileref->next)
-		{
-			// Handle each file
-			size_t size;
-			unsigned char* data;
-
-			printf("Converting image %s...\n", fileref->filename);
-			data = imageInDoomFormat(fileref->filename, fileref->xoffs, fileref->yoffs, &size);
-
-			printf("Adding file of %d bytes...\n", size);
-			add_lump(wad, wad->head, fileref->lumpname, size, data);
-			free(data);
-			printf("Done.\n");
-		}
-
-		files = files->next;
-	}
-}*/
 
 cJSON* loadJSON(char* filename) {
 	// Now get JSON
@@ -222,30 +141,32 @@ void readTransparentColors(void) {
 	printf("Done.\n");
 }
 
-void SetDefaultSkinValues(void)
+void SetDefaultFollowerValues(void)
 {
-	strncpy(kskin.name, "someone", 8);
-	kskin.name[8] = '\0';
+	strncpy(kfollower.name, "someone", 8);
+	kfollower.name[8] = '\0';
 
-	strncpy(kskin.realname, "Someone", 8);
-	kskin.realname[8] = '\0';
+	strncpy(kfollower.category, "beta", 5);
+	kfollower.category[5] = '\0';
 
-	kskin.kartspeed = 5;
-	kskin.kartweight = 5;
+	kfollower.startcolor = 96;
 
-	kskin.startcolor = 96;
+	strncpy(kfollower.prefcolor, "Green", 6);
+	kfollower.prefcolor[6] = '\0';
 
-	strncpy(kskin.prefcolor, "Green", 6);
-	kskin.prefcolor[6] = '\0';
-
-	strncpy(kskin.rivals[0], "eggman", 7);
-	kskin.rivals[0][7] = '\0';
-
-	strncpy(kskin.rivals[1], "tails", 6);
-	kskin.rivals[1][6] = '\0';
-
-	strncpy(kskin.rivals[2], "eggrobo", 8);
-	kskin.rivals[2][8] = '\0';
+	kfollower.mode = 0; //float
+	kfollower.scale = 1;
+	kfollower.bubblescale = 0;
+	kfollower.atangle = 230;
+	kfollower.distance = 40;
+	kfollower.height = 32;
+	kfollower.zoffs = 32;
+	kfollower.horzlag = 3;
+	kfollower.vertlag = 6;
+	kfollower.anglelag = 8;
+	kfollower.bobamp = 4;
+	kfollower.bobspeed = 70;
+	kfollower.hitconfirmtime = 1;
 }
 
 
@@ -357,52 +278,6 @@ void processSprites(void) {
 	}
 
 	printf("Reading sprites... Done.\n");
-}
-
-void processGfx(void)
-{
-	cJSON* item;
-	cJSON* prop;
-	char prefix[5] = "____";
-
-	printf("Reading graphic prefix... ");
-	item = cJSON_GetObjectItem(metadata, "prefix");
-	if (item)
-		strncpy(prefix, item->valuestring, 4);
-	else
-		strncpy(prefix, defprefix, 4);
-
-	printf("Done.\n");
-
-	if ((item = cJSON_GetObjectItem(metadata, "gfx")) == NULL)
-	{
-		printf("No gfx found, skipping...\n");
-		return;
-	}
-	item = item->child;
-	while (item != NULL) {
-		printf("Reading graphic %s%s... ", prefix, item->string);
-		lastsprite->next = calloc(1, sizeof(struct RGB_Sprite));
-		lastsprite = lastsprite->next;
-
-		if (gfxstart == NULL)
-			gfxstart = lastsprite;
-
-		sprintf(lastsprite->lumpname, "%s%s", prefix, item->string);
-		lastsprite->numLayers = 1;
-		lastsprite->layers[0].x = item->child->valueint;
-		lastsprite->layers[0].y = item->child->next->valueint;
-		lastsprite->width = item->child->next->next->valueint;
-		lastsprite->height = item->child->next->next->next->valueint;
-		lastsprite->xoffs = item->child->next->next->next->next->valueint;
-		lastsprite->yoffs = item->child->next->next->next->next->next->valueint;
-		lastsprite->heightFactor = 1;
-		lastsprite->ditherStyle = 0;
-		lastsprite->flip = 1;
-
-		item = item->next;
-		printf("Done.\n");
-	}
 }
 
 // Convert an RGBA pixel to palette index and transparency
@@ -686,31 +561,31 @@ void addSkin(struct wadfile* wad)
 	if (cJSON_GetObjectItem(metadata, "name"))
 	{
 		slen = strlen(cJSON_GetObjectItem(metadata, "name")->valuestring);
-		strncpy(kskin.name, cJSON_GetObjectItem(metadata, "name")->valuestring, slen);
-		kskin.name[slen] = '\0';
+		strncpy(kfollower.name, cJSON_GetObjectItem(metadata, "name")->valuestring, slen);
+		kfollower.name[slen] = '\0';
 	}
 
 	if (cJSON_GetObjectItem(metadata, "realname"))
 	{
 		slen = strlen(cJSON_GetObjectItem(metadata, "realname")->valuestring);
-		strncpy(kskin.realname, cJSON_GetObjectItem(metadata, "realname")->valuestring, slen);
-		kskin.realname[slen] = '\0';
+		strncpy(kfollower.realname, cJSON_GetObjectItem(metadata, "realname")->valuestring, slen);
+		kfollower.realname[slen] = '\0';
 	}
 
 	if (cJSON_GetObjectItem(metadata, "stats"))
 	{
-		kskin.kartspeed = cJSON_GetObjectItem(metadata, "stats")->child->valueint;
-		kskin.kartweight = cJSON_GetObjectItem(metadata, "stats")->child->next->valueint;
+		kfollower.kartspeed = cJSON_GetObjectItem(metadata, "stats")->child->valueint;
+		kfollower.kartweight = cJSON_GetObjectItem(metadata, "stats")->child->next->valueint;
 	}
 
 	if (cJSON_GetObjectItem(metadata, "startcolor"))
-		kskin.startcolor = cJSON_GetObjectItem(metadata, "startcolor")->valueint;
+		kfollower.startcolor = cJSON_GetObjectItem(metadata, "startcolor")->valueint;
 
 	if (cJSON_GetObjectItem(metadata, "prefcolor"))
 	{
 		slen = strlen(cJSON_GetObjectItem(metadata, "prefcolor")->valuestring);
-		strncpy(kskin.prefcolor, cJSON_GetObjectItem(metadata, "prefcolor")->valuestring, slen);
-		kskin.prefcolor[slen] = '\0';
+		strncpy(kfollower.prefcolor, cJSON_GetObjectItem(metadata, "prefcolor")->valuestring, slen);
+		kfollower.prefcolor[slen] = '\0';
 	}
 
 	if (cJSON_GetObjectItem(metadata, "rivals"))
@@ -726,22 +601,22 @@ void addSkin(struct wadfile* wad)
 			}
 
 			slen = strlen(item->valuestring);
-			strncpy(kskin.rivals[numRivals], item->valuestring, slen);
-			kskin.rivals[numRivals][slen] = '\0';
+			strncpy(kfollower.rivals[numRivals], item->valuestring, slen);
+			kfollower.rivals[numRivals][slen] = '\0';
 
 			item = item->next;
 			numRivals++;
 		}
 	}
 
-	size = sprintf(buf, S_SKIN_TEMPLATE,
-		kskin.name,
-		kskin.realname,
-		kskin.kartspeed,
-		kskin.kartweight,
-		kskin.startcolor,
-		kskin.prefcolor,
-		kskin.rivals[0], kskin.rivals[1], kskin.rivals[2],
+	size = sprintf(buf, FOLLOWER_SOC_SNIPPET_TEMPLATE,
+		kfollower.name,
+		kfollower.realname,
+		kfollower.kartspeed,
+		kfollower.kartweight,
+		kfollower.startcolor,
+		kfollower.prefcolor,
+		kfollower.rivals[0], kfollower.rivals[1], kfollower.rivals[2],
 		prefix, prefix, prefix, prefix, prefix, prefix, prefix, prefix, prefix, prefix, prefix
 	);
 	add_lump(wad, NULL, "S_SKIN", size, buf);
@@ -762,7 +637,7 @@ int main(int argc, char *argv[]) {
 #define CLEAR_FILENAME() memset(filename, '\0', 400 - (filename - path))
 #define SET_FILENAME(fn) ({CLEAR_FILENAME(); strcpy(filename, fn);})
 
-	SetDefaultSkinValues();
+	SetDefaultFollowerValues();
 
 	//@TODO load PLAYPAL.lmp from folder containing exe, not running folder (use argv[0] or something)
 	strncpy(path, argv[0], 360);

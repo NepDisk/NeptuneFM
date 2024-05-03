@@ -1,5 +1,5 @@
 cd src
-gcc lump.c lodepng.c main.c cJSON.c -o kartmaker -lm
+gcc lump.c lodepng.c main.c cJSON.c -o followermaker -lm
 cd ..
-move /y src\kartmaker.exe .\kartmaker.exe
+move /y src\followermaker.exe .\followermaker.exe
 pause

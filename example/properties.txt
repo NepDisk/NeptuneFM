@@ -3,21 +3,21 @@
 	"prefix": "EXMP",
 	"category": "Fanworks",
 
-	"startcolor": 96, /* Start of the recolorable colors range, which is 16 colors. 96 is the start of a green gradient. Don't change unless you intend to change the color used for recoloring. */
-	"prefcolor": "red", /* Default color for menus. */
-	"mode": 0, /* If floating (0) or on the ground (1). */
-	"scale": 1, /* (in Fracunits) Scale relative to the player's. */
-	"bubblescale": 0, /* (in Fracunits) Bubble scale relative to the player scale. If not set, no bubble will spawn. */
-	"atangle": 230, /* Angle the follower will be at around the player. The follower will always face the same direction as the player. */
-	"distance": 40, /* (in Fracunits) Distance relative to the player (in a circle). */
-	"height": 32, /* (in Fracunits) Height of the follower, this is mostly important for Z-flipping. */
-	"zoffs": 32, /* (in Fracunits) Z-offset relative to the player's height. Cannot be negative. */
-	"horzlag": 3, /* (in Fracunits) Lag for X/Y displacement. Must be > 0 because we divide by this number. */
-	"vertlag": 6, /* (in Fracunits) Lag for Z displacement. Must be > 0 because we divide by this number. */
-	"anglelag": 8, /* (in Fracunits) Angle rotation lag. Must be > 0 because we divide by this number. */
-	"bobamp": 4, /* (in Fracunits) Bob amplitude. */
-	"bobspeed": 70, /* (in Tics) Arbitrary modifier for bobbing speed. Default is TICRATE*2 (70 Fracunits) */
-	"hitconfirmtime": 1, /* (in Tics) Time to keep the hit confirm state playing for. */
+	"startcolor": 96,
+	"prefcolor": "red",
+	"mode": 0,
+	"scale": 1,
+	"bubblescale": 0,
+	"atangle": 230,
+	"distance": 40,
+	"height": 32,
+	"zoffs": 32,
+	"horzlag": 3,
+	"vertlag": 6,
+	"anglelag": 8,
+	"bobamp": 4,
+	"bobspeed": 70,
+	"hitconfirmtime": 1,
 
 
 	

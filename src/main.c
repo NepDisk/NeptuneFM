@@ -33,6 +33,7 @@
 // If your sprites are bigger than 256*256, consider a different approach than this program?
 #define MAX_IMAGE_SIZE 256*256
 
+// it's only a snippet, the whole thing can't be a macro since it's variable now
 #define FOLLOWER_SOC_SNIPPET_TEMPLATE "Name = %s\nIcon = %s\nCategory = %s\nHornSound = %s\nStartColor = %d\nDefaultColor = %s\nMode = %s\nScale = %d*FRACUNIT\nBubbleScale = %d*FRACUNIT\nAtAngle = %d\nHorzLag = %d*FRACUNIT\nVertLag = %d*FRACUNIT\nAngleLag = %d*FRACUNIT\nBobSpeed = %d*FRACUNIT\nBobAmp = %d*FRACUNIT\nZOffs = %d*FRACUNIT\nDistance = %d*FRACUNIT\nHeight = %d*FRACUNIT\nHitConfirmTime = TICRATE*%d\n"
 
 #define FOLLOWERNAMESIZE 16
@@ -52,12 +53,13 @@ struct RGB_Sprite {
 	struct RGB_Sprite* next;
 };
 
+// struct for follower data included in the SOC
 struct followerstructthingwhatever {
 	char name[FOLLOWERNAMESIZE];
 	char category[FOLLOWERNAMESIZE]; // maybe follows the name size as well?
 	uint8_t startcolor;
 	char prefcolor[32];
-	uint8_t mode; // if float or ground
+	uint8_t mode; // if floating or on ground
 	char scale;
 	char scale;
 	short atangle;
@@ -141,6 +143,7 @@ void readTransparentColors(void) {
 	printf("Done.\n");
 }
 
+// sets placeholder follower values, to be replaced by the user's own input
 void SetDefaultFollowerValues(void)
 {
 	strncpy(kfollower.name, "someone", 8);
@@ -154,7 +157,7 @@ void SetDefaultFollowerValues(void)
 	strncpy(kfollower.prefcolor, "Green", 6);
 	kfollower.prefcolor[6] = '\0';
 
-	kfollower.mode = 0; //float
+	kfollower.mode = 0; // floating
 	kfollower.scale = 1;
 	kfollower.bubblescale = 0;
 	kfollower.atangle = 230;
@@ -169,12 +172,28 @@ void SetDefaultFollowerValues(void)
 	kfollower.hitconfirmtime = 1;
 }
 
-
+// processes sprites on the template, which are separated by regions (usually visualized on the template image as squares)
 void processSprites(void) {
+	// properties.txt fields, read as json
 	cJSON *item, *nesteditem, *prop;
+
+	// sprite-related
 	int spr_width, spr_height, step_width, step_height, stepw, steph;
 	struct RGB_Sprite* cursprite;
+
+	// to do with automating animation frame order indices
+	char highestanimframeletter = 0;
+	uint8_t curstate, laststate = IDLE;
+
+	// prefix for follower files
 	char prefix[5] = "____";
+
+	// set prefix
+	item = cJSON_GetObjectItem(metadata, "prefix");
+	if (item)
+		strncpy(prefix, item->valuestring, 4);
+	else
+		strncpy(prefix, defprefix, 4);
 
 	// Read sprite size
 	printf("Read sprite size... ");
@@ -197,8 +216,12 @@ void processSprites(void) {
 	item = cJSON_GetObjectItem(metadata, "sprites")->child;
 
 	while (item != NULL) {
-		printf("Reading SPR2_%s... \n", item->string);
-		strncpy(prefix, item->string, 4);
+		// keep track of follower state which sprites are being read
+		// "idle" is the first follower state, the rest of which follow it (pun unintended)
+		// the "graphics" field is for the follower's icon on the menu
+		// mainly used for ordering animation frames as seen below
+		if (item->string != "idle" && item->string != "graphics") curstate++;
+
 		nesteditem = item->child;
 
 		while (nesteditem != NULL) {
@@ -235,7 +258,19 @@ void processSprites(void) {
 				steph = step_height;
 			}
 
-			sprintf(cursprite->lumpname, "%s%s", prefix, nesteditem->string);
+			// handle automatic animation frame ordering
+			// animation frames of sprites use a letter-based ordering, from A to Z
+			// the idea is to be able to detect the highest letter used for an animation frame within a follower state and go above it upon reading sprites for the next state
+			if (item->string != "graphics")
+			{
+				if (curstate > laststate && nesteditem->string[0] != "Z") nesteditem->string[0] = highestanimframeletter + (nesteditem->string[0]+1 - "A");
+
+				// this will store how many frames of animation are in the sprite for all of the follower states
+				if (nesteditem->string[0] > highestanimframeletter) highestanimframeletter = nesteditem->string[0];
+			}
+
+			if (item->string != "graphics") sprintf(cursprite->lumpname, "%s%s", prefix, nesteditem->string);
+			else                            sprintf(cursprite->lumpname, "ICOF%s", prefix);
 
 			prop = cJSON_GetObjectItem(nesteditem, "heightfactor");
 			cursprite->heightFactor = prop != NULL ? prop->valueint : 1;
@@ -275,6 +310,7 @@ void processSprites(void) {
 			nesteditem = nesteditem->next;
 		}
 		item = item->next;
+		laststate = curstate;
 	}
 
 	printf("Reading sprites... Done.\n");

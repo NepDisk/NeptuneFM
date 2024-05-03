@@ -164,8 +164,8 @@
 			}
 		},
 
-		"icon": {
-			"A0": {
+		"graphics": {
+			"icon": {
 				"overwrite_sprite_size": [16, 16],
 				"overwrite_layer_step_size": [1, 1],
 				"layers": [[10, 778]]

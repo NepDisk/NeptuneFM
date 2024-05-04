@@ -665,6 +665,8 @@ int main(int argc, char *argv[]) {
 	struct wadfile* wad; // WAD to be created.
 	FILE* wadf; // File pointer for writing the WAD.
 
+	char iconlump[9];
+
 	if (argc != 2) {
 		printf("kartmaker <folder>: Converts a structured folder into an SRB2Kart character WAD. (Try dragging the folder onto the EXE!)");
 		return 1;
@@ -739,14 +741,25 @@ int main(int argc, char *argv[]) {
 
 	// Add sprites into WAD
 	printf("Adding sprites to WAD...\n");
+
+	if (cJSON_GetObjectItem(metadata, "prefix"))
+		sprintf(iconlump, "ICOF%s", strupr(cJSON_GetObjectItem(metadata, "prefix")->valuestring));
+	else
+		sprintf(iconlump, "ICOF%s", defprefix);
+	iconlump[8] = '\0';
+
 	struct RGB_Sprite* sprite = rgb_sprites;
 	while (sprite) {
 		unsigned char* image;
 		size_t size;
 		printf(" Lump %s...\n", sprite->lumpname);
 		image = imageInDoomFormat(sprite, &size);
-		if (strcmp(sprite->lumpname, "ICOF") == 1)
+
+		if (strcmp(sprite->lumpname, iconlump) == 0)
+		{
 			add_lump(wad, find_last_lump(wad), "S_END", 0, NULL);
+		}
+
 		add_lump(wad, find_last_lump(wad), sprite->lumpname, size, image);
 		free(image);
 

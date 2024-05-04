@@ -739,19 +739,20 @@ int main(int argc, char *argv[]) {
 
 	// Add sprites into WAD
 	printf("Adding sprites to WAD...\n");
-	{
-		struct RGB_Sprite* sprite = rgb_sprites;
-		while (sprite) {
-			unsigned char* image;
-			size_t size;
-			printf(" Lump %s...\n", sprite->lumpname);
-			image = imageInDoomFormat(sprite, &size);
-			add_lump(wad, find_last_lump(wad), sprite->lumpname, size, image);
-			free(image);
+	struct RGB_Sprite* sprite = rgb_sprites;
+	while (sprite) {
+		unsigned char* image;
+		size_t size;
+		printf(" Lump %s...\n", sprite->lumpname);
+		image = imageInDoomFormat(sprite, &size);
+		if (strcmp(sprite->lumpname, "ICOF") == 1)
+			add_lump(wad, find_last_lump(wad), "S_END", 0, NULL);
+		add_lump(wad, find_last_lump(wad), sprite->lumpname, size, image);
+		free(image);
 
-			sprite = sprite->next;
-		}
+		sprite = sprite->next;
 	}
+	add_lump(wad, NULL, "S_START", 0, NULL);
 	printf("Adding sprites to WAD... Done.\n");
 
 	// Add S_SKIN into WAD

@@ -191,7 +191,7 @@ void processSprites(void) {
 	// set prefix
 	item = cJSON_GetObjectItem(metadata, "prefix");
 	if (item)
-		strncpy(prefix, item->valuestring, 4);
+		strncpy(prefix, strupr(item->valuestring), 4);
 	else
 		strncpy(prefix, defprefix, 4);
 
@@ -590,7 +590,7 @@ void addSkin(struct wadfile* wad)
 	uint32_t slen;
 
 	if (cJSON_GetObjectItem(metadata, "prefix"))
-		strncpy(prefix, cJSON_GetObjectItem(metadata, "prefix")->valuestring, 4);
+		strncpy(prefix, strupr(cJSON_GetObjectItem(metadata, "prefix")->valuestring), 4);
 	else
 		strncpy(prefix, defprefix, 4);
 

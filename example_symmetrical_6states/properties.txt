@@ -1,10 +1,19 @@
 {
+	"transparent_colors": [
+		115, 115, 255,
+		82, 82, 255
+	],
+	"transparent_colors_description": "The above colors will be made transparent upon processing the template image for sprite conversion. You can add up to 4 colors to be set to transparent.",
+
 	"name": "example",
+	"name_description": "The name of your follower. The names of followers appear on the main menu, upon toggling \"extrainfo mode\" with the drift button.",
 	"prefix": "EXMP",
+	"prefix_description": "A set of 4 characters used to internally identify your follower, mainly used for its files.",
 	"category": "Fanworks",
+	"category_description": "The category your follower will appear under. Followermaker doesn't allow for the creation of custom categories, though you can still enter one.",
 
 	"prefcolor": "red",
-	"prefcolor_description": "Default color for menus.",
+	"prefcolor_description": "Default follower color. Must use the name of a spray can, as seen on the main menu in extrainfo mode.",
 	"mode": 0,
 	"mode_description": "If floating (0) or on the ground (1).",
 	"scale": 1,
@@ -31,11 +40,6 @@
 	"bobspeed_description": "(in Tics) Arbitrary modifier for bobbing speed. Default is TICRATE*2 (70 Fracunits)",
 	"hitconfirmtime": 1,
 	"hitconfirmtime_description": "(in Tics) Time to keep the hit confirm state playing for.",
-	
-	"transparent_colors": [
-		115, 115, 255,
-		82, 82, 255
-	],
 	
 	"sprite_size": [128, 128],
 	"layer_step_size": [128, 128],

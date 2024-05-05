@@ -41,6 +41,13 @@
 	"hitconfirmtime": 1,
 	"hitconfirmtime_description": "(in Tics) Time to keep the hit confirm state playing for.",
 	
+	
+	"follower_states_help": "As you may know, followers have several animations for things that can occur during the race; these are described as \"states\". Followers can have up to 6 states, in order: an idle state, a following state (as in, following the player), a hurt state (when you get hit by an item), a lose state (when you lose the race), a win state (win the race), and a \"hit confirm\" state (occurs when you hit another racer with an item). Of these, the idle state is obligatory in all followers. Additionally, the duration of the hit confirm state is controlled by a variable which can be edited above.",
+
+	"sprite_help": "The template is divided into several regions, each for a unique sprite, described by the below values. These sprite regions are each categorized according to the follower state in which they belong, and are further split into frames detailing both the rotation angle (indicated by numbers) and animation index (indicated by letters) of the follower. The \"sprite_size\" field determines the general size for each sprite region. \"Layers\" refers to the exact location of each sprite, with \"layer_step_size\" indicating how many pixels are stepped over for the position of the layer; layers also allow for literal layer functionality, allowing you to insert up to four sets of sprite locations, with the first sprite location being applied on top of following locations. You can also edit the offset of sprites, with the default templates providing automatic X axis centering for sprites, offset 16 pixels down on the Y axis.",
+
+	"template_description": "This specific template is designed for followers with an idle and following state, with 2-frame animations for each state and 5 unique degrees of rotation. The second, third, and fourth rotation sprites are duplicated and mirrored, thus this template assumes a follower of symmetrical appearance.",
+
 	"sprite_size": [128, 128],
 	"layer_step_size": [128, 128],
 	"sprites": {

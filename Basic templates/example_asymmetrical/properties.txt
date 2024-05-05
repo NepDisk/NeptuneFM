@@ -46,7 +46,7 @@
 
 	"sprite_help": "The template is divided into several regions, each for a unique sprite, described by the below values. These sprite regions are each categorized according to the follower state in which they belong, and are further split into frames detailing both the rotation angle (indicated by numbers) and animation index (indicated by letters) of the follower. The \"sprite_size\" field determines the general size for each sprite region. \"Layers\" refers to the exact location of each sprite, with \"layer_step_size\" indicating how many pixels are stepped over for the position of the layer; layers also allow for literal layer functionality, allowing you to insert up to four sets of sprite locations, with the first sprite location being applied on top of following locations. You can also edit the offset of sprites, with the default templates providing automatic X axis centering for sprites, offset 16 pixels down on the Y axis.",
 
-	"template_explanation": "This specific template is designed for a follower of asymmetrical appearance, allowing for 8 unique degrees of rotation, with a 2-frame animation.",
+	"template_explanation": "This specific template is designed for a follower of asymmetrical appearance, allowing for 8 unique degrees of rotation.",
 
 	"sprite_size": [128, 128],
 	"layer_step_size": [128, 128],

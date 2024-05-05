@@ -4,6 +4,7 @@ HOW TO USE:
 - Copy one of the example/ folders and rename it (your WAD will be named after this folder)
 - Edit values in "properties.txt" to set various properties for your follower, and adjust the RGB colors that the
   converter considers transparent pixels if you want
+  - Each editable field in properties.txt comes with additional information on its use
 - Create or paste your follower's sprites into the template provided
 - Replace the OGG sound file in the folder with the sound that you want your follower to have (this program does not convert
   or add echo for you)

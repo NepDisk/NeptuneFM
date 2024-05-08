@@ -29,7 +29,7 @@ followersound.ogg
 properties.txt
 sprites.png
 That your followersound is a .ogg file, as opposed to a .wav or .mp4 or other file type
-If none of these work, then 
+If none of these work, then feel free to shout Superstarxalien about it on Discord or Twitter
 
 "Does followermaker support 16 angle rotation?"
 16 angle rotation is not supported, but it is possible. Essentially, if you can work out how to name the frames and order the template, you can do it: however, followermaker does not currently have a template or guide for it.

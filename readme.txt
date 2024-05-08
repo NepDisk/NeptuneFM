@@ -17,4 +17,7 @@ such you may still need to use SLADE in order to make full use of the features t
 Ignore build.bat and the src/ folder for standard use. This is a compile script and source files. You can use it if you
 want to modify the program (you need GCC installed). I make no guarantees that the program compiles on other setups.
 
+Huge thanks to casual koopa for creating the advanced templates as well as the FAQ section for those, and tips on other
+aspects of the program.
+
 Licensed under the GPL.

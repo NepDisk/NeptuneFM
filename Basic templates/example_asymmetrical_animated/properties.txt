@@ -112,7 +112,7 @@
 				"offset": [64, 112],
 				"layers": [[7, 1]]
 			}
-		}
+		},
 
 		"graphics": {
 			"icon": {

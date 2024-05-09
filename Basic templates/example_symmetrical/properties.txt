@@ -37,7 +37,7 @@
 	"bobamp": 4,
 	"bobamp_explanation": "(in Fracunits) Bob amplitude.",
 	"bobspeed": 70,
-	"bobspeed_explanation": "(in Tics) Arbitrary modifier for bobbing speed. Default is TICRATE*2 (70 Fracunits)",
+	"bobspeed_explanation": "(in Tics) Arbitrary modifier for bobbing speed. Default is TICRATE*2 (70 Tics = 2 seconds)",
 	
 
 	"template_explanation": "This specific template is designed for a simple follower with 5 unique degrees of rotation. The second, third, and fourth rotation sprites are duplicated and mirrored, thus this template assumes a follower of symmetrical appearance.",

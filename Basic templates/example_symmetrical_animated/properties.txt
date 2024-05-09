@@ -89,48 +89,6 @@
 				"layers": [[4, 1]]
 			}
 		},
-		"following": {
-			"A1": {
-				"offset": [64, 112],
-				"layers": [[0, 2]]
-			},
-			"A2A8": {
-				"offset": [64, 112],
-				"layers": [[1, 2]]
-			},
-			"A3A7": {
-				"offset": [64, 112],
-				"layers": [[2, 2]]
-			},
-			"A4A6": {
-				"offset": [64, 112],
-				"layers": [[3, 2]]
-			},
-			"A5": {
-				"offset": [64, 112],
-				"layers": [[4, 2]]
-			},
-			"B1": {
-				"offset": [64, 112],
-				"layers": [[0, 3]]
-			},
-			"B2B8": {
-				"offset": [64, 112],
-				"layers": [[1, 3]]
-			},
-			"B3B7": {
-				"offset": [64, 112],
-				"layers": [[2, 3]]
-			},
-			"B4B6": {
-				"offset": [64, 112],
-				"layers": [[3, 3]]
-			},
-			"B5": {
-				"offset": [64, 112],
-				"layers": [[4, 3]]
-			}
-		},
 
 		"graphics": {
 			"icon": {

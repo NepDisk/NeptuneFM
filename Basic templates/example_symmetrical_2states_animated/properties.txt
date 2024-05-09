@@ -38,8 +38,10 @@
 	"bobamp_explanation": "(in Fracunits) Bob amplitude.",
 	"bobspeed": 70,
 	"bobspeed_explanation": "(in Tics) Arbitrary modifier for bobbing speed. Default is TICRATE*2 (70 Tics = 2 seconds)",
-	"animation_speed": 35,
-	"animation_speed_explanation": "(in Tics) Number of Tics it takes to cycle through an animation sprite. 35 Tics is a second.",
+	"idle_animation_speed": 35,
+	"idle_animation_speed_explanation": "(in Tics) Number of Tics it takes to cycle through an animated sprite in the idle state.",
+	"following_animation_speed": 35,
+	"following_animation_speed_explanation": "(in Tics) Number of Tics it takes to cycle through an animated sprite in the following state.",
 	
 	
 	"follower_states_help": "As you may know, followers have several animations for things that can occur during the race; these are described as \"states\". Followers can have up to 6 states, in order: an idle state, a following state (as in, following the player), a hurt state (when you get hit by an item), a lose state (when you lose the race), a win state (win the race), and a \"hit confirm\" state (occurs when you hit another racer with an item). Of these, the idle state is obligatory in all followers.",

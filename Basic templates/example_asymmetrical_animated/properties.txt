@@ -38,8 +38,8 @@
 	"bobamp_explanation": "(in Fracunits) Bob amplitude.",
 	"bobspeed": 70,
 	"bobspeed_explanation": "(in Tics) Arbitrary modifier for bobbing speed. Default is TICRATE*2 (70 Tics = 2 seconds)",
-	"animation_speed": 35,
-	"animation_speed_explanation": "(in Tics) Number of Tics it takes to cycle through an animation sprite. 35 Tics is a second.",
+	"idle_animation_speed": 35,
+	"idle_animation_speed_explanation": "(in Tics) Number of Tics it takes to cycle through an animated sprite in the idle state.",
 	
 
 	"template_explanation": "This specific template is designed for a follower of asymmetrical appearance, allowing for 8 unique degrees of rotation, with a 2-frame animation.",

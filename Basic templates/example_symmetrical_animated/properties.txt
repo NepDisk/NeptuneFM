@@ -1,0 +1,101 @@
+{
+	"transparent_colors": [
+		115, 115, 255,
+		82, 82, 255
+	],
+	"transparent_colors_explanation": "The above colors will be made transparent upon processing the template image for sprite conversion. You can add up to 4 colors to be set to transparent.",
+
+	"name": "example",
+	"name_explanation": "The name of your follower. The names of followers appear on the main menu, upon toggling \"extrainfo mode\" with the drift button.",
+	"prefix": "EXMP",
+	"prefix_explanation": "A set of 4 characters used to internally identify your follower, mainly used for its files.",
+	"category": "Fanworks",
+	"category_explanation": "The category your follower will appear under. Followermaker doesn't allow for the creation of custom categories, though you can still enter one.",
+
+	"prefcolor": "red",
+	"prefcolor_explanation": "Default follower color. Must use the name of a spray can, as seen on the main menu in extrainfo mode.",
+	"mode": 0,
+	"mode_explanation": "If floating (0) or on the ground (1).",
+	"scale": 1,
+	"scale_explanation": "(in Fracunits) Scale relative to the player's.",
+	"bubblescale": 0,
+	"bubblescale_explanation": "(in Fracunits) Bubble scale relative to the player scale. If not set, no bubble will spawn.",
+	"atangle": 230,
+	"atangle_explanation": "Angle the follower will be at around the player. The follower will always face the same direction as the player.",
+	"distance": 40,
+	"distance_explanation": "(in Fracunits) Distance relative to the player (in a circle).",
+	"height": 32,
+	"height_explanation": "(in Fracunits) Height of the follower, this is mostly important for Z-flipping.",
+	"zoffs": 32,
+	"zoffs_explanation": "(in Fracunits) Z-offset relative to the player's height. Cannot be negative.",
+	"horzlag": 3,
+	"horzlag_explanation": "(in Fracunits) Lag for X/Y displacement. Must be > 0 because we divide by this number.",
+	"vertlag": 6,
+	"verlag_explanation": "(in Fracunits) Lag for Z displacement. Must be > 0 because we divide by this number.",
+	"anglelag": 8,
+	"anglelag_explanation": "(in Fracunits) Angle rotation lag. Must be > 0 because we divide by this number.",
+	"bobamp": 4,
+	"bobamp_explanation": "(in Fracunits) Bob amplitude.",
+	"bobspeed": 70,
+	"bobspeed_explanation": "(in Tics) Arbitrary modifier for bobbing speed. Default is TICRATE*2 (70 Tics = 2 seconds)",
+	"idle_animation_speed": 35,
+	"idle_animation_speed_explanation": "(in Tics) Number of Tics it takes to cycle through an animated sprite in the idle state.",
+
+
+	"template_explanation": "This specific template is designed for a simple follower with a 2-frame animation and 5 unique degrees of rotation. The second, third, and fourth rotation sprites are duplicated and mirrored, thus this template assumes a follower of symmetrical appearance.",
+
+	"sprite_size": [128, 128],
+	"layer_step_size": [128, 128],
+	"sprites": {
+		"idle": {
+			"A1": {
+				"offset": [64, 112],
+				"layers": [[0, 0]]
+			},
+			"A2A8": {
+				"offset": [64, 112],
+				"layers": [[1, 0]]
+			},
+			"A3A7": {
+				"offset": [64, 112],
+				"layers": [[2, 0]]
+			},
+			"A4A6": {
+				"offset": [64, 112],
+				"layers": [[3, 0]]
+			},
+			"A5": {
+				"offset": [64, 112],
+				"layers": [[4, 0]]
+			},
+			"B1": {
+				"offset": [64, 112],
+				"layers": [[0, 1]]
+			},
+			"B2B8": {
+				"offset": [64, 112],
+				"layers": [[1, 1]]
+			},
+			"B3B7": {
+				"offset": [64, 112],
+				"layers": [[2, 1]]
+			},
+			"B4B6": {
+				"offset": [64, 112],
+				"layers": [[3, 1]]
+			},
+			"B5": {
+				"offset": [64, 112],
+				"layers": [[4, 1]]
+			}
+		},
+
+		"graphics": {
+			"icon": {
+				"overwrite_sprite_size": [16, 16],
+				"overwrite_layer_step_size": [1, 1],
+				"layers": [[10, 266]]
+			}
+		}
+	}
+}

@@ -34,7 +34,7 @@
 #define MAX_IMAGE_SIZE 256*256
 
 // it's only a snippet, the whole thing can't be a macro since it's variable now
-#define FOLLOWER_SOC_SNIPPET_TEMPLATE "Name = %s\nIcon = %s\nCategory = %s\nHornSound = %s\nStartColor = %d\nDefaultColor = %s\nMode = %s\nScale = %d*FRACUNIT\nBubbleScale = %d*FRACUNIT\nAtAngle = %d\nHorzLag = %d*FRACUNIT\nVertLag = %d*FRACUNIT\nAngleLag = %d*FRACUNIT\nBobSpeed = %d*FRACUNIT\nBobAmp = %d*FRACUNIT\nZOffs = %d*FRACUNIT\nDistance = %d*FRACUNIT\nHeight = %d*FRACUNIT\nHitConfirmTime = TICRATE*%d\n"
+#define FOLLOWER_SOC_SNIPPET_TEMPLATE "%s\nFOLLOWER\nName = %s\nIcon = ICOF%s\nCategory = %s\nHornSound = DSFH%s\nDefaultColor = %s\nMode = %s\nScale = %d*FRACUNIT\nBubbleScale = %d*FRACUNIT\nAtAngle = %d\nDistance = %d*FRACUNIT\nHeight = %d*FRACUNIT\nZOffs = %d*FRACUNIT\nHorzLag = %d*FRACUNIT\nVertLag = %d*FRACUNIT\nAngleLag = %d*FRACUNIT\nBobAmp = %d*FRACUNIT\nBobSpeed = %d*FRACUNIT\nHitConfirmTime = TICRATE*%d\n"
 
 #define FOLLOWERNAMESIZE 16
 
@@ -57,14 +57,13 @@ struct RGB_Sprite {
 struct followerstructthingwhatever {
 	char name[FOLLOWERNAMESIZE];
 	char category[FOLLOWERNAMESIZE]; // maybe follows the name size as well?
-	uint8_t startcolor;
 	char prefcolor[32];
-	uint8_t mode; // if floating or on ground
+	char mode[8]; // if floating or on ground
 	char scale;
-	char scale;
+	char bubblescale;
 	short atangle;
 	char distance;
-	char height;
+	uint8_t height;
 	uint8_t zoffs;
 	char horzlag;
 	char vertlag;
@@ -72,6 +71,27 @@ struct followerstructthingwhatever {
 	char bobamp;
 	char bobspeed;
 	char hitconfirmtime;
+
+	char animationframes;
+	char idleanimationspeed;
+	char followinganimationspeed;
+	char hurtanimationspeed;
+	char loseanimationspeed;
+	char winanimationspeed;
+	char hitconfirmanimationspeed;
+
+	char numstates;
+	uint8_t highestanimframeletter;
+	uint8_t followerstateanimframestart[6];
+	struct state {
+		uint8_t idle:1;
+		uint8_t following:1;
+		uint8_t hurt:1;
+		uint8_t lose:1;
+		uint8_t win:1;
+		uint8_t hitconfirm:1;
+		uint8_t padding:2;
+	} states;
 };
 
 unsigned error;
@@ -97,6 +117,34 @@ unsigned char* pix;
 #define PIX_G pix[1]
 #define PIX_B pix[2]
 #define PIX_A pix[3]
+
+uint8_t getFixedAnimationIndex(uint8_t id)
+{
+	// accounting for animation frame ranges outside of uppercase A-Z
+	if (id > 0x5A)
+	{
+		if (id <= 0x64)
+		{
+			// numbers range
+			id -= 0x2B;
+		}
+		else if (id <= 0x7E)
+		{
+			// lowercase letters range
+			id -= 4;
+		}
+		else
+		{
+			// ! and @
+			if (id == 0x7F)
+				id = 0x21;
+			if (id == 0x80)
+				id = 0x40;
+		}
+	}
+
+	return id;
+}
 
 cJSON* loadJSON(char* filename) {
 	// Now get JSON
@@ -152,12 +200,12 @@ void SetDefaultFollowerValues(void)
 	strncpy(kfollower.category, "beta", 5);
 	kfollower.category[5] = '\0';
 
-	kfollower.startcolor = 96;
-
 	strncpy(kfollower.prefcolor, "Green", 6);
 	kfollower.prefcolor[6] = '\0';
 
-	kfollower.mode = 0; // floating
+	strncpy(kfollower.mode, "FLOAT", 6);
+	kfollower.mode[6] = '\0';
+
 	kfollower.scale = 1;
 	kfollower.bubblescale = 0;
 	kfollower.atangle = 230;
@@ -170,6 +218,24 @@ void SetDefaultFollowerValues(void)
 	kfollower.bobamp = 4;
 	kfollower.bobspeed = 70;
 	kfollower.hitconfirmtime = 1;
+
+	kfollower.animationframes = 0;
+	kfollower.idleanimationspeed = 35;
+	kfollower.followinganimationspeed = 35;
+	kfollower.hurtanimationspeed = 35;
+	kfollower.loseanimationspeed = 35;
+	kfollower.winanimationspeed = 35;
+	kfollower.hitconfirmanimationspeed = 35;
+
+	kfollower.numstates = 0;
+	kfollower.highestanimframeletter = 0x41;
+	kfollower.followerstateanimframestart[0] = 0x41; // uppercase A in ASCII
+	kfollower.states.idle = 1;
+	kfollower.states.following = 0;
+	kfollower.states.hurt = 0;
+	kfollower.states.lose = 0;
+	kfollower.states.win = 0;
+	kfollower.states.hitconfirm = 0;
 }
 
 // processes sprites on the template, which are separated by regions (usually visualized on the template image as squares)
@@ -182,8 +248,11 @@ void processSprites(void) {
 	struct RGB_Sprite* cursprite;
 
 	// to do with automating animation frame order indices
-	char highestanimframeletter = 0;
-	uint8_t curstate, laststate = IDLE;
+	uint8_t curanimframeletter = 0x41;
+	uint8_t lastanimframeletterinstate = 0;
+	uint8_t curstate, laststate = 0;
+
+	kfollower.highestanimframeletter = 0x41;
 
 	// prefix for follower files
 	char prefix[5] = "____";
@@ -220,7 +289,21 @@ void processSprites(void) {
 		// "idle" is the first follower state, the rest of which follow it (pun unintended)
 		// the "graphics" field is for the follower's icon on the menu
 		// mainly used for ordering animation frames as seen below
-		if (item->string != "idle" && item->string != "graphics") curstate++;
+		if ((!(strcmp(item->string, "idle") == 0)) && (!(strcmp(item->string, "graphics") == 0)))
+		{
+			curstate++;
+			if (strcmp(item->string, "following") == 0)
+				kfollower.states.following = 1;
+			if (strcmp(item->string, "hurt") == 0)
+				kfollower.states.hurt = 1;
+			if (strcmp(item->string, "lose") == 0)
+				kfollower.states.lose = 1;
+			if (strcmp(item->string, "win") == 0)
+				kfollower.states.win = 1;
+			if (strcmp(item->string, "hitconfirm") == 0)
+				kfollower.states.hitconfirm = 1;
+		}
+		lastanimframeletterinstate = 0;
 
 		nesteditem = item->child;
 
@@ -261,16 +344,41 @@ void processSprites(void) {
 			// handle automatic animation frame ordering
 			// animation frames of sprites use a letter-based ordering, from A to Z
 			// the idea is to be able to detect the highest letter used for an animation frame within a follower state and go above it upon reading sprites for the next state
-			if (item->string != "graphics")
+			if (!(strcmp(item->string, "graphics") == 0))
 			{
-				if (curstate > laststate && nesteditem->string[0] != "Z") nesteditem->string[0] = highestanimframeletter + (nesteditem->string[0]+1 - "A");
+				curanimframeletter = nesteditem->string[0];
+
+				// i more or less did this in almost complete mental fog
+				// i can't tell you how i arrived here, sorry
+				if (curstate > laststate)
+				{
+					if (curanimframeletter > lastanimframeletterinstate)
+						curanimframeletter = kfollower.highestanimframeletter + 1;
+					else
+						curanimframeletter = kfollower.highestanimframeletter;
+				}
 
 				// this will store how many frames of animation are in the sprite for all of the follower states
-				if (nesteditem->string[0] > highestanimframeletter) highestanimframeletter = nesteditem->string[0];
+				if (curanimframeletter > kfollower.highestanimframeletter)
+					kfollower.highestanimframeletter = curanimframeletter;
+
+				// store letter in which follower state animation begins
+				if (lastanimframeletterinstate == 0)
+					kfollower.followerstateanimframestart[curstate] = kfollower.highestanimframeletter;
+
+				lastanimframeletterinstate = nesteditem->string[0];
+
+				nesteditem->string[0] = getFixedAnimationIndex(curanimframeletter);
+				
+				if (strlen(nesteditem->string) > 3)
+					nesteditem->string[2] = nesteditem->string[0];
 			}
 
-			if (item->string != "graphics") sprintf(cursprite->lumpname, "%s%s", prefix, nesteditem->string);
-			else                            sprintf(cursprite->lumpname, "ICOF%s", prefix);
+			// this sucks
+			if (!(strcmp(item->string, "graphics") == 0))
+				sprintf(cursprite->lumpname, "%s%s", prefix, nesteditem->string);
+			else
+				sprintf(cursprite->lumpname, "ICOF%s", prefix);
 
 			prop = cJSON_GetObjectItem(nesteditem, "heightfactor");
 			cursprite->heightFactor = prop != NULL ? prop->valueint : 1;
@@ -312,6 +420,8 @@ void processSprites(void) {
 		item = item->next;
 		laststate = curstate;
 	}
+
+	kfollower.numstates = laststate;
 
 	printf("Reading sprites... Done.\n");
 }
@@ -582,9 +692,12 @@ unsigned char* imageInDoomFormat(struct RGB_Sprite* image, size_t* size)
 	return img;
 }
 
-void addSkin(struct wadfile* wad)
+void addFollower(struct wadfile* wad)
 {
 	char buf[1<<16];
+	char prebuf[1<<16];
+	char ff_animate[16];
+	char var1 = 0;
 	int size;
 	char prefix[5] = "____";
 	uint32_t slen;
@@ -601,21 +714,12 @@ void addSkin(struct wadfile* wad)
 		kfollower.name[slen] = '\0';
 	}
 
-	if (cJSON_GetObjectItem(metadata, "realname"))
+	if (cJSON_GetObjectItem(metadata, "category"))
 	{
-		slen = strlen(cJSON_GetObjectItem(metadata, "realname")->valuestring);
-		strncpy(kfollower.realname, cJSON_GetObjectItem(metadata, "realname")->valuestring, slen);
-		kfollower.realname[slen] = '\0';
+		slen = strlen(cJSON_GetObjectItem(metadata, "category")->valuestring);
+		strncpy(kfollower.category, cJSON_GetObjectItem(metadata, "category")->valuestring, slen);
+		kfollower.category[slen] = '\0';
 	}
-
-	if (cJSON_GetObjectItem(metadata, "stats"))
-	{
-		kfollower.kartspeed = cJSON_GetObjectItem(metadata, "stats")->child->valueint;
-		kfollower.kartweight = cJSON_GetObjectItem(metadata, "stats")->child->next->valueint;
-	}
-
-	if (cJSON_GetObjectItem(metadata, "startcolor"))
-		kfollower.startcolor = cJSON_GetObjectItem(metadata, "startcolor")->valueint;
 
 	if (cJSON_GetObjectItem(metadata, "prefcolor"))
 	{
@@ -624,38 +728,268 @@ void addSkin(struct wadfile* wad)
 		kfollower.prefcolor[slen] = '\0';
 	}
 
-	if (cJSON_GetObjectItem(metadata, "rivals"))
+	if (cJSON_GetObjectItem(metadata, "mode"))
 	{
-		cJSON* item = cJSON_GetObjectItem(metadata, "rivals")->child;
-		int numRivals = 0;
+		slen = strlen((cJSON_GetObjectItem(metadata, "mode")->valueint == 0) ? "FLOAT" : "GROUND");
+		strncpy(kfollower.mode, (cJSON_GetObjectItem(metadata, "mode")->valueint == 0) ? "FLOAT" : "GROUND", slen);
+		kfollower.mode[slen] = '\0';
+	}
 
-		while (item != NULL)
+	if (cJSON_GetObjectItem(metadata, "scale"))
+		kfollower.scale = cJSON_GetObjectItem(metadata, "scale")->valueint;
+	if (cJSON_GetObjectItem(metadata, "bubblescale"))
+		kfollower.bubblescale = cJSON_GetObjectItem(metadata, "bubblescale")->valueint;
+	if (cJSON_GetObjectItem(metadata, "atangle"))
+		kfollower.atangle = cJSON_GetObjectItem(metadata, "atangle")->valueint;
+	if (cJSON_GetObjectItem(metadata, "distance"))
+		kfollower.distance = cJSON_GetObjectItem(metadata, "distance")->valueint;
+	if (cJSON_GetObjectItem(metadata, "height"))
+		kfollower.height = cJSON_GetObjectItem(metadata, "height")->valueint;
+	if (cJSON_GetObjectItem(metadata, "zoffs"))
+		kfollower.zoffs = cJSON_GetObjectItem(metadata, "zoffs")->valueint;
+	if (cJSON_GetObjectItem(metadata, "horzlag"))
+		kfollower.horzlag = cJSON_GetObjectItem(metadata, "horzlag")->valueint;
+	if (cJSON_GetObjectItem(metadata, "vertlag"))
+		kfollower.vertlag = cJSON_GetObjectItem(metadata, "vertlag")->valueint;
+	if (cJSON_GetObjectItem(metadata, "anglelag"))
+		kfollower.anglelag = cJSON_GetObjectItem(metadata, "anglelag")->valueint;
+	if (cJSON_GetObjectItem(metadata, "bobamp"))
+		kfollower.bobamp = cJSON_GetObjectItem(metadata, "bobamp")->valueint;
+	if (cJSON_GetObjectItem(metadata, "bobspeed"))
+		kfollower.bobspeed = cJSON_GetObjectItem(metadata, "bobspeed")->valueint;
+	if (cJSON_GetObjectItem(metadata, "hitconfirmtime"))
+		kfollower.hitconfirmtime = cJSON_GetObjectItem(metadata, "hitconfirmtime")->valueint;
+
+	if (cJSON_GetObjectItem(metadata, "idle_animation_speed"))
+		kfollower.idleanimationspeed = cJSON_GetObjectItem(metadata, "idle_animation_speed")->valueint;
+	if (cJSON_GetObjectItem(metadata, "following_animation_speed"))
+		kfollower.followinganimationspeed = cJSON_GetObjectItem(metadata, "following_animation_speed")->valueint;
+	if (cJSON_GetObjectItem(metadata, "hurt_animation_speed"))
+		kfollower.hurtanimationspeed = cJSON_GetObjectItem(metadata, "hurt_animation_speed")->valueint;
+	if (cJSON_GetObjectItem(metadata, "lose_animation_speed"))
+		kfollower.loseanimationspeed = cJSON_GetObjectItem(metadata, "lose_animation_speed")->valueint;
+	if (cJSON_GetObjectItem(metadata, "win_animation_speed"))
+		kfollower.winanimationspeed = cJSON_GetObjectItem(metadata, "win_animation_speed")->valueint;
+	if (cJSON_GetObjectItem(metadata, "hitconfirm_animation_speed"))
+		kfollower.hitconfirmanimationspeed = cJSON_GetObjectItem(metadata, "hitconfirm_animation_speed")->valueint;
+
+	sprintf(prebuf, "FREESLOT\nSPR_%s\nsfx_FH%s\nS_%sIDLE\n", prefix, prefix, prefix);
+
+	if (kfollower.states.following)
+		sprintf(prebuf, "%sS_%sFOLLOW\n", prebuf, prefix);
+	if (kfollower.states.hurt)
+		sprintf(prebuf, "%sS_%sHURT\n", prebuf, prefix);
+	if (kfollower.states.lose)
+		sprintf(prebuf, "%sS_%sLOSE\n", prebuf, prefix);
+	if (kfollower.states.win)
+		sprintf(prebuf, "%sS_%sWIN\n", prebuf, prefix);
+	if (kfollower.states.hitconfirm)
+		sprintf(prebuf, "%sS_%sHITCONFIRM\n", prebuf, prefix);
+
+	if (kfollower.highestanimframeletter > 0x41 && !(kfollower.numstates > 0))
+	{
+		sprintf(ff_animate, "A|FF_ANIMATE");
+		var1 = kfollower.highestanimframeletter - 0x41;
+	}
+	else
+	{
+		if ((kfollower.followerstateanimframestart[1] - kfollower.followerstateanimframestart[0]) > 1)
 		{
-			if (numRivals >= MAXRIVALS)
+			sprintf(ff_animate, "A|FF_ANIMATE");
+			var1 = (kfollower.followerstateanimframestart[1] - kfollower.followerstateanimframestart[0]) - 1;
+		}
+		else
+			sprintf(ff_animate, "A");
+	}
+
+	sprintf(
+		prebuf, "%s\nSTATE S_%sIDLE\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sIDLE\n",
+		prebuf, prefix, prefix, ff_animate, var1, kfollower.idleanimationspeed, prefix
+	);
+
+	if (kfollower.numstates > 0)
+	{
+		if (kfollower.states.following)
+		{
+			if (kfollower.numstates > 1)
 			{
-				break;
+				if ((kfollower.followerstateanimframestart[2] - kfollower.followerstateanimframestart[1]) > 1)
+				{
+					sprintf(ff_animate, "A|FF_ANIMATE");
+					var1 = (kfollower.followerstateanimframestart[2] - kfollower.followerstateanimframestart[1]) - 1;
+				}
+				else
+				{
+					sprintf(ff_animate, "A");
+					var1 = 0;
+				}
 			}
-
-			slen = strlen(item->valuestring);
-			strncpy(kfollower.rivals[numRivals], item->valuestring, slen);
-			kfollower.rivals[numRivals][slen] = '\0';
-
-			item = item->next;
-			numRivals++;
+			else
+			{
+				if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[1])
+				{
+					sprintf(ff_animate, "A|FF_ANIMATE");
+					var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[1];
+				}
+				else
+				{
+					sprintf(ff_animate, "A");
+					var1 = 0;
+				}
+			}
+			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[1]);
+			sprintf(prebuf, "%s\nSTATE S_%sFOLLOW\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sFOLLOW\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.followinganimationspeed, prefix);
+		}
+		if (kfollower.states.hurt)
+		{
+			if (kfollower.numstates > 2)
+			{
+				if ((kfollower.followerstateanimframestart[3] - kfollower.followerstateanimframestart[2]) > 1)
+				{
+					sprintf(ff_animate, "A|FF_ANIMATE");
+					var1 = (kfollower.followerstateanimframestart[3] - kfollower.followerstateanimframestart[2]) - 1;
+				}
+				else
+				{
+					sprintf(ff_animate, "A");
+					var1 = 0;
+				}
+			}
+			else
+			{
+				if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[2])
+				{
+					sprintf(ff_animate, "A|FF_ANIMATE");
+					var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[2];
+				}
+				else
+				{
+					sprintf(ff_animate, "A");
+					var1 = 0;
+				}
+			}
+			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[2]);
+			sprintf(prebuf, "%s\nSTATE S_%sHURT\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sHURT\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.hurtanimationspeed, prefix);
+		}
+		if (kfollower.states.lose)
+		{
+			if (kfollower.numstates > 3)
+			{
+				if ((kfollower.followerstateanimframestart[4] - kfollower.followerstateanimframestart[3]) > 1)
+				{
+					sprintf(ff_animate, "A|FF_ANIMATE");
+					var1 = (kfollower.followerstateanimframestart[4] - kfollower.followerstateanimframestart[3]) - 1;
+				}
+				else
+				{
+					sprintf(ff_animate, "A");
+					var1 = 0;
+				}
+			}
+			else
+			{
+				if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[3])
+				{
+					sprintf(ff_animate, "A|FF_ANIMATE");
+					var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[3];
+				}
+				else
+				{
+					sprintf(ff_animate, "A");
+					var1 = 0;
+				}
+			}
+			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[3]);
+			sprintf(prebuf, "%s\nSTATE S_%sLOSE\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sLOSE\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.loseanimationspeed, prefix);
+		}
+		if (kfollower.states.win)
+		{
+			if (kfollower.numstates > 4)
+			{
+				if ((kfollower.followerstateanimframestart[5] - kfollower.followerstateanimframestart[4]) > 1)
+				{
+					sprintf(ff_animate, "A|FF_ANIMATE");
+					var1 = (kfollower.followerstateanimframestart[5] - kfollower.followerstateanimframestart[4]) - 1;
+				}
+				else
+				{
+					sprintf(ff_animate, "A");
+					var1 = 0;
+				}
+			}
+			else
+			{
+				if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[4])
+				{
+					sprintf(ff_animate, "A|FF_ANIMATE");
+					var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[4];
+				}
+				else
+				{
+					sprintf(ff_animate, "A");
+					var1 = 0;
+				}
+			}
+			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[4]);
+			sprintf(prebuf, "%s\nSTATE S_%sWIN\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sWIN\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.winanimationspeed, prefix);
+		}
+		if (kfollower.states.hitconfirm)
+		{
+			if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[5])
+			{
+				sprintf(ff_animate, "A|FF_ANIMATE");
+				var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[5];
+			}
+			else
+			{
+				sprintf(ff_animate, "A");
+				var1 = 0;
+			}
+			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[5]);
+			sprintf(prebuf, "%s\nSTATE S_%sHITCONFIRM\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sHITCONFIRM\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.hitconfirmanimationspeed, prefix);
 		}
 	}
 
-	size = sprintf(buf, FOLLOWER_SOC_SNIPPET_TEMPLATE,
+	sprintf(prebuf, FOLLOWER_SOC_SNIPPET_TEMPLATE, prebuf,
 		kfollower.name,
-		kfollower.realname,
-		kfollower.kartspeed,
-		kfollower.kartweight,
-		kfollower.startcolor,
+		prefix,
+		kfollower.category,
+		prefix,
 		kfollower.prefcolor,
-		kfollower.rivals[0], kfollower.rivals[1], kfollower.rivals[2],
-		prefix, prefix, prefix, prefix, prefix, prefix, prefix, prefix, prefix, prefix, prefix
+		kfollower.mode,
+		kfollower.scale,
+		kfollower.bubblescale,
+		kfollower.atangle,
+		kfollower.distance,
+		kfollower.height,
+		kfollower.zoffs,
+		kfollower.horzlag,
+		kfollower.vertlag,
+		kfollower.anglelag,
+		kfollower.bobamp,
+		kfollower.bobspeed,
+		kfollower.hitconfirmtime
 	);
-	add_lump(wad, NULL, "S_SKIN", size, buf);
+
+	sprintf(prebuf, "%sIdleState = S_%sIDLE\n", prebuf, prefix);
+
+	if (kfollower.numstates > 0)
+	{
+		if (kfollower.states.following)
+			sprintf(prebuf, "%sFollowState = S_%sFOLLOW\n", prebuf, prefix);
+		if (kfollower.states.hurt)
+			sprintf(prebuf, "%sHurtState = S_%sHURT\n", prebuf, prefix);
+		if (kfollower.states.lose)
+			sprintf(prebuf, "%sLoseState = S_%sLOSE\n", prebuf, prefix);
+		if (kfollower.states.win)
+			sprintf(prebuf, "%sWinState = S_%sWIN\n", prebuf, prefix);
+		if (kfollower.states.hitconfirm)
+			sprintf(prebuf, "%sHitConfirmState = S_%sHITCONFIRM\n", prebuf, prefix);
+	}
+
+	size = sprintf(buf, prebuf);
+		
+	add_lump(wad, NULL, "SOC_FLLW", size, buf);
 }
 
 // entrypoint
@@ -668,7 +1002,7 @@ int main(int argc, char *argv[]) {
 	char iconlump[9];
 
 	if (argc != 2) {
-		printf("kartmaker <folder>: Converts a structured folder into an SRB2Kart character WAD. (Try dragging the folder onto the EXE!)");
+		printf("followermaker <folder>: Converts a structured folder into a Dr. Robotnik's Ring Racers follower WAD. (Try dragging the folder onto the EXE!)");
 		return 1;
 	}
 
@@ -768,15 +1102,10 @@ int main(int argc, char *argv[]) {
 	add_lump(wad, NULL, "S_START", 0, NULL);
 	printf("Adding sprites to WAD... Done.\n");
 
-	// Add S_SKIN into WAD
-	printf("Adding S_SKIN to WAD... ");
-	addSkin(wad);
+	// Add SOC_FLLW into WAD
+	printf("Adding SOC_FLLW to WAD... ");
+	addFollower(wad);
 	printf("Done.\n");
-
-	// Process graphics
-	printf("Processing graphics...\n");
-	processGfx();
-	printf("Processing graphics... Done.\n");
 
 	if (gfxstart)
 	{
@@ -800,60 +1129,44 @@ int main(int argc, char *argv[]) {
 	}
 
 	// Add SFX into WAD
-	{
-		cJSON* item;
-		if ((item = cJSON_GetObjectItem(metadata, "sfx")) == NULL)
-		{
-			printf("No sfx found, skipping...\n");
-		}
-		else
-		{
-			printf("Adding SFX to WAD...\n");
-			add_lump(wad, NULL, "DS_END", 0, NULL);
-			{
-				char lumpname[9] = "DS______";
+	printf("Adding SFX to WAD...\n");
+	add_lump(wad, NULL, "DS_END", 0, NULL);
+	
+	char lumpname[9] = "DSFH____";
 
-				if (cJSON_GetObjectItem(metadata, "prefix"))
-					strncpy(lumpname+2, cJSON_GetObjectItem(metadata, "prefix")->valuestring, 4);
-				else
-					strncpy(lumpname+2, defprefix, 4);
+	if (cJSON_GetObjectItem(metadata, "prefix"))
+		strncpy(lumpname+4, cJSON_GetObjectItem(metadata, "prefix")->valuestring, 4);
+	else
+		strncpy(lumpname+4, defprefix, 4);
 
-				item = item->child;
-				while (item != NULL) {
-					unsigned char* buffer;
-					off_t size, bytesRead;
-					FILE* file;
-					printf(" File %s... ", item->valuestring);
+	unsigned char* buffer;
+	off_t size, bytesRead;
+	FILE* file;
 
-					strncpy(lumpname+6, item->string, 2);
-					SET_FILENAME(item->valuestring);
+	SET_FILENAME("/follower_sound.ogg");
 
-					file = fopen(path, "rb");
+	file = fopen(path, "rb");
 
-					// seek to end of file
-					fseek(file, 0, SEEK_END);
+	// seek to end of file
+	fseek(file, 0, SEEK_END);
 
-					// Load file into buffer
-					size = ftell(file);
-					buffer = malloc(size);
+	// Load file into buffer
+	size = ftell(file);
+	buffer = malloc(size);
 
-					// seek back to start
-					fseek(file, 0, SEEK_SET);
+	// seek back to start
+	fseek(file, 0, SEEK_SET);
 
-					//read contents!
-					bytesRead = fread(buffer, 1, size, file);
-					fclose(file);
+	//read contents!
+	bytesRead = fread(buffer, 1, size, file);
+	fclose(file);
 
-					add_lump(wad, NULL, lumpname, bytesRead, buffer);
+	add_lump(wad, NULL, lumpname, bytesRead, buffer);
 
-					item = item->next;
-					printf("Done.\n");
-				}
-			}
-			add_lump(wad, NULL, "DS_START", 0, NULL);
-			printf("Adding SFX to WAD... Done.\n");
-		}
-	}
+	printf("Done.\n");
+	
+	add_lump(wad, NULL, "DS_START", 0, NULL);
+	printf("Adding SFX to WAD... Done.\n");
 
 	// Write WAD and exit
 	SET_FILENAME(".wad");

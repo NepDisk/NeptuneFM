@@ -6,7 +6,7 @@
 	"transparent_colors_explanation": "The above colors will be made transparent upon processing the template image for sprite conversion. You can add up to 4 colors to be set to transparent.",
 
 	"name": "example",
-	"name_explanation": "The name of your follower. The names of followers appear on the main menu, upon toggling \"extrainfo mode\" with the drift button.",
+	"name_explanation": "The name of your follower. The names of followers appear on the main menu, upon toggling \"extrainfo mode\" with the drift button. Underscores will be interpeted as spaces in-game.",
 	"prefix": "EXMP",
 	"prefix_explanation": "A set of 4 characters used to internally identify your follower, mainly used for its files.",
 	"category": "Fanworks",
@@ -17,7 +17,7 @@
 	"mode": 0,
 	"mode_explanation": "If floating (0) or on the ground (1).",
 	"scale": 1,
-	"scale_explanation": "(in Fracunits) Scale relative to the player's.",
+	"scale_explanation": "(in Fracunits) Scale relative to the player's. Value entered will be inserted as [value] * FRACUNIT",
 	"bubblescale": 0,
 	"bubblescale_explanation": "(in Fracunits) Bubble scale relative to the player scale. If not set, no bubble will spawn.",
 	"atangle": 230,
@@ -38,33 +38,23 @@
 	"bobamp_explanation": "(in Fracunits) Bob amplitude.",
 	"bobspeed": 70,
 	"bobspeed_explanation": "(in Tics) Arbitrary modifier for bobbing speed. Default is TICRATE*2 (70 Tics = 2 seconds)",
+	"idle_animation_speed": 35,
+	"idle_animation_speed_explanation": "(in Tics) Number of Tics it takes to cycle through an animated sprite in the idle state.",
 	
 
-	"template_explanation": "This specific template is designed for a simple follower with 5 unique degrees of rotation. The second, third, and fourth rotation sprites are duplicated and mirrored, thus this template assumes a follower of symmetrical appearance.",
+	"template_explanation": "This specific template is designed for a follower with a 2-frame animated sprite that is seen from all camera angles.",
 
 	"sprite_size": [128, 128],
 	"layer_step_size": [128, 128],
 	"sprites": {
 		"idle": {
-			"A1": {
+			"A0": {
 				"offset": [64, 112],
 				"layers": [[0, 0]]
 			},
-			"A2A8": {
+			"B0": {
 				"offset": [64, 112],
-				"layers": [[1, 0]]
-			},
-			"A3A7": {
-				"offset": [64, 112],
-				"layers": [[2, 0]]
-			},
-			"A4A6": {
-				"offset": [64, 112],
-				"layers": [[3, 0]]
-			},
-			"A5": {
-				"offset": [64, 112],
-				"layers": [[4, 0]]
+				"layers": [[0, 1]]
 			}
 		},
 
@@ -72,7 +62,7 @@
 			"icon": {
 				"overwrite_sprite_size": [16, 16],
 				"overwrite_layer_step_size": [1, 1],
-				"layers": [[10, 138]]
+				"layers": [[10, 266]]
 			}
 		}
 	}

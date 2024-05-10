@@ -6,7 +6,7 @@
 	"transparent_colors_explanation": "The above colors will be made transparent upon processing the template image for sprite conversion. You can add up to 4 colors to be set to transparent.",
 
 	"name": "example",
-	"name_explanation": "The name of your follower. The names of followers appear on the main menu, upon toggling \"extrainfo mode\" with the drift button.",
+	"name_explanation": "The name of your follower. The names of followers appear on the main menu, upon toggling \"extrainfo mode\" with the drift button. Underscores will be interpeted as spaces in-game.",
 	"prefix": "EXMP",
 	"prefix_explanation": "A set of 4 characters used to internally identify your follower, mainly used for its files.",
 	"category": "Fanworks",
@@ -17,7 +17,7 @@
 	"mode": 0,
 	"mode_explanation": "If floating (0) or on the ground (1).",
 	"scale": 1,
-	"scale_explanation": "(in Fracunits) Scale relative to the player's.",
+	"scale_explanation": "(in Fracunits) Scale relative to the player's. Value entered will be inserted as [value] * FRACUNIT",
 	"bubblescale": 0,
 	"bubblescale_explanation": "(in Fracunits) Bubble scale relative to the player scale. If not set, no bubble will spawn.",
 	"atangle": 230,

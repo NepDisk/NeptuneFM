@@ -248,7 +248,8 @@ void processSprites(void) {
 	// to do with automating animation frame order indices
 	uint8_t curanimframeletter = 0x41;
 	uint8_t lastanimframeletterinstate = 0;
-	uint8_t curstate, laststate = 0;
+	uint8_t curstate = 0;
+	uint8_t laststate = 0;
 
 	kfollower.highestanimframeletter = 0x41;
 

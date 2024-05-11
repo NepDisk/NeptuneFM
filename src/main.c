@@ -72,7 +72,6 @@ struct followerstructthingwhatever {
 	char bobspeed;
 	char hitconfirmtime;
 
-	char animationframes;
 	char idleanimationspeed;
 	char followinganimationspeed;
 	char hurtanimationspeed;
@@ -219,7 +218,6 @@ void SetDefaultFollowerValues(void)
 	kfollower.bobspeed = 70;
 	kfollower.hitconfirmtime = 1;
 
-	kfollower.animationframes = 0;
 	kfollower.idleanimationspeed = 35;
 	kfollower.followinganimationspeed = 35;
 	kfollower.hurtanimationspeed = 35;

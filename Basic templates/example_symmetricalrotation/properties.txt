@@ -6,7 +6,7 @@
 	"transparent_colors_explanation": "The above colors will be made transparent upon processing the template image for sprite conversion. You can add up to 4 colors to be set to transparent.",
 
 	"name": "example",
-	"name_explanation": "The name of your follower. The names of followers appear on the main menu, upon toggling \"extrainfo mode\" with the drift button. Underscores will be interpeted as spaces in-game.",
+	"name_explanation": "The name of your follower. The names of followers appear on the main menu, upon toggling \"extrainfo mode\" with the drift button. For character names with spaces, use underscores instead of spaces: underscores will be interpreted as spaces in-game, while spaces won't work.",
 	"prefix": "EXMP",
 	"prefix_explanation": "A set of 4 characters used to internally identify your follower, mainly used for its files.",
 	"category": "Fanworks",

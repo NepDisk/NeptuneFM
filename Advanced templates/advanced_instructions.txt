@@ -1,6 +1,6 @@
 This text file provides instructions on how to edit templates under the "advanced" folder. It contains instructions, FAQ and troubleshooting, and an example of how to do it.
 
-The advanced templates are designed to allow it to be edited by users, in order to add more frames to any follower state's animation. It provides every possible distinct sprite: all six states (idle, following, hurt, lose, win, hitconfirm), and an asymmetrical appearance.
+The advanced templates are designed to allow it to be edited by users, in order to add more frames to any follower state's animation. It provides every possible distinct sprite: all seven states (idle, following, hurt, lose, win, hitconfirm, ring), and frames for a follower of either symmetrical or asymmetrical appearance.
  
 By default, each animation lasts for two frames. To add more, first increase the height of your spritesheet by 128 for each frame you want to add. If you're adding frames to several animations, increase the height based on whichever has the most. For example, if your most fluid animation is 4 frames, you'll be adding two new frames: that's two counts of 128, plus the original height of 256, which means your final spritesheet height should be 512.
 
@@ -22,23 +22,23 @@ FAQ and troubleshooting:
 The solid horizontal line represents the origin point for sprites. You can treat it as "ground level" if you'd like, but it's not mandatory. The vertical dotted line simply indicates the center of each sprite's 128x128 box, to help with symmetry.
 
 "Followermaker.exe won't open/won't read my file."
-Opening followermaker is possible, but not required: dragging a completed folder onto it in your file explorer is enough. If you've done this, and it still will not create a .wad, check the following:
-That your commas are properly placed in properties.txt
-That your files are named: 
-followersound.ogg 
-properties.txt
-sprites.png
-That your followersound is a .ogg file, as opposed to a .wav or .mp4 or other file type
+Opening Followermaker is possible, but not required: dragging a completed folder onto it in your file explorer is enough. If you've done this, and it still will not create a .wad, check the following:
+- That your commas are properly placed in properties.txt
+- That your files are named: 
+  - follower_sound.ogg 
+  - properties.txt
+  - sprites.png
+- That your follower_sound is a .ogg file, as opposed to a .wav or .mp4 or other file type
 If none of these work, then feel free to shout Superstarxalien about it on Discord or Twitter
 
-"Does followermaker support 16 angle rotation?"
-16 angle rotation is not supported, but it is possible. Essentially, if you can work out how to name the frames and order the template, you can do it: however, followermaker does not currently have a template or guide for it.
+"Does Followermaker support 16 angle rotation?"
+16 angle rotation is supported by the program, though there aren't any templates included with it. Essentially, if you can work out how to name the frames and order the template, you can do it.
 
 "Can I edit the simple templates in the same way as the advanced ones?"
 The short answer is no. The simple templates are in a grid format that's easier on the eyes, but the animations not being horizontally uniform on the spritesheet means adding new frames would either involve creating entire new rows or moving existing ones: the former means you would have to figure out layer steps on your own, and the latter breaks the sheet entirely unless you redid the whole thing. If you want a follower with more frames but less states, simply take an advanced template and remove the states you don't want from .properties. You don't even have to remove the relevant sections from your sprites.png: indeed, you should probably keep them, because the states you keep will be expecting their sprites to be in the same place, and so maintaining the empty space at exactly the same size can cause confusion.
 
 "Is 128x128 the maximum size? What about the intended size?"
-Ring racers does not inherently have a maximum size. However, followermaker's templates use 128x128 because it is the largest any base game followers use, and upscaling the templates will cause them to break. If you're set on making a follower greater than 128x128, you'll need to alter  "sprite_size" and "layer_step_size" to the new max size of your frames, and you'll need to substantially alter the template in order to make it the same size. (Multiplying the scale of the template skips having to rearrange it yourself, but you'll still have to change sprite_size and layer_step_size.) If you do alter the template like this, or in any way that involves changing the width of the template, remember to set graphics_icon back to normal. To change graphics_icon's location, simply indicate the coordinates of the top left of its box, and followermaker will take a 16x16 space starting from there as the follower's icon. graphics_icon overides layer steps, so "the coordinates" are the actual pixel coordinates on your sheet.
+Ring racers does not inherently have a maximum size. However, Followermaker's templates use 128x128 because it is the largest any base game followers use, and upscaling the templates will cause them to break. If you're set on making a follower greater than 128x128, you'll need to alter  "sprite_size" and "layer_step_size" to the new max size of your frames, and you'll need to substantially alter the template in order to make it the same size. (Multiplying the scale of the template skips having to rearrange it yourself, but you'll still have to change sprite_size and layer_step_size.) If you do alter the template like this, or in any way that involves changing the width of the template, remember to set graphics_icon back to normal. To change graphics_icon's location, simply indicate the coordinates of the top left of its box, and Followermaker will take a 16x16 space starting from there as the follower's icon. graphics_icon overides layer steps, so "the coordinates" are the actual pixel coordinates on your sheet.
 As for the intended size, it trends much smaller. For reference, a "small" follower might be something like 40x40. Really, though, it depends on your follower, so use your best judgement.
 
 Example:
@@ -69,6 +69,3 @@ On the symmetrical template, the left number in Layers starts at 5 and ends at 9
 Each instance of "A" has been replaced with "C." Which letter you choose to copy is not particularly relevant, but it is easier to always copy "A", so that when making many frames you only need to remove one comma. As opposed to copying "B", where you would need to add a comma to almost every new frame.
 The offset is unchanged, and should never be changed unless you're altering the size of the 128x128 box, which is not recommended unless you know what you're doing.
 Finally, because this is the only new frame being added to "following", the final right square brackets does not a comma. It is not depicted here, but "B5" should have a comma added to it in this instance.
- 
-
-

@@ -52,9 +52,11 @@
 	"win_animation_speed_explanation": "(in Tics) Number of Tics it takes to cycle through an animated sprite in the win state.",
 	"hitconfirm_animation_speed": 35,
 	"hitconfirm_animation_speed_explanation": "(in Tics) Number of Tics it takes to cycle through an animated sprite in the hit confirm state.",
+	"ring_animation_speed": 35,
+	"ring_animation_speed_explanation": "(in Tics) Number of Tics it takes to cycle through an animated sprite in the ring state.",
 	
 	
-	"follower_states_help": "As you may know, followers have several animations for things that can occur during the race; these are described as \"states\". Followers can have up to 6 states, in order: an idle state, a following state (as in, following the player), a hurt state (when you get hit by an item), a lose state (when you lose the race), a win state (win the race), and a \"hit confirm\" state (occurs when you hit another racer with an item). Of these, the idle state is obligatory in all followers. Additionally, the duration of the hit confirm state is controlled by a variable which can be edited above.",
+	"follower_states_help": "As you may know, followers have several animations for things that can occur during the race; these are described as \"states\". Followers can have up to 7 states, in order: an idle state, a following state (as in, following the player), a hurt state (when you get hit by an item), a lose state (when you lose the race), a win state (win the race), a \"hit confirm\" state (occurs when you hit another racer with an item), and a \"ring\" state (used whenever Auto Ring is enabled as the follower spends your rings). Of these, the idle state is obligatory in all followers. Additionally, the duration of the hit confirm state is controlled by a variable which can be edited above.",
 
 	"sprite_help": "The template is divided into several regions, each for a unique sprite, described by the below values. These sprite regions are each categorized according to the follower state in which they belong, and are further split into frames detailing both the rotation angle (indicated by numbers) and animation index (indicated by letters) of the follower. The \"sprite_size\" field determines the general size for each sprite region. \"Layers\" refers to the exact location of each sprite, with \"layer_step_size\" indicating how many pixels are stepped over for the position of the layer; layers also allow for literal layer functionality, allowing you to insert up to four sets of sprite locations, with the first sprite location being applied on top of following locations. You can also edit the offset of sprites, with the default templates providing automatic X axis centering for sprites, offset 16 pixels down on the Y axis.",
 
@@ -459,12 +461,78 @@
 				"layers": [[47, 1]]
 			}
 		},
+		"ring": {
+			"A1": {
+				"offset": [64, 112],
+				"layers": [[48, 0]]
+			},
+			"A2": {
+				"offset": [64, 112],
+				"layers": [[49, 0]]
+			},
+			"A3": {
+				"offset": [64, 112],
+				"layers": [[50, 0]]
+			},
+			"A4": {
+				"offset": [64, 112],
+				"layers": [[51, 0]]
+			},
+			"A5": {
+				"offset": [64, 112],
+				"layers": [[52, 0]]
+			},
+			"A6": {
+				"offset": [64, 112],
+				"layers": [[53, 0]]
+			},
+			"A7": {
+				"offset": [64, 112],
+				"layers": [[54, 0]]
+			},
+			"A8": {
+				"offset": [64, 112],
+				"layers": [[55, 0]]
+			},
+			"B1": {
+				"offset": [64, 112],
+				"layers": [[48, 1]]
+			},
+			"B2": {
+				"offset": [64, 112],
+				"layers": [[49, 1]]
+			},
+			"B3": {
+				"offset": [64, 112],
+				"layers": [[50, 1]]
+			},
+			"B4": {
+				"offset": [64, 112],
+				"layers": [[51, 1]]
+			},
+			"B5": {
+				"offset": [64, 112],
+				"layers": [[52, 1]]
+			},
+			"B6": {
+				"offset": [64, 112],
+				"layers": [[53, 1]]
+			},
+			"B7": {
+				"offset": [64, 112],
+				"layers": [[54, 1]]
+			},
+			"B8": {
+				"offset": [64, 112],
+				"layers": [[55, 1]]
+			}
+		},
 
 		"graphics": {
 			"icon": {
 				"overwrite_sprite_size": [16, 16],
 				"overwrite_layer_step_size": [1, 1],
-				"layers": [[6154, 10]]
+				"layers": [[7178, 10]]
 			}
 		}
 	}

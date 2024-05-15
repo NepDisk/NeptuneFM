@@ -78,10 +78,11 @@ struct followerstructthingwhatever {
 	char loseanimationspeed;
 	char winanimationspeed;
 	char hitconfirmanimationspeed;
+	char ringanimationspeed;
 
 	char numstates;
 	uint8_t highestanimframeletter;
-	uint8_t followerstateanimframestart[6];
+	uint8_t followerstateanimframestart[7];
 	struct state {
 		uint8_t idle:1;
 		uint8_t following:1;
@@ -89,7 +90,8 @@ struct followerstructthingwhatever {
 		uint8_t lose:1;
 		uint8_t win:1;
 		uint8_t hitconfirm:1;
-		uint8_t padding:2;
+		uint8_t ring:1;
+		uint8_t padding:1;
 	} states;
 };
 
@@ -224,6 +226,7 @@ void SetDefaultFollowerValues(void)
 	kfollower.loseanimationspeed = 35;
 	kfollower.winanimationspeed = 35;
 	kfollower.hitconfirmanimationspeed = 35;
+	kfollower.ringanimationspeed = 35;
 
 	kfollower.numstates = 0;
 	kfollower.highestanimframeletter = 0x41;
@@ -234,6 +237,7 @@ void SetDefaultFollowerValues(void)
 	kfollower.states.lose = 0;
 	kfollower.states.win = 0;
 	kfollower.states.hitconfirm = 0;
+	kfollower.states.ring = 0;
 }
 
 // processes sprites on the template, which are separated by regions (usually visualized on the template image as squares)
@@ -301,6 +305,8 @@ void processSprites(void) {
 				kfollower.states.win = 1;
 			if (strcmp(item->string, "hitconfirm") == 0)
 				kfollower.states.hitconfirm = 1;
+			if (strcmp(item->string, "ring") == 0)
+				kfollower.states.ring = 1;
 		}
 		lastanimframeletterinstate = 0;
 
@@ -367,8 +373,11 @@ void processSprites(void) {
 
 				lastanimframeletterinstate = nesteditem->string[0];
 
+				// once all alphabet letters are exhausted in the JSON file, the program simply uses whatever's next on the ascii table
+				// obviously the game won't like that, so those entries get converted to the proper format after the fact
 				nesteditem->string[0] = getFixedAnimationIndex(curanimframeletter);
 				
+				// for flipped sprites (e.g. A2A8)
 				if (strlen(nesteditem->string) > 3)
 					nesteditem->string[2] = nesteditem->string[0];
 			}
@@ -691,6 +700,7 @@ unsigned char* imageInDoomFormat(struct RGB_Sprite* image, size_t* size)
 	return img;
 }
 
+// generate SOC
 void addFollower(struct wadfile* wad)
 {
 	char buf[1<<16];
@@ -771,6 +781,8 @@ void addFollower(struct wadfile* wad)
 		kfollower.winanimationspeed = cJSON_GetObjectItem(metadata, "win_animation_speed")->valueint;
 	if (cJSON_GetObjectItem(metadata, "hitconfirm_animation_speed"))
 		kfollower.hitconfirmanimationspeed = cJSON_GetObjectItem(metadata, "hitconfirm_animation_speed")->valueint;
+	if (cJSON_GetObjectItem(metadata, "ring_animation_speed"))
+		kfollower.winanimationspeed = cJSON_GetObjectItem(metadata, "ring_animation_speed")->valueint;
 
 	sprintf(prebuf, "FREESLOT\nSPR_%s\nsfx_FH%s\nS_%sIDLE\n", prefix, prefix, prefix);
 
@@ -784,6 +796,8 @@ void addFollower(struct wadfile* wad)
 		sprintf(prebuf, "%sS_%sWIN\n", prebuf, prefix);
 	if (kfollower.states.hitconfirm)
 		sprintf(prebuf, "%sS_%sHITCONFIRM\n", prebuf, prefix);
+	if (kfollower.states.ring)
+		sprintf(prebuf, "%sS_%sRING\n", prebuf, prefix);
 
 	if (kfollower.highestanimframeletter > 0x41 && !(kfollower.numstates > 0))
 	{
@@ -934,18 +948,49 @@ void addFollower(struct wadfile* wad)
 		}
 		if (kfollower.states.hitconfirm)
 		{
-			if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[5])
+			if (kfollower.numstates > 5)
+			{
+				if ((kfollower.followerstateanimframestart[6] - kfollower.followerstateanimframestart[5]) > 1)
+				{
+					sprintf(ff_animate, "A|FF_ANIMATE");
+					var1 = (kfollower.followerstateanimframestart[6] - kfollower.followerstateanimframestart[5]) - 1;
+				}
+				else
+				{
+					sprintf(ff_animate, "A");
+					var1 = 0;
+				}
+			}
+			else
+			{
+				if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[5])
+				{
+					sprintf(ff_animate, "A|FF_ANIMATE");
+					var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[5];
+				}
+				else
+				{
+					sprintf(ff_animate, "A");
+					var1 = 0;
+				}
+			}
+			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[5]);
+			sprintf(prebuf, "%s\nSTATE S_%sHITCONFIRM\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sHITCONFIRM\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.hitconfirmanimationspeed, prefix);
+		}
+		if (kfollower.states.ring)
+		{
+			if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[6])
 			{
 				sprintf(ff_animate, "A|FF_ANIMATE");
-				var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[5];
+				var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[6];
 			}
 			else
 			{
 				sprintf(ff_animate, "A");
 				var1 = 0;
 			}
-			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[5]);
-			sprintf(prebuf, "%s\nSTATE S_%sHITCONFIRM\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sHITCONFIRM\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.hitconfirmanimationspeed, prefix);
+			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[6]);
+			sprintf(prebuf, "%s\nSTATE S_%sRING\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sRING\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.ringanimationspeed, prefix);
 		}
 	}
 
@@ -984,6 +1029,8 @@ void addFollower(struct wadfile* wad)
 			sprintf(prebuf, "%sWinState = S_%sWIN\n", prebuf, prefix);
 		if (kfollower.states.hitconfirm)
 			sprintf(prebuf, "%sHitConfirmState = S_%sHITCONFIRM\n", prebuf, prefix);
+		if (kfollower.states.ring)
+			sprintf(prebuf, "%sRingState = S_%sRING\n", prebuf, prefix);
 	}
 
 	size = sprintf(buf, prebuf);

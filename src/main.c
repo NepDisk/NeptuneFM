@@ -39,6 +39,7 @@
 
 #define FOLLOWERNAMESIZE 16
 
+// Since strupr doesn't actually exist in the standard C libraries it's defined here so its usage no longer breaks compatibility.
 char* strupr(char* s)
 {
     char* tmp = s;

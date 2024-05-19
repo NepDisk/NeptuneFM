@@ -21,6 +21,7 @@
 */
 
 #include <stdio.h>
+#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
@@ -38,6 +39,16 @@
 
 #define FOLLOWERNAMESIZE 16
 
+char* strupr(char* s)
+{
+    char* tmp = s;
+
+    for (;*tmp;++tmp) {
+        *tmp = toupper((unsigned char) *tmp);
+    }
+
+    return s;
+}
 // This struct contains pre-lump-conversion data about a sprite
 struct RGB_Sprite {
 	char lumpname[9];

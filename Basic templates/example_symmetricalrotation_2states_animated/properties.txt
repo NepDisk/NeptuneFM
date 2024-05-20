@@ -44,7 +44,7 @@
 	"following_animation_speed_explanation": "(in Tics) Number of Tics it takes to cycle through an animated sprite in the following state.",
 	
 	
-	"follower_states_help": "As you may know, followers have several animations for things that can occur during the race; these are described as \"states\". Followers can have up to 6 states, in order: an idle state, a following state (as in, following the player), a hurt state (when you get hit by an item), a lose state (when you lose the race), a win state (win the race), and a \"hit confirm\" state (occurs when you hit another racer with an item). Of these, the idle state is obligatory in all followers.",
+	"follower_states_help": "As you may know, followers have several animations for things that can occur during the race; these are described as \"states\". Followers can have up to 7 states, in order: an idle state, a following state (as in, following the player), a hurt state (when you get hit by an item), a lose state (when you lose the race), a win state (win the race), a \"hit confirm\" state (occurs when you hit another racer with an item), and a \"ring\" state (used whenever Auto Ring is enabled as the follower spends your rings). Of these, the idle state is obligatory in all followers.",
 
 	"template_explanation": "This specific template is designed for followers with an idle and following state, with 2-frame animations for each state and 5 unique degrees of rotation. The second, third, and fourth rotation sprites are duplicated and mirrored, thus this template assumes a follower of symmetrical appearance.",
 

@@ -1,6 +1,6 @@
 /*
-	Kartmaker. Maintained by Kart Krew Dev 2020-2024.
-	Takes a working folder (examples provided) and converts it into a character WAD for SRB2Kart.
+	Followermaker. Created by Superstarxalien based on Kartmaker.
+	Takes a working folder (examples provided) and converts it into a follower WAD for Dr. Robotnik's Ring Racers.
 	Uses lump.c and lump.h from Lumpmod. &copy; 2003 Thunder Palace Entertainment.
 
 	This program is free software; you can redistribute it and/or modify

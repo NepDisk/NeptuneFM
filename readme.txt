@@ -21,3 +21,6 @@ Huge thanks to casual koopa for creating the advanced template images as well as
 general aspects of the program.
 
 Licensed under the GPL.
+
+With contributions from:
+- Perisys1312

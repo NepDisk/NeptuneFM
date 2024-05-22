@@ -1060,7 +1060,7 @@ int main(int argc, char *argv[]) {
 	char iconlump[9];
 
 	if (argc != 2) {
-		printf("followermaker <folder>: Converts a structured folder into a Dr. Robotnik's Ring Racers follower WAD. (Try dragging the folder onto the EXE!)");
+		printf("followermaker <folder>: Converts a structured folder into a Dr. Robotnik's Ring Racers follower WAD. (Try dragging the folder onto the executable!)");
 		return 1;
 	}
 

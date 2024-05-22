@@ -14,7 +14,7 @@ HOW TO USE:
 The main goal of Followermaker is to allow for base-level creation of followers. It is not a comprehensive program, and as
 such you may still need to use SLADE in order to make full use of the features that follower creation provides.
 
-Ignore build.bat and the src/ folder for standard use. This is a compile script and source files. You can use it if you
+Ignore build.bat/build.sh and the src/ folder for standard use. This is a compile script and source files. You can use it if you
 want to modify the program (you need GCC installed). I make no guarantees that the program compiles on other setups.
 
 Huge thanks to casual koopa for creating the advanced template images as well as the instructions for those, and tips on

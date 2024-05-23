@@ -33,7 +33,14 @@ build-linux:       # This job runs in the build stage, which runs first.
   artifacts:
     paths:
       - followermaker
-      - ./
+      - "/Advanced templates"
+      - "/Basic templates"
+      - /src
+      - build.bat
+      - build.sh
+      - LICENSE.txt
+      - PLAYPAL.lmp
+      - readme.txt
     untracked: false
     when: on_success
     access: all
@@ -48,7 +55,14 @@ build-windows:       # This job runs in the build stage, which runs first.
   artifacts:
     paths:
       - followermaker.exe
-      - ./
+      - "/Advanced templates"
+      - "/Basic templates"
+      - /src
+      - build.bat
+      - build.sh
+      - LICENSE.txt
+      - PLAYPAL.lmp
+      - readme.txt
     untracked: false
     when: on_success
     access: all

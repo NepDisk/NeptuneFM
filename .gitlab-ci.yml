@@ -40,7 +40,7 @@ build-linux:       # This job runs in the build stage, which runs first.
 build-windows:       # This job runs in the build stage, which runs first.
   stage: build
   script:
-    - apt-get update && apt-get install -y clang-15
+    - apt-get update && apt-get install -y clang-15 && apt-get install -y gcc-multilib
     - echo "Compiling the code... [windows]"
     - clang-15 src/lump.c src/lodepng.c src/main.c src/cJSON.c -o followermaker -lm -target x86_64-pc-win32-gnu
     - echo "Compile complete."

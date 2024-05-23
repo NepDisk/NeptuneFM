@@ -41,9 +41,8 @@ build-windows:       # This job runs in the build stage, which runs first.
   stage: build
   script:
     - apt-get update && apt-get install -y clang-15 mingw-w64 gcc-mingw-w64 build-essential
-    - ls /usr/lib/gcc/x86_64-w64-mingw32/
     - echo "Compiling the code... [windows]"
-    - clang-15 src/lump.c src/lodepng.c src/main.c src/cJSON.c -o followermaker.exe -lm --target=x86_64-w64-mingw32
+    - clang-15 src/lump.c src/lodepng.c src/main.c src/cJSON.c -o followermaker.exe -lm --target=x86_64-w64-mingw32 --sysroot=/usr/x86_64-w64-mingw32 -L/usr/lib/gcc/x86_64-w64-mingw32/12-win32 -lgcc -lgcc_eh
     - echo "Compile complete."
   artifacts:
     paths:

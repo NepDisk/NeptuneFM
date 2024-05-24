@@ -35,6 +35,9 @@ build-linux:       # This job runs in the build stage, which runs first.
     - echo "Compiling the code... [linux]"
     - clang-15 src/lump.c src/lodepng.c src/main.c src/cJSON.c -o followermaker -lm -target x86_64-pc-linux-gnu
     - echo "Compile complete."
+    - echo "LINUXJOB_ID=$CI_JOB_ID" > linuxjob.env  # Create job.env in the artifacts directory
+  after_script:
+    - cat linuxjob.env  # Debug: Check the content of job.env
   artifacts:
     name: "Followermaker-linux"
     paths:
@@ -43,6 +46,8 @@ build-linux:       # This job runs in the build stage, which runs first.
     untracked: false
     when: on_success
     access: all
+  reports:
+      dotenv: linuxjob.env  # Specify the path to the job.env file
 
 build-windows:       # This job runs in the build stage, which runs first.
   stage: build
@@ -68,7 +73,9 @@ release_job:
       when: never                                  # Do not run this job when a tag is created manually
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH  # Run this job when commits are pushed or merged to the default branch
   script:
-    - echo "running release_job for $TAG"
+    - echo "Running the release job."
+    - LINUXJOB_ID=$(cat linuxjob.env)  # Read JOB_ID from job.env
+    - echo LINUXJOB_ID
   release:                                         # See https://docs.gitlab.com/ee/ci/yaml/#release for available properties
     name: 'Followermaker nightly (?) r$CI_PIPELINE_IID'
     tag_name: 'r$CI_PIPELINE_IID'                # The version is incremented per pipeline.

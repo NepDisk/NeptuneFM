@@ -21,8 +21,12 @@ image: debian:bookworm
 stages:          # List of stages for jobs, and their order of execution
   - build
   - release
-  #- test
-  #- deploy
+
+.artifactz: &artifactz
+  - "./Advanced templates"
+  - "./Basic templates"
+  - PLAYPAL.lmp
+  - readme.txt
 
 build-linux:       # This job runs in the build stage, which runs first.
   stage: build
@@ -35,10 +39,7 @@ build-linux:       # This job runs in the build stage, which runs first.
     name: "Followermaker-linux"
     paths:
       - followermaker
-      - "./Advanced templates"
-      - "./Basic templates"
-      - PLAYPAL.lmp
-      - readme.txt
+      - *artifactz
     untracked: false
     when: on_success
     access: all
@@ -54,10 +55,7 @@ build-windows:       # This job runs in the build stage, which runs first.
     name: "Followermaker-windows"
     paths:
       - followermaker.exe
-      - "./Advanced templates"
-      - "./Basic templates"
-      - PLAYPAL.lmp
-      - readme.txt
+      - *artifactz
     untracked: false
     when: on_success
     access: all
@@ -76,24 +74,3 @@ release_job:
     tag_name: 'r$CI_PIPELINE_IID'                # The version is incremented per pipeline.
     description: 'Public download of followermaker based on latest commit in main. The cutting edge. Beware of bugs!'
     ref: '$CI_COMMIT_SHA'                          # The tag is created from the pipeline SHA.
-
-# unit-test-job:   # This job runs in the test stage.
-#   stage: test    # It only starts when the job in the build stage completes successfully.
-#   script:
-#     - echo "Running unit tests... This will take about 60 seconds."
-#     - sleep 60
-#     - echo "Code coverage is 90%"
-
-# lint-test-job:   # This job also runs in the test stage.
-#   stage: test    # It can run at the same time as unit-test-job (in parallel).
-#   script:
-#     - echo "Linting code... This will take about 10 seconds."
-#     - sleep 10
-#     - echo "No lint issues found."
-
-# deploy-job:      # This job runs in the deploy stage.
-#   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
-#   environment: production
-#   script:
-#     - echo "Deploying application..."
-#     - echo "Application successfully deployed."

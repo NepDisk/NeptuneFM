@@ -55,9 +55,9 @@ build-windows:       # This job runs in the build stage, which runs first.
   artifacts:
     paths:
       - followermaker.exe
-      - "/Advanced templates"
-      - "/Basic templates"
-      - /src
+      - "./Advanced templates"
+      - "./Basic templates"
+      - ./src
       - build.bat
       - build.sh
       - LICENSE.txt

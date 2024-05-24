@@ -63,8 +63,8 @@ release_job:
     - echo "Running the release job."
     #- LINUXJOB_ID=$(cat linuxjob.env)  # Read JOB_ID from job.env
     #- echo LINUXJOB_ID
-    - WINDOWSJOB_ID=$(cat windowsjob.env)  # Read JOB_ID from job.env
-    - echo WINDOWSJOB_ID
+    #- WINDOWSJOB_ID=$(cat windowsjob.env)  # Read JOB_ID from job.env
+    #- echo WINDOWSJOB_ID
   release:                                         # See https://docs.gitlab.com/ee/ci/yaml/#release for available properties
     name: 'Followermaker nightly (?) r$CI_PIPELINE_IID'
     tag_name: 'r$CI_PIPELINE_IID'                # The version is incremented per pipeline.
@@ -73,6 +73,6 @@ release_job:
     assets:
       links:
         - name: 'Followermaker-windows.zip'
-          url: '$CI_SERVER_URL/$CI_PROJECT_PATH/-/jobs/$WINDOWSJOB_ID/artifacts/download'
+          url: '$CI_SERVER_URL/$CI_PROJECT_PATH/-/jobs/artifacts/r$CI_PIPELINE_IID/download?job=build-windows'
         #- name: 'Followermaker-linux.zip'
         #  url: '$CI_SERVER_URL/$CI_PROJECT_PATH/-/jobs/$LINUXJOB_ID/artifacts/download'

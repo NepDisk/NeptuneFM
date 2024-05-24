@@ -35,6 +35,9 @@ build-windows:       # This job runs in the build stage, which runs first.
     - echo "Compiling the code... [windows]"
     - clang-15 src/lump.c src/lodepng.c src/main.c src/cJSON.c -o followermaker.exe -lm --target=x86_64-w64-mingw32 --sysroot=/usr/x86_64-w64-mingw32 -L/usr/lib/gcc/x86_64-w64-mingw32/12-win32 -lgcc -lgcc_eh
     - echo "Compile complete."
+    - echo "WINDOWSJOB_ID=$CI_JOB_ID" > windowsjob.env  # Create job.env in the artifacts directory
+  after_script:
+    - cat windowsjob.env  # Debug: Check the content of job.env
   artifacts:
     name: "Followermaker-windows"
     paths:
@@ -46,6 +49,8 @@ build-windows:       # This job runs in the build stage, which runs first.
     untracked: false
     when: on_success
     access: all
+    reports:
+      dotenv: windowsjob.env  # Specify the path to the job.env file
 
 release_job:
   stage: release
@@ -58,8 +63,16 @@ release_job:
     - echo "Running the release job."
     - LINUXJOB_ID=$(cat linuxjob.env)  # Read JOB_ID from job.env
     - echo LINUXJOB_ID
+    - WINDOWSJOB_ID=$(cat windowsjob.env)  # Read JOB_ID from job.env
+    - echo WINDOWSJOB_ID
   release:                                         # See https://docs.gitlab.com/ee/ci/yaml/#release for available properties
     name: 'Followermaker nightly (?) r$CI_PIPELINE_IID'
     tag_name: 'r$CI_PIPELINE_IID'                # The version is incremented per pipeline.
     description: 'Public download of followermaker based on latest commit in main. The cutting edge. Beware of bugs!'
     ref: '$CI_COMMIT_SHA'                          # The tag is created from the pipeline SHA.
+    assets:
+      links:
+        - name: 'Followermaker-windows.zip'
+          url: '$CI_SERVER_URL/$CI_PROJECT_PATH/-/jobs/$WINDOWSJOB_ID/artifacts/download'
+        - name: 'Followermaker-linux.zip'
+          url: '$CI_SERVER_URL/$CI_PROJECT_PATH/-/jobs/$LINUXJOB_ID/artifacts/download'

@@ -46,7 +46,7 @@ build-linux:       # This job runs in the build stage, which runs first.
     untracked: false
     when: on_success
     access: all
-  reports:
+    reports:
       dotenv: linuxjob.env  # Specify the path to the job.env file
 
 build-windows:       # This job runs in the build stage, which runs first.

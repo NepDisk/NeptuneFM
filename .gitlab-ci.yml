@@ -74,5 +74,5 @@ release_job:
       links:
         - name: 'Followermaker-windows.zip'
           url: '$CI_SERVER_URL/$CI_PROJECT_PATH/-/jobs/$WINDOWSJOB_ID/artifacts/download'
-        - name: 'Followermaker-linux.zip'
-          url: '$CI_SERVER_URL/$CI_PROJECT_PATH/-/jobs/$LINUXJOB_ID/artifacts/download'
+        #- name: 'Followermaker-linux.zip'
+        #  url: '$CI_SERVER_URL/$CI_PROJECT_PATH/-/jobs/$LINUXJOB_ID/artifacts/download'

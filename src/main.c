@@ -731,6 +731,7 @@ void addFollower(struct wadfile* wad)
 	if (cJSON_GetObjectItem(metadata, "name"))
 	{
 		slen = strlen(cJSON_GetObjectItem(metadata, "name")->valuestring);
+		slen = (slen < FOLLOWERNAMESIZE) ? slen : 15;
 		strncpy(kfollower.name, cJSON_GetObjectItem(metadata, "name")->valuestring, slen);
 		kfollower.name[slen] = '\0';
 	}

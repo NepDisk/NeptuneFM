@@ -29,7 +29,7 @@ Opening Followermaker is possible, but not required: dragging a completed folder
   - properties.txt
   - sprites.png
 - That your follower_sound is a .ogg file, as opposed to a .wav or .mp4 or other file type
-If none of these work, then feel free to shout Superstarxalien about it on Discord or Twitter
+If none of these work, then feel free to shout Superstarxalien about it on Discord, Twitter, or the SRB2 Message Boards.
 
 "Does Followermaker support 16 angle rotation?"
 16 angle rotation is supported by the program, though there aren't any templates included with it. Essentially, if you can work out how to name the frames and order the template, you can do it.

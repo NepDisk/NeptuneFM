@@ -35,7 +35,7 @@
 #define MAX_IMAGE_SIZE 256*256
 
 // it's only a snippet, the whole thing can't be a macro since it's variable now
-#define FOLLOWER_SOC_SNIPPET_TEMPLATE "%s\nFOLLOWER\nName = %s\nIcon = ICOF%s\nCategory = %s\nHornSound = DSFH%s\nDefaultColor = %s\nMode = %s\nScale = %d*FRACUNIT\nBubbleScale = %d*FRACUNIT\nAtAngle = %d\nDistance = %d*FRACUNIT\nHeight = %d*FRACUNIT\nZOffs = %d*FRACUNIT\nHorzLag = %d*FRACUNIT\nVertLag = %d*FRACUNIT\nAngleLag = %d*FRACUNIT\nBobAmp = %d*FRACUNIT\nBobSpeed = %d*FRACUNIT\nHitConfirmTime = TICRATE*%d\n"
+#define FOLLOWER_SOC_SNIPPET_TEMPLATE "%s\nFOLLOWER\nName = %s\nIcon = ICOF%s\nCategory = %s\nHornSound = DSFH%s\nDefaultColor = %s\nMode = %s\nScale = %d*FRACUNIT\nBubbleScale = %d*FRACUNIT\nAtAngle = %d\nDistance = %d*FRACUNIT\nHeight = %d*FRACUNIT\nZOffs = %d*FRACUNIT\nHorzLag = %d*FRACUNIT\nVertLag = %d*FRACUNIT\nAngleLag = %d*FRACUNIT\nBobAmp = %d*FRACUNIT\nBobSpeed = %d*FRACUNIT\nHitConfirmTime = %d\nRingTime = %d\n"
 
 #define FOLLOWERNAMESIZE 16
 
@@ -83,6 +83,7 @@ struct followerstructthingwhatever {
 	char bobamp;
 	char bobspeed;
 	char hitconfirmtime;
+	char ringtime;
 
 	char idleanimationspeed;
 	char followinganimationspeed;
@@ -231,6 +232,7 @@ void SetDefaultFollowerValues(void)
 	kfollower.bobamp = 4;
 	kfollower.bobspeed = 70;
 	kfollower.hitconfirmtime = 1;
+	kfollower.ringtime = 1;
 
 	kfollower.idleanimationspeed = 35;
 	kfollower.followinganimationspeed = 35;
@@ -781,6 +783,8 @@ void addFollower(struct wadfile* wad)
 		kfollower.bobspeed = cJSON_GetObjectItem(metadata, "bobspeed")->valueint;
 	if (cJSON_GetObjectItem(metadata, "hitconfirmtime"))
 		kfollower.hitconfirmtime = cJSON_GetObjectItem(metadata, "hitconfirmtime")->valueint;
+	if (cJSON_GetObjectItem(metadata, "ringtime"))
+		kfollower.ringtime = cJSON_GetObjectItem(metadata, "ringtime")->valueint;
 
 	if (cJSON_GetObjectItem(metadata, "idle_animation_speed"))
 		kfollower.idleanimationspeed = cJSON_GetObjectItem(metadata, "idle_animation_speed")->valueint;
@@ -1025,7 +1029,8 @@ void addFollower(struct wadfile* wad)
 		kfollower.anglelag,
 		kfollower.bobamp,
 		kfollower.bobspeed,
-		kfollower.hitconfirmtime
+		kfollower.hitconfirmtime,
+		kfollower.ringtime
 	);
 
 	sprintf(prebuf, "%sIdleState = S_%sIDLE\n", prebuf, prefix);

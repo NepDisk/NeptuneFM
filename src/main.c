@@ -96,16 +96,14 @@ struct followerstructthingwhatever {
 	char numstates;
 	uint8_t highestanimframeletter;
 	uint8_t followerstateanimframestart[7];
-	struct state {
-		uint8_t idle:1;
-		uint8_t following:1;
-		uint8_t hurt:1;
-		uint8_t lose:1;
-		uint8_t win:1;
-		uint8_t hitconfirm:1;
-		uint8_t ring:1;
-		uint8_t padding:1;
-	} states;
+	uint8_t idle;
+	uint8_t following;
+	uint8_t hurt;
+	uint8_t lose;
+	uint8_t win;
+	uint8_t hitconfirm;
+	uint8_t ring;
+	uint8_t padding;
 };
 
 unsigned error;
@@ -245,13 +243,13 @@ void SetDefaultFollowerValues(void)
 	kfollower.numstates = 0;
 	kfollower.highestanimframeletter = 0x41;
 	kfollower.followerstateanimframestart[0] = 0x41; // uppercase A in ASCII
-	kfollower.states.idle = 1;
-	kfollower.states.following = 0;
-	kfollower.states.hurt = 0;
-	kfollower.states.lose = 0;
-	kfollower.states.win = 0;
-	kfollower.states.hitconfirm = 0;
-	kfollower.states.ring = 0;
+	kfollower.idle = 1;
+	kfollower.following = 0;
+	kfollower.hurt = 0;
+	kfollower.lose = 0;
+	kfollower.win = 0;
+	kfollower.hitconfirm = 0;
+	kfollower.ring = 0;
 }
 
 // processes sprites on the template, which are separated by regions (usually visualized on the template image as squares)
@@ -310,17 +308,35 @@ void processSprites(void) {
 		{
 			curstate++;
 			if (strcmp(item->string, "following") == 0)
-				kfollower.states.following = 1;
+			{
+				kfollower.following = curstate;
+				printf("Found following state!\n");
+			}
 			if (strcmp(item->string, "hurt") == 0)
-				kfollower.states.hurt = 1;
+			{
+				kfollower.hurt = curstate;
+				printf("Found hurt state!\n");
+			}
 			if (strcmp(item->string, "lose") == 0)
-				kfollower.states.lose = 1;
+			{
+				kfollower.lose = curstate;
+				printf("Found lose state!\n");
+			}
 			if (strcmp(item->string, "win") == 0)
-				kfollower.states.win = 1;
+			{
+				kfollower.win = curstate;
+				printf("Found win state!\n");
+			}
 			if (strcmp(item->string, "hitconfirm") == 0)
-				kfollower.states.hitconfirm = 1;
+			{
+				kfollower.hitconfirm = curstate;
+				printf("Found hit confirm state!\n");
+			}
 			if (strcmp(item->string, "ring") == 0)
-				kfollower.states.ring = 1;
+			{
+				kfollower.ring = curstate;
+				printf("Found ring state!\n");
+			}
 		}
 		lastanimframeletterinstate = 0;
 
@@ -803,17 +819,17 @@ void addFollower(struct wadfile* wad)
 
 	sprintf(prebuf, "FREESLOT\nSPR_%s\nsfx_FH%s\nS_%sIDLE\n", prefix, prefix, prefix);
 
-	if (kfollower.states.following)
+	if (kfollower.following)
 		sprintf(prebuf, "%sS_%sFOLLOW\n", prebuf, prefix);
-	if (kfollower.states.hurt)
+	if (kfollower.hurt)
 		sprintf(prebuf, "%sS_%sHURT\n", prebuf, prefix);
-	if (kfollower.states.lose)
+	if (kfollower.lose)
 		sprintf(prebuf, "%sS_%sLOSE\n", prebuf, prefix);
-	if (kfollower.states.win)
+	if (kfollower.win)
 		sprintf(prebuf, "%sS_%sWIN\n", prebuf, prefix);
-	if (kfollower.states.hitconfirm)
+	if (kfollower.hitconfirm)
 		sprintf(prebuf, "%sS_%sHITCONFIRM\n", prebuf, prefix);
-	if (kfollower.states.ring)
+	if (kfollower.ring)
 		sprintf(prebuf, "%sS_%sRING\n", prebuf, prefix);
 
 	if (kfollower.highestanimframeletter > 0x41 && !(kfollower.numstates > 0))
@@ -839,7 +855,7 @@ void addFollower(struct wadfile* wad)
 
 	if (kfollower.numstates > 0)
 	{
-		if (kfollower.states.following)
+		if (kfollower.following)
 		{
 			if (kfollower.numstates > 1)
 			{
@@ -870,14 +886,14 @@ void addFollower(struct wadfile* wad)
 			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[1]);
 			sprintf(prebuf, "%s\nSTATE S_%sFOLLOW\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sFOLLOW\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.followinganimationspeed, prefix);
 		}
-		if (kfollower.states.hurt)
+		if (kfollower.hurt)
 		{
-			if (kfollower.numstates > 2)
+			if (kfollower.numstates > kfollower.hurt)
 			{
-				if ((kfollower.followerstateanimframestart[3] - kfollower.followerstateanimframestart[2]) > 1)
+				if ((kfollower.followerstateanimframestart[kfollower.hurt + 1] - kfollower.followerstateanimframestart[kfollower.hurt]) > 1)
 				{
 					sprintf(ff_animate, "A|FF_ANIMATE");
-					var1 = (kfollower.followerstateanimframestart[3] - kfollower.followerstateanimframestart[2]) - 1;
+					var1 = (kfollower.followerstateanimframestart[kfollower.hurt + 1] - kfollower.followerstateanimframestart[kfollower.hurt]) - 1;
 				}
 				else
 				{
@@ -887,10 +903,10 @@ void addFollower(struct wadfile* wad)
 			}
 			else
 			{
-				if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[2])
+				if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[kfollower.hurt])
 				{
 					sprintf(ff_animate, "A|FF_ANIMATE");
-					var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[2];
+					var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[kfollower.hurt];
 				}
 				else
 				{
@@ -898,17 +914,17 @@ void addFollower(struct wadfile* wad)
 					var1 = 0;
 				}
 			}
-			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[2]);
+			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[kfollower.hurt]);
 			sprintf(prebuf, "%s\nSTATE S_%sHURT\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sHURT\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.hurtanimationspeed, prefix);
 		}
-		if (kfollower.states.lose)
+		if (kfollower.lose)
 		{
-			if (kfollower.numstates > 3)
+			if (kfollower.numstates > kfollower.lose)
 			{
-				if ((kfollower.followerstateanimframestart[4] - kfollower.followerstateanimframestart[3]) > 1)
+				if ((kfollower.followerstateanimframestart[kfollower.lose + 1] - kfollower.followerstateanimframestart[kfollower.lose]) > 1)
 				{
 					sprintf(ff_animate, "A|FF_ANIMATE");
-					var1 = (kfollower.followerstateanimframestart[4] - kfollower.followerstateanimframestart[3]) - 1;
+					var1 = (kfollower.followerstateanimframestart[kfollower.lose + 1] - kfollower.followerstateanimframestart[kfollower.lose]) - 1;
 				}
 				else
 				{
@@ -918,10 +934,10 @@ void addFollower(struct wadfile* wad)
 			}
 			else
 			{
-				if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[3])
+				if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[kfollower.lose])
 				{
 					sprintf(ff_animate, "A|FF_ANIMATE");
-					var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[3];
+					var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[kfollower.lose];
 				}
 				else
 				{
@@ -929,17 +945,17 @@ void addFollower(struct wadfile* wad)
 					var1 = 0;
 				}
 			}
-			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[3]);
+			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[kfollower.lose]);
 			sprintf(prebuf, "%s\nSTATE S_%sLOSE\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sLOSE\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.loseanimationspeed, prefix);
 		}
-		if (kfollower.states.win)
+		if (kfollower.win)
 		{
-			if (kfollower.numstates > 4)
+			if (kfollower.numstates > kfollower.win)
 			{
-				if ((kfollower.followerstateanimframestart[5] - kfollower.followerstateanimframestart[4]) > 1)
+				if ((kfollower.followerstateanimframestart[kfollower.win + 1] - kfollower.followerstateanimframestart[kfollower.win]) > 1)
 				{
 					sprintf(ff_animate, "A|FF_ANIMATE");
-					var1 = (kfollower.followerstateanimframestart[5] - kfollower.followerstateanimframestart[4]) - 1;
+					var1 = (kfollower.followerstateanimframestart[kfollower.win + 1] - kfollower.followerstateanimframestart[kfollower.win]) - 1;
 				}
 				else
 				{
@@ -949,10 +965,10 @@ void addFollower(struct wadfile* wad)
 			}
 			else
 			{
-				if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[4])
+				if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[kfollower.win])
 				{
 					sprintf(ff_animate, "A|FF_ANIMATE");
-					var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[4];
+					var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[kfollower.win];
 				}
 				else
 				{
@@ -960,17 +976,17 @@ void addFollower(struct wadfile* wad)
 					var1 = 0;
 				}
 			}
-			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[4]);
+			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[kfollower.win]);
 			sprintf(prebuf, "%s\nSTATE S_%sWIN\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sWIN\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.winanimationspeed, prefix);
 		}
-		if (kfollower.states.hitconfirm)
+		if (kfollower.hitconfirm)
 		{
-			if (kfollower.numstates > 5)
+			if (kfollower.numstates > kfollower.hitconfirm)
 			{
-				if ((kfollower.followerstateanimframestart[6] - kfollower.followerstateanimframestart[5]) > 1)
+				if ((kfollower.followerstateanimframestart[kfollower.hitconfirm + 1] - kfollower.followerstateanimframestart[kfollower.hitconfirm]) > 1)
 				{
 					sprintf(ff_animate, "A|FF_ANIMATE");
-					var1 = (kfollower.followerstateanimframestart[6] - kfollower.followerstateanimframestart[5]) - 1;
+					var1 = (kfollower.followerstateanimframestart[kfollower.hitconfirm + 1] - kfollower.followerstateanimframestart[kfollower.hitconfirm]) - 1;
 				}
 				else
 				{
@@ -980,10 +996,10 @@ void addFollower(struct wadfile* wad)
 			}
 			else
 			{
-				if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[5])
+				if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[kfollower.hitconfirm])
 				{
 					sprintf(ff_animate, "A|FF_ANIMATE");
-					var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[5];
+					var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[kfollower.hitconfirm];
 				}
 				else
 				{
@@ -991,22 +1007,22 @@ void addFollower(struct wadfile* wad)
 					var1 = 0;
 				}
 			}
-			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[5]);
+			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[kfollower.hitconfirm]);
 			sprintf(prebuf, "%s\nSTATE S_%sHITCONFIRM\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sHITCONFIRM\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.hitconfirmanimationspeed, prefix);
 		}
-		if (kfollower.states.ring)
+		if (kfollower.ring)
 		{
-			if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[6])
+			if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[kfollower.ring])
 			{
 				sprintf(ff_animate, "A|FF_ANIMATE");
-				var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[6];
+				var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[kfollower.ring];
 			}
 			else
 			{
 				sprintf(ff_animate, "A");
 				var1 = 0;
 			}
-			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[6]);
+			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[kfollower.ring]);
 			sprintf(prebuf, "%s\nSTATE S_%sRING\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sRING\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.ringanimationspeed, prefix);
 		}
 	}
@@ -1037,17 +1053,17 @@ void addFollower(struct wadfile* wad)
 
 	if (kfollower.numstates > 0)
 	{
-		if (kfollower.states.following)
+		if (kfollower.following)
 			sprintf(prebuf, "%sFollowState = S_%sFOLLOW\n", prebuf, prefix);
-		if (kfollower.states.hurt)
+		if (kfollower.hurt)
 			sprintf(prebuf, "%sHurtState = S_%sHURT\n", prebuf, prefix);
-		if (kfollower.states.lose)
+		if (kfollower.lose)
 			sprintf(prebuf, "%sLoseState = S_%sLOSE\n", prebuf, prefix);
-		if (kfollower.states.win)
+		if (kfollower.win)
 			sprintf(prebuf, "%sWinState = S_%sWIN\n", prebuf, prefix);
-		if (kfollower.states.hitconfirm)
+		if (kfollower.hitconfirm)
 			sprintf(prebuf, "%sHitConfirmState = S_%sHITCONFIRM\n", prebuf, prefix);
-		if (kfollower.states.ring)
+		if (kfollower.ring)
 			sprintf(prebuf, "%sRingState = S_%sRING\n", prebuf, prefix);
 	}
 

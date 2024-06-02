@@ -1,0 +1,541 @@
+{
+	"transparent_colors": [
+		115, 115, 255,
+		82, 82, 255
+	],
+	"transparent_colors_explanation": "The above colors will be made transparent upon processing the template image for sprite conversion. You can add up to 4 colors to be set to transparent.",
+
+	"name": "example",
+	"name_explanation": "The name of your follower. The names of followers appear on the main menu, upon toggling \"extrainfo mode\" with the drift button. For character names with spaces, use underscores instead of spaces: underscores will be interpreted as spaces in-game, while spaces won't work.",
+	"prefix": "EXMP",
+	"prefix_explanation": "A set of 4 characters used to internally identify your follower, mainly used for its files.",
+	"category": "Fanworks",
+	"category_explanation": "The category your follower will appear under. Followermaker doesn't allow for the creation of custom categories, though you can still enter one.",
+
+	"prefcolor": "red",
+	"prefcolor_explanation": "Default follower color. Must use the name of a spray can, as seen on the main menu in extrainfo mode.",
+	"mode": 0,
+	"mode_explanation": "If floating (0) or on the ground (1).",
+	"scale": 1,
+	"scale_explanation": "(in Fracunits) Scale relative to the player's. Value entered will be inserted as [value] * FRACUNIT",
+	"bubblescale": 0,
+	"bubblescale_explanation": "(in Fracunits) Bubble scale relative to the player scale. If not set, no bubble will spawn.",
+	"atangle": 230,
+	"atangle_explanation": "Angle the follower will be at around the player. The follower will always face the same direction as the player.",
+	"distance": 40,
+	"distance_explanation": "(in Fracunits) Distance relative to the player (in a circle).",
+	"height": 32,
+	"height_explanation": "(in Fracunits) Height of the follower, this is mostly important for Z-flipping.",
+	"zoffs": 32,
+	"zoffs_explanation": "(in Fracunits) Z-offset relative to the player's height. Cannot be negative.",
+	"horzlag": 3,
+	"horzlag_explanation": "(in Fracunits) Lag for X/Y displacement. Must be > 0 because we divide by this number.",
+	"vertlag": 6,
+	"verlag_explanation": "(in Fracunits) Lag for Z displacement. Must be > 0 because we divide by this number.",
+	"anglelag": 8,
+	"anglelag_explanation": "(in Fracunits) Angle rotation lag. Must be > 0 because we divide by this number.",
+	"bobamp": 4,
+	"bobamp_explanation": "(in Fracunits) Bob amplitude.",
+	"bobspeed": 70,
+	"bobspeed_explanation": "(in Tics) Arbitrary modifier for bobbing speed. Default is TICRATE*2 (70 Tics = 2 seconds)",
+	"hitconfirmtime": 35,
+	"hitconfirmtime_explanation": "(in Tics) Time to keep the hit confirm state playing for.",
+	"ringtime": 35,
+	"ringtime_explanation": "(in Tics) Time to keep the ring state playing for.",
+	"idle_animation_speed": 35,
+	"idle_animation_speed_explanation": "(in Tics) Number of Tics it takes to cycle through an animated sprite in the idle state.",
+	"following_animation_speed": 35,
+	"following_animation_speed_explanation": "(in Tics) Number of Tics it takes to cycle through an animated sprite in the following state.",
+	"hurt_animation_speed": 35,
+	"hurt_animation_speed_explanation": "(in Tics) Number of Tics it takes to cycle through an animated sprite in the hurt state.",
+	"lose_animation_speed": 35,
+	"lose_animation_speed_explanation": "(in Tics) Number of Tics it takes to cycle through an animated sprite in the lose state.",
+	"win_animation_speed": 35,
+	"win_animation_speed_explanation": "(in Tics) Number of Tics it takes to cycle through an animated sprite in the win state.",
+	"hitconfirm_animation_speed": 35,
+	"hitconfirm_animation_speed_explanation": "(in Tics) Number of Tics it takes to cycle through an animated sprite in the hit confirm state.",
+	"ring_animation_speed": 35,
+	"ring_animation_speed_explanation": "(in Tics) Number of Tics it takes to cycle through an animated sprite in the ring state.",
+	
+	
+	"follower_states_help": "As you may know, followers have several animations for things that can occur during the race; these are described as \"states\". Followers can have up to 7 states, in order: an idle state, a following state (as in, following the player), a hurt state (when you get hit by an item), a lose state (when you lose the race), a win state (win the race), a \"hit confirm\" state (occurs when you hit another racer with an item), and a \"ring\" state (used whenever Auto Ring is enabled as the follower spends your rings). Of these, the idle state is obligatory in all followers. Additionally, the duration of the hit confirm state is controlled by a variable which can be edited above.",
+
+	"sprite_help": "The template is divided into several regions, each for a unique sprite, described by the below values. These sprite regions are each categorized according to the follower state in which they belong, and are further split into frames detailing both the rotation angle (indicated by numbers) and animation index (indicated by letters) of the follower. The \"sprite_size\" field determines the general size for each sprite region. \"Layers\" refers to the exact location of each sprite, with \"layer_step_size\" indicating how many pixels are stepped over for the position of the layer; layers also allow for literal layer functionality, allowing you to insert up to four sets of sprite locations, with the first sprite location being applied on top of following locations. You can also edit the offset of sprites, with the default templates providing automatic X axis centering for sprites, offset 16 pixels down on the Y axis.",
+
+	"template_explanation": "This specific template is designed for followers with all seven states a follower can have, each having 2-frame animations and 8 unique degrees of rotation.",
+	
+	"sprite_size": [128, 128],
+	"layer_step_size": [128, 128],
+	"sprites": {
+		"idle": {
+			"A1": {
+				"offset": [64, 112],
+				"layers": [[0, 0]]
+			},
+			"A2": {
+				"offset": [64, 112],
+				"layers": [[1, 0]]
+			},
+			"A3": {
+				"offset": [64, 112],
+				"layers": [[2, 0]]
+			},
+			"A4": {
+				"offset": [64, 112],
+				"layers": [[3, 0]]
+			},
+			"A5": {
+				"offset": [64, 112],
+				"layers": [[4, 0]]
+			},
+			"A6": {
+				"offset": [64, 112],
+				"layers": [[5, 0]]
+			},
+			"A7": {
+				"offset": [64, 112],
+				"layers": [[6, 0]]
+			},
+			"A8": {
+				"offset": [64, 112],
+				"layers": [[7, 0]]
+			},
+			"B1": {
+				"offset": [64, 112],
+				"layers": [[0, 1]]
+			},
+			"B2": {
+				"offset": [64, 112],
+				"layers": [[1, 1]]
+			},
+			"B3": {
+				"offset": [64, 112],
+				"layers": [[2, 1]]
+			},
+			"B4": {
+				"offset": [64, 112],
+				"layers": [[3, 1]]
+			},
+			"B5": {
+				"offset": [64, 112],
+				"layers": [[4, 1]]
+			},
+			"B6": {
+				"offset": [64, 112],
+				"layers": [[5, 1]]
+			},
+			"B7": {
+				"offset": [64, 112],
+				"layers": [[6, 1]]
+			},
+			"B8": {
+				"offset": [64, 112],
+				"layers": [[7, 1]]
+			}
+		},
+		"following": {
+			"A1": {
+				"offset": [64, 112],
+				"layers": [[8, 0]]
+			},
+			"A2": {
+				"offset": [64, 112],
+				"layers": [[9, 0]]
+			},
+			"A3": {
+				"offset": [64, 112],
+				"layers": [[10, 0]]
+			},
+			"A4": {
+				"offset": [64, 112],
+				"layers": [[11, 0]]
+			},
+			"A5": {
+				"offset": [64, 112],
+				"layers": [[12, 0]]
+			},
+			"A6": {
+				"offset": [64, 112],
+				"layers": [[13, 0]]
+			},
+			"A7": {
+				"offset": [64, 112],
+				"layers": [[14, 0]]
+			},
+			"A8": {
+				"offset": [64, 112],
+				"layers": [[15, 0]]
+			},
+			"B1": {
+				"offset": [64, 112],
+				"layers": [[8, 1]]
+			},
+			"B2": {
+				"offset": [64, 112],
+				"layers": [[9, 1]]
+			},
+			"B3": {
+				"offset": [64, 112],
+				"layers": [[10, 1]]
+			},
+			"B4": {
+				"offset": [64, 112],
+				"layers": [[11, 1]]
+			},
+			"B5": {
+				"offset": [64, 112],
+				"layers": [[12, 1]]
+			},
+			"B6": {
+				"offset": [64, 112],
+				"layers": [[13, 1]]
+			},
+			"B7": {
+				"offset": [64, 112],
+				"layers": [[14, 1]]
+			},
+			"B8": {
+				"offset": [64, 112],
+				"layers": [[15, 1]]
+			}
+		},
+		"hurt": {
+			"A1": {
+				"offset": [64, 112],
+				"layers": [[16, 0]]
+			},
+			"A2": {
+				"offset": [64, 112],
+				"layers": [[17, 0]]
+			},
+			"A3": {
+				"offset": [64, 112],
+				"layers": [[18, 0]]
+			},
+			"A4": {
+				"offset": [64, 112],
+				"layers": [[19, 0]]
+			},
+			"A5": {
+				"offset": [64, 112],
+				"layers": [[20, 0]]
+			},
+			"A6": {
+				"offset": [64, 112],
+				"layers": [[21, 0]]
+			},
+			"A7": {
+				"offset": [64, 112],
+				"layers": [[22, 0]]
+			},
+			"A8": {
+				"offset": [64, 112],
+				"layers": [[23, 0]]
+			},
+			"B1": {
+				"offset": [64, 112],
+				"layers": [[16, 1]]
+			},
+			"B2": {
+				"offset": [64, 112],
+				"layers": [[17, 1]]
+			},
+			"B3": {
+				"offset": [64, 112],
+				"layers": [[18, 1]]
+			},
+			"B4": {
+				"offset": [64, 112],
+				"layers": [[19, 1]]
+			},
+			"B5": {
+				"offset": [64, 112],
+				"layers": [[20, 1]]
+			},
+			"B6": {
+				"offset": [64, 112],
+				"layers": [[21, 1]]
+			},
+			"B7": {
+				"offset": [64, 112],
+				"layers": [[22, 1]]
+			},
+			"B8": {
+				"offset": [64, 112],
+				"layers": [[23, 1]]
+			}
+		},
+		"lose": {
+			"A1": {
+				"offset": [64, 112],
+				"layers": [[24, 0]]
+			},
+			"A2": {
+				"offset": [64, 112],
+				"layers": [[25, 0]]
+			},
+			"A3": {
+				"offset": [64, 112],
+				"layers": [[26, 0]]
+			},
+			"A4": {
+				"offset": [64, 112],
+				"layers": [[27, 0]]
+			},
+			"A5": {
+				"offset": [64, 112],
+				"layers": [[28, 0]]
+			},
+			"A6": {
+				"offset": [64, 112],
+				"layers": [[29, 0]]
+			},
+			"A7": {
+				"offset": [64, 112],
+				"layers": [[30, 0]]
+			},
+			"A8": {
+				"offset": [64, 112],
+				"layers": [[31, 0]]
+			},
+			"B1": {
+				"offset": [64, 112],
+				"layers": [[24, 1]]
+			},
+			"B2": {
+				"offset": [64, 112],
+				"layers": [[25, 1]]
+			},
+			"B3": {
+				"offset": [64, 112],
+				"layers": [[26, 1]]
+			},
+			"B4": {
+				"offset": [64, 112],
+				"layers": [[27, 1]]
+			},
+			"B5": {
+				"offset": [64, 112],
+				"layers": [[28, 1]]
+			},
+			"B6": {
+				"offset": [64, 112],
+				"layers": [[29, 1]]
+			},
+			"B7": {
+				"offset": [64, 112],
+				"layers": [[30, 1]]
+			},
+			"B8": {
+				"offset": [64, 112],
+				"layers": [[31, 1]]
+			}
+		},
+		"win": {
+			"A1": {
+				"offset": [64, 112],
+				"layers": [[32, 0]]
+			},
+			"A2": {
+				"offset": [64, 112],
+				"layers": [[33, 0]]
+			},
+			"A3": {
+				"offset": [64, 112],
+				"layers": [[34, 0]]
+			},
+			"A4": {
+				"offset": [64, 112],
+				"layers": [[35, 0]]
+			},
+			"A5": {
+				"offset": [64, 112],
+				"layers": [[36, 0]]
+			},
+			"A6": {
+				"offset": [64, 112],
+				"layers": [[37, 0]]
+			},
+			"A7": {
+				"offset": [64, 112],
+				"layers": [[38, 0]]
+			},
+			"A8": {
+				"offset": [64, 112],
+				"layers": [[39, 0]]
+			},
+			"B1": {
+				"offset": [64, 112],
+				"layers": [[32, 1]]
+			},
+			"B2": {
+				"offset": [64, 112],
+				"layers": [[33, 1]]
+			},
+			"B3": {
+				"offset": [64, 112],
+				"layers": [[34, 1]]
+			},
+			"B4": {
+				"offset": [64, 112],
+				"layers": [[35, 1]]
+			},
+			"B5": {
+				"offset": [64, 112],
+				"layers": [[36, 1]]
+			},
+			"B6": {
+				"offset": [64, 112],
+				"layers": [[37, 1]]
+			},
+			"B7": {
+				"offset": [64, 112],
+				"layers": [[38, 1]]
+			},
+			"B8": {
+				"offset": [64, 112],
+				"layers": [[39, 1]]
+			}
+		},
+		"hitconfirm": {
+			"A1": {
+				"offset": [64, 112],
+				"layers": [[40, 0]]
+			},
+			"A2": {
+				"offset": [64, 112],
+				"layers": [[41, 0]]
+			},
+			"A3": {
+				"offset": [64, 112],
+				"layers": [[42, 0]]
+			},
+			"A4": {
+				"offset": [64, 112],
+				"layers": [[43, 0]]
+			},
+			"A5": {
+				"offset": [64, 112],
+				"layers": [[44, 0]]
+			},
+			"A6": {
+				"offset": [64, 112],
+				"layers": [[45, 0]]
+			},
+			"A7": {
+				"offset": [64, 112],
+				"layers": [[46, 0]]
+			},
+			"A8": {
+				"offset": [64, 112],
+				"layers": [[47, 0]]
+			},
+			"B1": {
+				"offset": [64, 112],
+				"layers": [[40, 1]]
+			},
+			"B2": {
+				"offset": [64, 112],
+				"layers": [[41, 1]]
+			},
+			"B3": {
+				"offset": [64, 112],
+				"layers": [[42, 1]]
+			},
+			"B4": {
+				"offset": [64, 112],
+				"layers": [[43, 1]]
+			},
+			"B5": {
+				"offset": [64, 112],
+				"layers": [[44, 1]]
+			},
+			"B6": {
+				"offset": [64, 112],
+				"layers": [[45, 1]]
+			},
+			"B7": {
+				"offset": [64, 112],
+				"layers": [[46, 1]]
+			},
+			"B8": {
+				"offset": [64, 112],
+				"layers": [[47, 1]]
+			}
+		},
+		"ring": {
+			"A1": {
+				"offset": [64, 112],
+				"layers": [[48, 0]]
+			},
+			"A2": {
+				"offset": [64, 112],
+				"layers": [[49, 0]]
+			},
+			"A3": {
+				"offset": [64, 112],
+				"layers": [[50, 0]]
+			},
+			"A4": {
+				"offset": [64, 112],
+				"layers": [[51, 0]]
+			},
+			"A5": {
+				"offset": [64, 112],
+				"layers": [[52, 0]]
+			},
+			"A6": {
+				"offset": [64, 112],
+				"layers": [[53, 0]]
+			},
+			"A7": {
+				"offset": [64, 112],
+				"layers": [[54, 0]]
+			},
+			"A8": {
+				"offset": [64, 112],
+				"layers": [[55, 0]]
+			},
+			"B1": {
+				"offset": [64, 112],
+				"layers": [[48, 1]]
+			},
+			"B2": {
+				"offset": [64, 112],
+				"layers": [[49, 1]]
+			},
+			"B3": {
+				"offset": [64, 112],
+				"layers": [[50, 1]]
+			},
+			"B4": {
+				"offset": [64, 112],
+				"layers": [[51, 1]]
+			},
+			"B5": {
+				"offset": [64, 112],
+				"layers": [[52, 1]]
+			},
+			"B6": {
+				"offset": [64, 112],
+				"layers": [[53, 1]]
+			},
+			"B7": {
+				"offset": [64, 112],
+				"layers": [[54, 1]]
+			},
+			"B8": {
+				"offset": [64, 112],
+				"layers": [[55, 1]]
+			}
+		},
+
+		"graphics": {
+			"icon": {
+				"overwrite_sprite_size": [16, 16],
+				"overwrite_layer_step_size": [1, 1],
+				"layers": [[7178, 10]]
+			}
+		}
+	}
+}

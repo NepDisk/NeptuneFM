@@ -35,7 +35,7 @@
 #define MAX_IMAGE_SIZE 256*256
 
 // it's only a snippet, the whole thing can't be a macro since it's variable now
-#define FOLLOWER_SOC_SNIPPET_TEMPLATE "%s\nFOLLOWER\nName = %s\nIcon = ICOF%s\nCategory = %s\nHornSound = DSFH%s\nDefaultColor = %s\nMode = %s\nScale = %d*FRACUNIT\nBubbleScale = %d*FRACUNIT\nAtAngle = %d\nDistance = %d*FRACUNIT\nHeight = %d*FRACUNIT\nZOffs = %d*FRACUNIT\nHorzLag = %d*FRACUNIT\nVertLag = %d*FRACUNIT\nAngleLag = %d*FRACUNIT\nBobAmp = %d*FRACUNIT\nBobSpeed = %d*FRACUNIT\nHitConfirmTime = %d\nRingTime = %d\n"
+#define FOLLOWER_SOC_SNIPPET_TEMPLATE "%s\nFOLLOWER\nName = %s\nIcon = ICOF%s\nCategory = %s\nHornSound = DSFH%s\nDefaultColor = %s\nMode = %s\nScale = %d*FRACUNIT/%d\nBubbleScale = %d*FRACUNIT\nAtAngle = %d\nDistance = %d*FRACUNIT\nHeight = %d*FRACUNIT\nZOffs = %d*FRACUNIT\nHorzLag = %d*FRACUNIT\nVertLag = %d*FRACUNIT\nAngleLag = %d*FRACUNIT\nBobAmp = %d*FRACUNIT\nBobSpeed = %d*FRACUNIT\nHitConfirmTime = %d\nRingTime = %d\n"
 
 #define FOLLOWERNAMESIZE 16
 
@@ -72,6 +72,7 @@ struct followerstructthingwhatever {
 	char prefcolor[32];
 	char mode[8]; // if floating or on ground
 	char scale;
+	char scale_divide;
 	char bubblescale;
 	short atangle;
 	char distance;
@@ -777,6 +778,8 @@ void addFollower(struct wadfile* wad)
 
 	if (cJSON_GetObjectItem(metadata, "scale"))
 		kfollower.scale = cJSON_GetObjectItem(metadata, "scale")->valueint;
+	if (cJSON_GetObjectItem(metadata, "scale_divide"))
+		kfollower.scale_divide = cJSON_GetObjectItem(metadata, "scale_divide")->valueint;
 	if (cJSON_GetObjectItem(metadata, "bubblescale"))
 		kfollower.bubblescale = cJSON_GetObjectItem(metadata, "bubblescale")->valueint;
 	if (cJSON_GetObjectItem(metadata, "atangle"))
@@ -1035,6 +1038,7 @@ void addFollower(struct wadfile* wad)
 		kfollower.prefcolor,
 		kfollower.mode,
 		kfollower.scale,
+		kfollower.scale_divide,
 		kfollower.bubblescale,
 		kfollower.atangle,
 		kfollower.distance,

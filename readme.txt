@@ -1,4 +1,5 @@
 Followermaker, created by Superstarxalien based on Kartmaker
+r5
 
 HOW TO USE:
 - Copy one of the example/ folders and rename it (your WAD will be named after this folder)

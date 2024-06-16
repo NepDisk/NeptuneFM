@@ -220,6 +220,7 @@ void SetDefaultFollowerValues(void)
 	kfollower.mode[6] = '\0';
 
 	kfollower.scale = 1;
+	kfollower.scale_divide = 1;
 	kfollower.bubblescale = 0;
 	kfollower.atangle = 230;
 	kfollower.distance = 40;

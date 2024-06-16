@@ -819,7 +819,7 @@ void addFollower(struct wadfile* wad)
 	if (cJSON_GetObjectItem(metadata, "hitconfirm_animation_speed"))
 		kfollower.hitconfirmanimationspeed = cJSON_GetObjectItem(metadata, "hitconfirm_animation_speed")->valueint;
 	if (cJSON_GetObjectItem(metadata, "ring_animation_speed"))
-		kfollower.winanimationspeed = cJSON_GetObjectItem(metadata, "ring_animation_speed")->valueint;
+		kfollower.ringanimationspeed = cJSON_GetObjectItem(metadata, "ring_animation_speed")->valueint;
 
 	sprintf(prebuf, "FREESLOT\nSPR_%s\nsfx_FH%s\nS_%sIDLE\n", prefix, prefix, prefix);
 

@@ -71,28 +71,28 @@ struct followerstructthingwhatever {
 	char category[FOLLOWERNAMESIZE]; // maybe follows the name size as well?
 	char prefcolor[32];
 	char mode[8]; // if floating or on ground
-	char scale;
-	char scale_divide;
-	char bubblescale;
+	uint16_t scale;
+	uint16_t scale_divide;
+	uint16_t bubblescale;
 	short atangle;
-	char distance;
-	uint8_t height;
-	uint8_t zoffs;
-	char horzlag;
-	char vertlag;
-	char anglelag;
-	char bobamp;
-	char bobspeed;
-	char hitconfirmtime;
-	char ringtime;
+	short distance;
+	uint16_t height;
+	uint16_t zoffs;
+	uint16_t horzlag;
+	uint16_t vertlag;
+	uint16_t anglelag;
+	uint16_t bobamp;
+	uint16_t bobspeed;
+	uint16_t hitconfirmtime;
+	uint16_t ringtime;
 
-	char idleanimationspeed;
-	char followinganimationspeed;
-	char hurtanimationspeed;
-	char loseanimationspeed;
-	char winanimationspeed;
-	char hitconfirmanimationspeed;
-	char ringanimationspeed;
+	uint16_t idleanimationspeed;
+	uint16_t followinganimationspeed;
+	uint16_t hurtanimationspeed;
+	uint16_t loseanimationspeed;
+	uint16_t winanimationspeed;
+	uint16_t hitconfirmanimationspeed;
+	uint16_t ringanimationspeed;
 
 	char numstates;
 	uint8_t highestanimframeletter;

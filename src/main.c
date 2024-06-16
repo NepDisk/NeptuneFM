@@ -738,6 +738,7 @@ void addFollower(struct wadfile* wad)
 	char buf[1<<16];
 	char prebuf[1<<16];
 	char ff_animate[16];
+	char nonalphabetanimframe;
 	char var1 = 0;
 	int size;
 	char prefix[5] = "____";
@@ -838,14 +839,14 @@ void addFollower(struct wadfile* wad)
 
 	if (kfollower.highestanimframeletter > 0x41 && !(kfollower.numstates > 0))
 	{
-		sprintf(ff_animate, "A|FF_ANIMATE");
+		sprintf(ff_animate, "FF_ANIMATE|A");
 		var1 = kfollower.highestanimframeletter - 0x41;
 	}
 	else
 	{
 		if ((kfollower.followerstateanimframestart[1] - kfollower.followerstateanimframestart[0]) > 1)
 		{
-			sprintf(ff_animate, "A|FF_ANIMATE");
+			sprintf(ff_animate, "FF_ANIMATE|A");
 			var1 = (kfollower.followerstateanimframestart[1] - kfollower.followerstateanimframestart[0]) - 1;
 		}
 		else
@@ -865,7 +866,7 @@ void addFollower(struct wadfile* wad)
 			{
 				if ((kfollower.followerstateanimframestart[2] - kfollower.followerstateanimframestart[1]) > 1)
 				{
-					sprintf(ff_animate, "A|FF_ANIMATE");
+					sprintf(ff_animate, "FF_ANIMATE|A");
 					var1 = (kfollower.followerstateanimframestart[2] - kfollower.followerstateanimframestart[1]) - 1;
 				}
 				else
@@ -878,7 +879,7 @@ void addFollower(struct wadfile* wad)
 			{
 				if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[1])
 				{
-					sprintf(ff_animate, "A|FF_ANIMATE");
+					sprintf(ff_animate, "FF_ANIMATE|A");
 					var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[1];
 				}
 				else
@@ -887,7 +888,13 @@ void addFollower(struct wadfile* wad)
 					var1 = 0;
 				}
 			}
-			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[1]);
+			ff_animate[strlen(ff_animate)-1] = getFixedAnimationIndex(kfollower.followerstateanimframestart[1]);
+			if (kfollower.followerstateanimframestart[1] > 0x5A)
+			{
+				nonalphabetanimframe = kfollower.followerstateanimframestart[1] - 0x41;
+				ff_animate[strlen(ff_animate)-1] = '\0';
+				sprintf(ff_animate, "%s%d", ff_animate, nonalphabetanimframe);
+			}
 			sprintf(prebuf, "%s\nSTATE S_%sFOLLOW\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sFOLLOW\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.followinganimationspeed, prefix);
 		}
 		if (kfollower.hurt)
@@ -896,7 +903,7 @@ void addFollower(struct wadfile* wad)
 			{
 				if ((kfollower.followerstateanimframestart[kfollower.hurt + 1] - kfollower.followerstateanimframestart[kfollower.hurt]) > 1)
 				{
-					sprintf(ff_animate, "A|FF_ANIMATE");
+					sprintf(ff_animate, "FF_ANIMATE|A");
 					var1 = (kfollower.followerstateanimframestart[kfollower.hurt + 1] - kfollower.followerstateanimframestart[kfollower.hurt]) - 1;
 				}
 				else
@@ -909,7 +916,7 @@ void addFollower(struct wadfile* wad)
 			{
 				if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[kfollower.hurt])
 				{
-					sprintf(ff_animate, "A|FF_ANIMATE");
+					sprintf(ff_animate, "FF_ANIMATE|A");
 					var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[kfollower.hurt];
 				}
 				else
@@ -918,7 +925,13 @@ void addFollower(struct wadfile* wad)
 					var1 = 0;
 				}
 			}
-			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[kfollower.hurt]);
+			ff_animate[strlen(ff_animate)-1] = getFixedAnimationIndex(kfollower.followerstateanimframestart[kfollower.hurt]);
+			if (kfollower.followerstateanimframestart[kfollower.hurt] > 0x5A)
+			{
+				nonalphabetanimframe = kfollower.followerstateanimframestart[kfollower.hurt] - 0x41;
+				ff_animate[strlen(ff_animate)-1] = '\0';
+				sprintf(ff_animate, "%s%d", ff_animate, nonalphabetanimframe);
+			}
 			sprintf(prebuf, "%s\nSTATE S_%sHURT\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sHURT\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.hurtanimationspeed, prefix);
 		}
 		if (kfollower.lose)
@@ -927,7 +940,7 @@ void addFollower(struct wadfile* wad)
 			{
 				if ((kfollower.followerstateanimframestart[kfollower.lose + 1] - kfollower.followerstateanimframestart[kfollower.lose]) > 1)
 				{
-					sprintf(ff_animate, "A|FF_ANIMATE");
+					sprintf(ff_animate, "FF_ANIMATE|A");
 					var1 = (kfollower.followerstateanimframestart[kfollower.lose + 1] - kfollower.followerstateanimframestart[kfollower.lose]) - 1;
 				}
 				else
@@ -940,7 +953,7 @@ void addFollower(struct wadfile* wad)
 			{
 				if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[kfollower.lose])
 				{
-					sprintf(ff_animate, "A|FF_ANIMATE");
+					sprintf(ff_animate, "FF_ANIMATE|A");
 					var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[kfollower.lose];
 				}
 				else
@@ -949,7 +962,13 @@ void addFollower(struct wadfile* wad)
 					var1 = 0;
 				}
 			}
-			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[kfollower.lose]);
+			ff_animate[strlen(ff_animate)-1] = getFixedAnimationIndex(kfollower.followerstateanimframestart[kfollower.lose]);
+			if (kfollower.followerstateanimframestart[kfollower.lose] > 0x5A)
+			{
+				nonalphabetanimframe = kfollower.followerstateanimframestart[kfollower.lose] - 0x41;
+				ff_animate[strlen(ff_animate)-1] = '\0';
+				sprintf(ff_animate, "%s%d", ff_animate, nonalphabetanimframe);
+			}
 			sprintf(prebuf, "%s\nSTATE S_%sLOSE\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sLOSE\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.loseanimationspeed, prefix);
 		}
 		if (kfollower.win)
@@ -958,7 +977,7 @@ void addFollower(struct wadfile* wad)
 			{
 				if ((kfollower.followerstateanimframestart[kfollower.win + 1] - kfollower.followerstateanimframestart[kfollower.win]) > 1)
 				{
-					sprintf(ff_animate, "A|FF_ANIMATE");
+					sprintf(ff_animate, "FF_ANIMATE|A");
 					var1 = (kfollower.followerstateanimframestart[kfollower.win + 1] - kfollower.followerstateanimframestart[kfollower.win]) - 1;
 				}
 				else
@@ -971,7 +990,7 @@ void addFollower(struct wadfile* wad)
 			{
 				if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[kfollower.win])
 				{
-					sprintf(ff_animate, "A|FF_ANIMATE");
+					sprintf(ff_animate, "FF_ANIMATE|A");
 					var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[kfollower.win];
 				}
 				else
@@ -980,7 +999,13 @@ void addFollower(struct wadfile* wad)
 					var1 = 0;
 				}
 			}
-			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[kfollower.win]);
+			ff_animate[strlen(ff_animate)-1] = getFixedAnimationIndex(kfollower.followerstateanimframestart[kfollower.win]);
+			if (kfollower.followerstateanimframestart[kfollower.win] > 0x5A)
+			{
+				nonalphabetanimframe = kfollower.followerstateanimframestart[kfollower.win] - 0x41;
+				ff_animate[strlen(ff_animate)-1] = '\0';
+				sprintf(ff_animate, "%s%d", ff_animate, nonalphabetanimframe);
+			}
 			sprintf(prebuf, "%s\nSTATE S_%sWIN\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sWIN\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.winanimationspeed, prefix);
 		}
 		if (kfollower.hitconfirm)
@@ -989,7 +1014,7 @@ void addFollower(struct wadfile* wad)
 			{
 				if ((kfollower.followerstateanimframestart[kfollower.hitconfirm + 1] - kfollower.followerstateanimframestart[kfollower.hitconfirm]) > 1)
 				{
-					sprintf(ff_animate, "A|FF_ANIMATE");
+					sprintf(ff_animate, "FF_ANIMATE|A");
 					var1 = (kfollower.followerstateanimframestart[kfollower.hitconfirm + 1] - kfollower.followerstateanimframestart[kfollower.hitconfirm]) - 1;
 				}
 				else
@@ -1002,7 +1027,7 @@ void addFollower(struct wadfile* wad)
 			{
 				if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[kfollower.hitconfirm])
 				{
-					sprintf(ff_animate, "A|FF_ANIMATE");
+					sprintf(ff_animate, "FF_ANIMATE|A");
 					var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[kfollower.hitconfirm];
 				}
 				else
@@ -1011,14 +1036,20 @@ void addFollower(struct wadfile* wad)
 					var1 = 0;
 				}
 			}
-			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[kfollower.hitconfirm]);
+			ff_animate[strlen(ff_animate)-1] = getFixedAnimationIndex(kfollower.followerstateanimframestart[kfollower.hitconfirm]);
+			if (kfollower.followerstateanimframestart[kfollower.hitconfirm] > 0x5A)
+			{
+				nonalphabetanimframe = kfollower.followerstateanimframestart[kfollower.hitconfirm] - 0x41;
+				ff_animate[strlen(ff_animate)-1] = '\0';
+				sprintf(ff_animate, "%s%d", ff_animate, nonalphabetanimframe);
+			}
 			sprintf(prebuf, "%s\nSTATE S_%sHITCONFIRM\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sHITCONFIRM\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.hitconfirmanimationspeed, prefix);
 		}
 		if (kfollower.ring)
 		{
 			if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[kfollower.ring])
 			{
-				sprintf(ff_animate, "A|FF_ANIMATE");
+				sprintf(ff_animate, "FF_ANIMATE|A");
 				var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[kfollower.ring];
 			}
 			else
@@ -1026,7 +1057,13 @@ void addFollower(struct wadfile* wad)
 				sprintf(ff_animate, "A");
 				var1 = 0;
 			}
-			ff_animate[0] = getFixedAnimationIndex(kfollower.followerstateanimframestart[kfollower.ring]);
+			ff_animate[strlen(ff_animate)-1] = getFixedAnimationIndex(kfollower.followerstateanimframestart[kfollower.ring]);
+			if (kfollower.followerstateanimframestart[kfollower.ring] > 0x5A)
+			{
+				nonalphabetanimframe = kfollower.followerstateanimframestart[kfollower.ring] - 0x41;
+				ff_animate[strlen(ff_animate)-1] = '\0';
+				sprintf(ff_animate, "%s%d", ff_animate, nonalphabetanimframe);
+			}
 			sprintf(prebuf, "%s\nSTATE S_%sRING\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sRING\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.ringanimationspeed, prefix);
 		}
 	}

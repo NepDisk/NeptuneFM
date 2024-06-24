@@ -16,7 +16,7 @@ such you may still need to use SLADE in order to make full use of the features t
 Huge thanks to casual koopa for creating the advanced template images as well as the instructions for those, and tips on
 general aspects of the program.
 
-NeptuneFM source code is available in: 
+NeptuneFM source code is available in: https://github.com/NepDisk/NeptuneFM
 
 Licensed under the GPL.
 

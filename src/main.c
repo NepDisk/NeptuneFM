@@ -1,6 +1,6 @@
 /*
-	Followermaker. Created by Superstarxalien based on Kartmaker.
-	Takes a working folder (examples provided) and converts it into a follower WAD for Dr. Robotnik's Ring Racers.
+	Followermaker. Created by Superstarxalien based on Kartmaker. Fork Created by NepDisk for Neptune Kart client
+	Takes a working folder (examples provided) and converts it into a follower WAD for Neptune.
 	Uses lump.c and lump.h from Lumpmod. &copy; 2003 Thunder Palace Entertainment.
 
 	This program is free software; you can redistribute it and/or modify
@@ -35,9 +35,9 @@
 #define MAX_IMAGE_SIZE 256*256
 
 // it's only a snippet, the whole thing can't be a macro since it's variable now
-#define FOLLOWER_SOC_SNIPPET_TEMPLATE "%s\nFOLLOWER\nName = %s\nIcon = ICOF%s\nCategory = %s\nHornSound = DSFH%s\nDefaultColor = %s\nMode = %s\nScale = %d*FRACUNIT/%d\nBubbleScale = %d*FRACUNIT\nAtAngle = %d\nDistance = %d*FRACUNIT\nHeight = %d*FRACUNIT\nZOffs = %d*FRACUNIT\nHorzLag = %d*FRACUNIT\nVertLag = %d*FRACUNIT\nAngleLag = %d*FRACUNIT\nBobAmp = %d*FRACUNIT\nBobSpeed = %d*FRACUNIT\nHitConfirmTime = %d\nRingTime = %d\n"
+#define FOLLOWER_SOC_SNIPPET_TEMPLATE "%s\nFOLLOWER\nName = %s\nDefaultColor = %s\nMode = %s\nScale = %d*FRACUNIT/%d\nAtAngle = %d\nDistance = %d*FRACUNIT\nHeight = %d*FRACUNIT\nZOffs = %d*FRACUNIT\nHorzLag = %d*FRACUNIT\nVertLag = %d*FRACUNIT\nAngleLag = %d*FRACUNIT\nBobAmp = %d*FRACUNIT\nBobSpeed = %d*FRACUNIT\nHitConfirmTime = %d\n"
 
-#define FOLLOWERNAMESIZE 16
+#define FOLLOWERNAMESIZE 16 
 
 // Since strupr doesn't actually exist in the standard C libraries it's defined here so its usage no longer breaks compatibility.
 char* strupr(char* s)
@@ -68,12 +68,10 @@ struct RGB_Sprite {
 // struct for follower data included in the SOC
 struct followerstructthingwhatever {
 	char name[FOLLOWERNAMESIZE];
-	char category[FOLLOWERNAMESIZE]; // maybe follows the name size as well?
 	char prefcolor[32];
 	char mode[8]; // if floating or on ground
 	uint16_t scale;
 	uint16_t scale_divide;
-	uint16_t bubblescale;
 	short atangle;
 	short distance;
 	uint16_t height;
@@ -84,7 +82,6 @@ struct followerstructthingwhatever {
 	uint16_t bobamp;
 	uint16_t bobspeed;
 	uint16_t hitconfirmtime;
-	uint16_t ringtime;
 
 	uint16_t idleanimationspeed;
 	uint16_t followinganimationspeed;
@@ -103,7 +100,6 @@ struct followerstructthingwhatever {
 	uint8_t lose;
 	uint8_t win;
 	uint8_t hitconfirm;
-	uint8_t ring;
 	uint8_t padding;
 };
 
@@ -210,9 +206,6 @@ void SetDefaultFollowerValues(void)
 	strncpy(kfollower.name, "someone", 8);
 	kfollower.name[8] = '\0';
 
-	strncpy(kfollower.category, "beta", 5);
-	kfollower.category[5] = '\0';
-
 	strncpy(kfollower.prefcolor, "Green", 6);
 	kfollower.prefcolor[6] = '\0';
 
@@ -221,7 +214,6 @@ void SetDefaultFollowerValues(void)
 
 	kfollower.scale = 1;
 	kfollower.scale_divide = 1;
-	kfollower.bubblescale = 0;
 	kfollower.atangle = 230;
 	kfollower.distance = 40;
 	kfollower.height = 32;
@@ -232,7 +224,6 @@ void SetDefaultFollowerValues(void)
 	kfollower.bobamp = 4;
 	kfollower.bobspeed = 70;
 	kfollower.hitconfirmtime = 1;
-	kfollower.ringtime = 1;
 
 	kfollower.idleanimationspeed = 35;
 	kfollower.followinganimationspeed = 35;
@@ -240,7 +231,6 @@ void SetDefaultFollowerValues(void)
 	kfollower.loseanimationspeed = 35;
 	kfollower.winanimationspeed = 35;
 	kfollower.hitconfirmanimationspeed = 35;
-	kfollower.ringanimationspeed = 35;
 
 	kfollower.numstates = 0;
 	kfollower.highestanimframeletter = 0x41;
@@ -251,7 +241,6 @@ void SetDefaultFollowerValues(void)
 	kfollower.lose = 0;
 	kfollower.win = 0;
 	kfollower.hitconfirm = 0;
-	kfollower.ring = 0;
 }
 
 // processes sprites on the template, which are separated by regions (usually visualized on the template image as squares)
@@ -333,11 +322,6 @@ void processSprites(void) {
 			{
 				kfollower.hitconfirm = curstate;
 				printf("Found hit confirm state!\n");
-			}
-			if (strcmp(item->string, "ring") == 0)
-			{
-				kfollower.ring = curstate;
-				printf("Found ring state!\n");
 			}
 		}
 		lastanimframeletterinstate = 0;
@@ -757,13 +741,6 @@ void addFollower(struct wadfile* wad)
 		kfollower.name[slen] = '\0';
 	}
 
-	if (cJSON_GetObjectItem(metadata, "category"))
-	{
-		slen = strlen(cJSON_GetObjectItem(metadata, "category")->valuestring);
-		strncpy(kfollower.category, cJSON_GetObjectItem(metadata, "category")->valuestring, slen);
-		kfollower.category[slen] = '\0';
-	}
-
 	if (cJSON_GetObjectItem(metadata, "prefcolor"))
 	{
 		slen = strlen(cJSON_GetObjectItem(metadata, "prefcolor")->valuestring);
@@ -782,8 +759,6 @@ void addFollower(struct wadfile* wad)
 		kfollower.scale = cJSON_GetObjectItem(metadata, "scale")->valueint;
 	if (cJSON_GetObjectItem(metadata, "scale_divide"))
 		kfollower.scale_divide = cJSON_GetObjectItem(metadata, "scale_divide")->valueint;
-	if (cJSON_GetObjectItem(metadata, "bubblescale"))
-		kfollower.bubblescale = cJSON_GetObjectItem(metadata, "bubblescale")->valueint;
 	if (cJSON_GetObjectItem(metadata, "atangle"))
 		kfollower.atangle = cJSON_GetObjectItem(metadata, "atangle")->valueint;
 	if (cJSON_GetObjectItem(metadata, "distance"))
@@ -804,8 +779,6 @@ void addFollower(struct wadfile* wad)
 		kfollower.bobspeed = cJSON_GetObjectItem(metadata, "bobspeed")->valueint;
 	if (cJSON_GetObjectItem(metadata, "hitconfirmtime"))
 		kfollower.hitconfirmtime = cJSON_GetObjectItem(metadata, "hitconfirmtime")->valueint;
-	if (cJSON_GetObjectItem(metadata, "ringtime"))
-		kfollower.ringtime = cJSON_GetObjectItem(metadata, "ringtime")->valueint;
 
 	if (cJSON_GetObjectItem(metadata, "idle_animation_speed"))
 		kfollower.idleanimationspeed = cJSON_GetObjectItem(metadata, "idle_animation_speed")->valueint;
@@ -819,10 +792,8 @@ void addFollower(struct wadfile* wad)
 		kfollower.winanimationspeed = cJSON_GetObjectItem(metadata, "win_animation_speed")->valueint;
 	if (cJSON_GetObjectItem(metadata, "hitconfirm_animation_speed"))
 		kfollower.hitconfirmanimationspeed = cJSON_GetObjectItem(metadata, "hitconfirm_animation_speed")->valueint;
-	if (cJSON_GetObjectItem(metadata, "ring_animation_speed"))
-		kfollower.ringanimationspeed = cJSON_GetObjectItem(metadata, "ring_animation_speed")->valueint;
 
-	sprintf(prebuf, "FREESLOT\nSPR_%s\nsfx_FH%s\nS_%sIDLE\n", prefix, prefix, prefix);
+	sprintf(prebuf, "FREESLOT\nSPR_%s\nS_%sIDLE\n", prefix, prefix, prefix);
 
 	if (kfollower.following)
 		sprintf(prebuf, "%sS_%sFOLLOW\n", prebuf, prefix);
@@ -834,8 +805,6 @@ void addFollower(struct wadfile* wad)
 		sprintf(prebuf, "%sS_%sWIN\n", prebuf, prefix);
 	if (kfollower.hitconfirm)
 		sprintf(prebuf, "%sS_%sHITCONFIRM\n", prebuf, prefix);
-	if (kfollower.ring)
-		sprintf(prebuf, "%sS_%sRING\n", prebuf, prefix);
 
 	if (kfollower.highestanimframeletter > 0x41 && !(kfollower.numstates > 0))
 	{
@@ -1045,39 +1014,14 @@ void addFollower(struct wadfile* wad)
 			}
 			sprintf(prebuf, "%s\nSTATE S_%sHITCONFIRM\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sHITCONFIRM\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.hitconfirmanimationspeed, prefix);
 		}
-		if (kfollower.ring)
-		{
-			if (kfollower.highestanimframeletter > kfollower.followerstateanimframestart[kfollower.ring])
-			{
-				sprintf(ff_animate, "FF_ANIMATE|A");
-				var1 = kfollower.highestanimframeletter - kfollower.followerstateanimframestart[kfollower.ring];
-			}
-			else
-			{
-				sprintf(ff_animate, "A");
-				var1 = 0;
-			}
-			ff_animate[strlen(ff_animate)-1] = getFixedAnimationIndex(kfollower.followerstateanimframestart[kfollower.ring]);
-			if (kfollower.followerstateanimframestart[kfollower.ring] > 0x5A)
-			{
-				nonalphabetanimframe = kfollower.followerstateanimframestart[kfollower.ring] - 0x41;
-				ff_animate[strlen(ff_animate)-1] = '\0';
-				sprintf(ff_animate, "%s%d", ff_animate, nonalphabetanimframe);
-			}
-			sprintf(prebuf, "%s\nSTATE S_%sRING\nSpriteName = SPR_%s\nSpriteFrame = %s\nDuration = -1\nVar1 = %d #no. of sprites (starts from 0)\nVar2 = %d #animation speed\nNext = S_%sRING\n", prebuf, prefix, prefix, ff_animate, var1, kfollower.ringanimationspeed, prefix);
-		}
 	}
 
 	sprintf(prebuf, FOLLOWER_SOC_SNIPPET_TEMPLATE, prebuf,
 		kfollower.name,
-		prefix,
-		kfollower.category,
-		prefix,
 		kfollower.prefcolor,
 		kfollower.mode,
 		kfollower.scale,
 		kfollower.scale_divide,
-		kfollower.bubblescale,
 		kfollower.atangle,
 		kfollower.distance,
 		kfollower.height,
@@ -1087,8 +1031,7 @@ void addFollower(struct wadfile* wad)
 		kfollower.anglelag,
 		kfollower.bobamp,
 		kfollower.bobspeed,
-		kfollower.hitconfirmtime,
-		kfollower.ringtime
+		kfollower.hitconfirmtime
 	);
 
 	sprintf(prebuf, "%sIdleState = S_%sIDLE\n", prebuf, prefix);
@@ -1105,8 +1048,6 @@ void addFollower(struct wadfile* wad)
 			sprintf(prebuf, "%sWinState = S_%sWIN\n", prebuf, prefix);
 		if (kfollower.hitconfirm)
 			sprintf(prebuf, "%sHitConfirmState = S_%sHITCONFIRM\n", prebuf, prefix);
-		if (kfollower.ring)
-			sprintf(prebuf, "%sRingState = S_%sRING\n", prebuf, prefix);
 	}
 
 	size = sprintf(buf, prebuf);
@@ -1124,7 +1065,7 @@ int main(int argc, char *argv[]) {
 	char iconlump[9];
 
 	if (argc != 2) {
-		printf("followermaker <folder>: Converts a structured folder into a Dr. Robotnik's Ring Racers follower WAD. (Try dragging the folder onto the executable!)");
+		printf("followermaker <folder>: Converts a structured folder into a Neptune follower WAD. (Try dragging the folder onto the executable!)");
 		return 1;
 	}
 
@@ -1216,7 +1157,8 @@ int main(int argc, char *argv[]) {
 			add_lump(wad, find_last_lump(wad), "S_END", 0, NULL);
 		}
 
-		add_lump(wad, find_last_lump(wad), sprite->lumpname, size, image);
+		if (!strcmp(sprite->lumpname, iconlump) == 0)
+			add_lump(wad, find_last_lump(wad), sprite->lumpname, size, image);
 		free(image);
 
 		sprite = sprite->next;
@@ -1228,67 +1170,6 @@ int main(int argc, char *argv[]) {
 	printf("Adding SOC_FLLW to WAD... ");
 	addFollower(wad);
 	printf("Done.\n");
-
-	if (gfxstart)
-	{
-		printf("Adding graphics to WAD...\n");
-		add_lump(wad, NULL, "GX_END", 0, NULL);
-		{
-			struct RGB_Sprite* sprite = gfxstart;
-			while (sprite) {
-				unsigned char* image;
-				size_t size;
-
-				image = imageInDoomFormat(sprite, &size);
-				add_lump(wad, NULL, sprite->lumpname, size, image);
-				free(image);
-
-				sprite = sprite->next;
-			}
-		}
-		add_lump(wad, NULL, "GX_START", 0, NULL);
-		printf("Adding graphics to WAD... Done.\n");
-	}
-
-	// Add SFX into WAD
-	printf("Adding SFX to WAD...\n");
-	add_lump(wad, NULL, "DS_END", 0, NULL);
-	
-	char lumpname[9] = "DSFH____";
-
-	if (cJSON_GetObjectItem(metadata, "prefix"))
-		strncpy(lumpname+4, cJSON_GetObjectItem(metadata, "prefix")->valuestring, 4);
-	else
-		strncpy(lumpname+4, defprefix, 4);
-
-	unsigned char* buffer;
-	off_t size, bytesRead;
-	FILE* file;
-
-	SET_FILENAME("/follower_sound.ogg");
-
-	file = fopen(path, "rb");
-
-	// seek to end of file
-	fseek(file, 0, SEEK_END);
-
-	// Load file into buffer
-	size = ftell(file);
-	buffer = malloc(size);
-
-	// seek back to start
-	fseek(file, 0, SEEK_SET);
-
-	//read contents!
-	bytesRead = fread(buffer, 1, size, file);
-	fclose(file);
-
-	add_lump(wad, NULL, lumpname, bytesRead, buffer);
-
-	printf("Done.\n");
-	
-	add_lump(wad, NULL, "DS_START", 0, NULL);
-	printf("Adding SFX to WAD... Done.\n");
 
 	// Write WAD and exit
 	SET_FILENAME(".wad");

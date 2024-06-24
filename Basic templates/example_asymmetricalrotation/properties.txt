@@ -9,9 +9,6 @@
 	"name_explanation": "The name of your follower. The names of followers appear on the main menu, upon toggling \"extrainfo mode\" with the drift button. For character names with spaces, use underscores instead of spaces: underscores will be interpreted as spaces in-game, while spaces won't work.",
 	"prefix": "EXMP",
 	"prefix_explanation": "A set of 4 characters used to internally identify your follower, mainly used for its files.",
-	"category": "Fanworks",
-	"category_explanation": "The category your follower will appear under. Followermaker doesn't allow for the creation of custom categories, though you can still enter one.",
-
 	"prefcolor": "red",
 	"prefcolor_explanation": "Default follower color. Must use the name of a spray can, as seen on the main menu in extrainfo mode.",
 	"mode": 0,
@@ -20,8 +17,8 @@
 	"scale_explanation": "(in Fracunits) Scale relative to the player's. Value entered will be inserted as [value] * FRACUNIT",
 	"scale_divide": 1,
 	"scale_divide_explanation": "The value that the follower's scale will be divided by. Value entered will be inserted as [scale] * FRACUNIT / [scale_divide]. Combine with scale to make fractionary scales such as 2/5 (e.g. scale is set to 2 and scale_divide is set to 5), most useful for hi-res sprites.",
-	"bubblescale": 0,
-	"bubblescale_explanation": "(in Fracunits) Bubble scale relative to the player scale. If not set, no bubble will spawn.",
+	
+	
 	"atangle": 230,
 	"atangle_explanation": "Angle the follower will be at around the player. The follower will always face the same direction as the player.",
 	"distance": 40,
@@ -79,14 +76,6 @@
 			"A8": {
 				"offset": [64, 112],
 				"layers": [[7, 0]]
-			}
-		},
-
-		"graphics": {
-			"icon": {
-				"overwrite_sprite_size": [16, 16],
-				"overwrite_layer_step_size": [1, 1],
-				"layers": [[10, 138]]
 			}
 		}
 	}

@@ -1,5 +1,5 @@
 #!/bin/sh
 cd src
-gcc lump.c lodepng.c main.c cJSON.c -o followermaker -lm
+gcc lump.c lodepng.c main.c cJSON.c -o NeptuneFM -lm
 cd ..
-mv src/followermaker ./followermaker
+mv src/NeptuneFM ./NeptuneFM

@@ -9,12 +9,12 @@ build-linux:       # This job runs in the build stage, which runs first.
   script:
     - apt-get update && apt-get install -y clang-15
     - echo "Compiling the code... [linux]"
-    - clang-15 src/lump.c src/lodepng.c src/main.c src/cJSON.c -o followermaker -lm -target x86_64-pc-linux-gnu
+    - clang-15 src/lump.c src/lodepng.c src/main.c src/cJSON.c -o NeptuneFM -lm -target x86_64-pc-linux-gnu
     - echo "Compile complete."
   artifacts:
-    name: "Followermaker-linux"
+    name: "NeptuneFM-linux"
     paths:
-      - followermaker
+      - NeptuneFM
       - "./Advanced templates"
       - "./Basic templates"
       - PLAYPAL.lmp
@@ -28,12 +28,12 @@ build-windows:       # This job runs in the build stage, which runs first.
   script:
     - apt-get update && apt-get install -y clang-15 mingw-w64
     - echo "Compiling the code... [windows]"
-    - clang-15 src/lump.c src/lodepng.c src/main.c src/cJSON.c -o followermaker.exe -lm --target=x86_64-w64-mingw32 --sysroot=/usr/x86_64-w64-mingw32 -L/usr/lib/gcc/x86_64-w64-mingw32/12-win32 -lgcc -lgcc_eh
+    - clang-15 src/lump.c src/lodepng.c src/main.c src/cJSON.c -o NeptuneFM.exe -lm --target=x86_64-w64-mingw32 --sysroot=/usr/x86_64-w64-mingw32 -L/usr/lib/gcc/x86_64-w64-mingw32/12-win32 -lgcc -lgcc_eh
     - echo "Compile complete."
   artifacts:
-    name: "Followermaker-windows"
+    name: "NeptuneFM-windows"
     paths:
-      - followermaker.exe
+      - NeptuneFM.exe
       - "./Advanced templates"
       - "./Basic templates"
       - PLAYPAL.lmp
@@ -52,13 +52,13 @@ release_job:
   script:
     - echo "Running the release job."
   release:                                         # See https://docs.gitlab.com/ee/ci/yaml/#release for available properties
-    name: 'Followermaker nightly (?) r$CI_PIPELINE_IID'
+    name: 'NeptuneFM nightly (?) r$CI_PIPELINE_IID'
     tag_name: 'r$CI_PIPELINE_IID'                # The version is incremented per pipeline.
-    description: 'Public download of followermaker based on latest commit in main. The cutting edge. Beware of bugs!'
+    description: 'Public download of NeptuneFM based on latest commit in main. The cutting edge. Beware of bugs!'
     ref: '$CI_COMMIT_SHA'                          # The tag is created from the pipeline SHA.
     assets:
       links:
-        - name: 'Followermaker-windows.zip'
+        - name: 'NeptuneFM-windows.zip'
           url: '$CI_SERVER_URL/$CI_PROJECT_PATH/-/jobs/artifacts/r$CI_PIPELINE_IID/download?job=build-windows'
-        - name: 'Followermaker-linux.zip'
+        - name: 'NeptuneFM-linux.zip'
           url: '$CI_SERVER_URL/$CI_PROJECT_PATH/-/jobs/artifacts/r$CI_PIPELINE_IID/download?job=build-linux'

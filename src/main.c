@@ -1,6 +1,7 @@
 /*
-	Followermaker. Created by Superstarxalien based on Kartmaker. Fork Created by NepDisk for Neptune Kart client
-	Takes a working folder (examples provided) and converts it into a follower WAD for Neptune.
+	NeptuneFM by NepDisk. Followermaker Fork Created for SRB2Kart Neptune
+	Original Followermaker was created by Superstarxalien based on Kartmaker. 
+	Takes a working folder (examples provided) and converts it into a follower WAD for SRB2Kart Neptune.
 	Uses lump.c and lump.h from Lumpmod. &copy; 2003 Thunder Palace Entertainment.
 
 	This program is free software; you can redistribute it and/or modify
@@ -293,9 +294,8 @@ void processSprites(void) {
 	while (item != NULL) {
 		// keep track of follower state which sprites are being read
 		// "idle" is the first follower state, the rest of which follow it (pun unintended)
-		// the "graphics" field is for the follower's icon on the menu
 		// mainly used for ordering animation frames as seen below
-		if ((!(strcmp(item->string, "idle") == 0)) && (!(strcmp(item->string, "graphics") == 0)))
+		if ((!(strcmp(item->string, "idle") == 0)))
 		{
 			curstate++;
 			if (strcmp(item->string, "following") == 0)
@@ -365,44 +365,37 @@ void processSprites(void) {
 			// handle automatic animation frame ordering
 			// animation frames of sprites use a letter-based ordering, from A to Z
 			// the idea is to be able to detect the highest letter used for an animation frame within a follower state and go above it upon reading sprites for the next state
-			if (!(strcmp(item->string, "graphics") == 0))
+			curanimframeletter = nesteditem->string[0];
+
+			// i more or less did this in almost complete mental fog
+			// i can't tell you how i arrived here, sorry
+			if (curstate > laststate)
 			{
-				curanimframeletter = nesteditem->string[0];
-
-				// i more or less did this in almost complete mental fog
-				// i can't tell you how i arrived here, sorry
-				if (curstate > laststate)
-				{
-					if (curanimframeletter > lastanimframeletterinstate)
-						curanimframeletter = kfollower.highestanimframeletter + 1;
-					else
-						curanimframeletter = kfollower.highestanimframeletter;
-				}
-
-				// this will store how many frames of animation are in the sprite for all of the follower states
-				if (curanimframeletter > kfollower.highestanimframeletter)
-					kfollower.highestanimframeletter = curanimframeletter;
-
-				// store letter in which follower state animation begins
-				if (lastanimframeletterinstate == 0)
-					kfollower.followerstateanimframestart[curstate] = kfollower.highestanimframeletter;
-
-				lastanimframeletterinstate = nesteditem->string[0];
-
-				// once all alphabet letters are exhausted in the JSON file, the program simply uses whatever's next on the ascii table
-				// obviously the game won't like that, so those entries get converted to the proper format after the fact
-				nesteditem->string[0] = getFixedAnimationIndex(curanimframeletter);
-				
-				// for flipped sprites (e.g. A2A8)
-				if (strlen(nesteditem->string) > 3)
-					nesteditem->string[2] = nesteditem->string[0];
+				if (curanimframeletter > lastanimframeletterinstate)
+					curanimframeletter = kfollower.highestanimframeletter + 1;
+				else
+					curanimframeletter = kfollower.highestanimframeletter;
 			}
 
-			// this sucks
-			if (!(strcmp(item->string, "graphics") == 0))
-				sprintf(cursprite->lumpname, "%s%s", prefix, nesteditem->string);
-			else
-				sprintf(cursprite->lumpname, "ICOF%s", prefix);
+			// this will store how many frames of animation are in the sprite for all of the follower states
+			if (curanimframeletter > kfollower.highestanimframeletter)
+				kfollower.highestanimframeletter = curanimframeletter;
+
+			// store letter in which follower state animation begins
+			if (lastanimframeletterinstate == 0)
+				kfollower.followerstateanimframestart[curstate] = kfollower.highestanimframeletter;
+
+			lastanimframeletterinstate = nesteditem->string[0];
+
+			// once all alphabet letters are exhausted in the JSON file, the program simply uses whatever's next on the ascii table
+			// obviously the game won't like that, so those entries get converted to the proper format after the fact
+			nesteditem->string[0] = getFixedAnimationIndex(curanimframeletter);
+			
+			// for flipped sprites (e.g. A2A8)
+			if (strlen(nesteditem->string) > 3)
+				nesteditem->string[2] = nesteditem->string[0];
+
+			sprintf(cursprite->lumpname, "%s%s", prefix, nesteditem->string);
 
 			prop = cJSON_GetObjectItem(nesteditem, "heightfactor");
 			cursprite->heightFactor = prop != NULL ? prop->valueint : 1;
@@ -1065,7 +1058,7 @@ int main(int argc, char *argv[]) {
 	char iconlump[9];
 
 	if (argc != 2) {
-		printf("followermaker <folder>: Converts a structured folder into a Neptune follower WAD. (Try dragging the folder onto the executable!)");
+		printf("NeptuneFM <folder>: Converts a structured folder into a Neptune follower WAD. (Try dragging the folder onto the executable!)");
 		return 1;
 	}
 
@@ -1152,17 +1145,13 @@ int main(int argc, char *argv[]) {
 		printf(" Lump %s...\n", sprite->lumpname);
 		image = imageInDoomFormat(sprite, &size);
 
-		if (strcmp(sprite->lumpname, iconlump) == 0)
-		{
-			add_lump(wad, find_last_lump(wad), "S_END", 0, NULL);
-		}
-
-		if (!strcmp(sprite->lumpname, iconlump) == 0)
-			add_lump(wad, find_last_lump(wad), sprite->lumpname, size, image);
+		add_lump(wad, find_last_lump(wad), sprite->lumpname, size, image);
 		free(image);
 
 		sprite = sprite->next;
 	}
+	
+	add_lump(wad, find_last_lump(wad), "S_END", 0, NULL);
 	add_lump(wad, NULL, "S_START", 0, NULL);
 	printf("Adding sprites to WAD... Done.\n");
 

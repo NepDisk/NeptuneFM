@@ -1,5 +1,5 @@
 cd src
-gcc lump.c lodepng.c main.c cJSON.c -o followermaker -lm
+gcc lump.c lodepng.c main.c cJSON.c -o NeptuneFM -lm
 cd ..
-move /y src\followermaker.exe .\followermaker.exe
+move /y src\NeptuneFM.exe .\NeptuneFM.exe
 pause
